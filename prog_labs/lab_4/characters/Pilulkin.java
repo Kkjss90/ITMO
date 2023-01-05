@@ -1,10 +1,8 @@
 package characters;
-import objects.Bed;
-import objects.RockingChair;
-import objects.Spacesuit;
-import places.Outside;
-import places.Rocket;
-import utility.Human;
+import objects.*;
+import places.*;
+import utility.*;
+import characters.Neznayka;
 
 import java.util.Objects;
 
@@ -12,6 +10,9 @@ public class Pilulkin extends Human {
     private Object place;
     public Pilulkin(){
         super("Доктор Пилюлькин");
+    }
+    public void takeCareOfNeznayka(Neznayka neznayka){
+        System.out.println(getName()+" подбежал и, увидев, что у "+neznayka.getName()+neznayka.eye.close()+" поскорей дал понюхать ему нашатырного спирта.");
     }
     @Override
     public void walkBy(Object obj) {
@@ -59,12 +60,12 @@ public class Pilulkin extends Human {
     }
 
     @Override
-    public void dressOff(Spacesuit spacesuit, Neznayka neznayka) {
+    public void dressOff(Spacesuit spacesuit, Neznayka neznayka) throws NeznaykaIsNotDressedException {
         if (spacesuit!=null & neznayka!=null){
             System.out.println(getName()+" пытается снять "+spacesuit.getName()+" c "+neznayka.getName());
         }
         else {
-            System.out.println("Не снимает ничего ни с себя, ни с кого-то другого");
+            throw new NeznaykaIsNotDressedException(getName() + " не снимает ничего ни с себя, ни с кого-то другого");
         }
     }
     @Override

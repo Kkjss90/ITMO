@@ -1,7 +1,14 @@
 import characters.*;
 import objects.*;
 import places.*;
+import utility.*;
+class End{
+    public void done(){
+        System.out.println("Так они и сделали.");
+    }
+}
 public class Main {
+    static End end = new End();
     public static void main(String[] args) {
         Neznayka neznayka = new Neznayka();
         Fuksiya fuksiya = new Fuksiya();
@@ -13,6 +20,7 @@ public class Main {
         RockingChair rockingChair = new RockingChair();
         Outside outside = new Outside("Где-то снаружи");
         Rocket rocket = new Rocket("Внутри ракеты");
+        Sun sun = new Sun();
 
         System.out.println(outside.getName());
         pilulkin.walkBy(outside);
@@ -35,7 +43,7 @@ public class Main {
         }
         try{
             fuksiya.dressOff(spacesuit, neznayka);
-        }catch (NeznaykaIsNotDressedException e){
+        }catch (NeznaykaIsNotDressedException e) {
             System.out.println(e.getMessage());
         }
         try {
@@ -52,5 +60,10 @@ public class Main {
         neznayka.walkBy(rocket);
         neznayka.shakeArm();
         neznayka.shakeLeg();
+        neznayka.rememberSun(sun);
+        System.out.println(neznayka.feelBad()+neznayka.and()+neznayka.fallDown());
+        pilulkin.takeCareOfNeznayka(neznayka);
+        System.out.println(neznayka.getName()+neznayka.recover()+neznayka.but()+neznayka.white());
+        end.done();
     }
 }

@@ -1,16 +1,17 @@
 package characters;
-import objects.Bed;
-import objects.RockingChair;
-import objects.Spacesuit;
-import places.Outside;
-import places.Rocket;
+import objects.*;
+import places.*;
 import utility.Human;
+import utility.NeznaykaIsNotDressedException;
 
 import java.util.Objects;
 
 class Eye{
-    public void cry(){
-        System.out.println(" ,слезы сейчас же закапали.");
+    public String cry(){
+        return ", слезы сейчас же закапали.";
+    }
+    public String close(){
+        return " глаза сами собой закрылись,";
     }
 }
 public class Neznayka extends Human {
@@ -44,10 +45,27 @@ public class Neznayka extends Human {
     public void feelBetter(Spacesuit spacesuit){
         System.out.println(getName() + " оказался без "+spacesuit.getName()+" и ему стало лучше");
     }
+    public String feelBad(){
+        return "Силы покинули его,";
+    }
+    public String and(){
+        return " и ";
+    }
+    public String fallDown(){
+        return "он опустился прямо на землю.";
+    }
+    public String recover(){
+        return " пришел в себя,";
+    }
+    public String but(){
+        return " но";
+    }
+    public String white(){
+        return " был очень бледен.";
+    }
     public void rememberSun(Sun sun){
         System.out.println(getName() + " вспомнил про "+sun.getName()+eye.cry());
     }
-
     @Override
     public void walkBy(Object obj){
         this.place = obj;
@@ -92,6 +110,7 @@ public class Neznayka extends Human {
            throw new NeznaykaIsNotDressedException(getName() + " не снимает ничего ни с себя, ни с кого-то другого");
         }
     }
+
     @Override
     public boolean equals(Object obj){
         if (this == obj) return true;

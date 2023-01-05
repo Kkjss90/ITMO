@@ -5,6 +5,7 @@ import objects.Spacesuit;
 import places.Outside;
 import places.Rocket;
 import utility.Human;
+import utility.NeznaykaIsNotDressedException;
 
 import java.util.Objects;
 
@@ -58,12 +59,12 @@ public class Fuksiya extends Human {
         }
     }
     @Override
-    public void dressOff(Spacesuit spacesuit, Neznayka neznayka) {
+    public void dressOff(Spacesuit spacesuit, Neznayka neznayka) throws NeznaykaIsNotDressedException {
         if (spacesuit!=null & neznayka!=null){
             System.out.println(getName()+" пытается снять "+spacesuit.getName()+" c "+neznayka.getName());
         }
         else {
-            System.out.println("Не снимает ничего ни с себя, ни с кого-то другого");
+            throw new NeznaykaIsNotDressedException(getName() + " не снимает ничего ни с себя, ни с кого-то другого");
         }
     }
     @Override

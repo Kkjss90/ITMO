@@ -4,6 +4,7 @@ import characters.Neznayka;
 import objects.Spacesuit;
 
 import java.util.Objects;
+import utility.NeznaykaIsNotDressedException;
 
 public abstract class Human implements Movable {
     private final String name;
@@ -20,7 +21,7 @@ public abstract class Human implements Movable {
     public abstract void stopWalking(Object obj);
     public abstract void jump();
     public abstract void carry(Object obj);
-    public abstract void dressOff(Spacesuit spacesuit, Neznayka neznayka);
+    public abstract void dressOff(Spacesuit spacesuit, Neznayka neznayka) throws NeznaykaIsNotDressedException;
     @Override
     public boolean equals(Object obj){
         if (this == obj) return true;
