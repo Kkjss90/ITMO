@@ -1,3 +1,4 @@
+//Вариант 368307
 public class Lab1_1{
 	public static final int MASSIVE_D_SIZE = 8;
 	public static final int MASSIVE_X_SIZE = 18;
