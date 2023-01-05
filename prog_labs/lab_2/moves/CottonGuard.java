@@ -1,6 +1,6 @@
 package moves;
 import ru.ifmo.se.pokemon.*;
-public class CottonGuard extends pokemons.Maractus {
+public class CottonGuard extends StatusMove {
     public CottonGuard (){
         super(Type.GRASS, 0, 0);
     }
