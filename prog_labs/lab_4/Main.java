@@ -2,13 +2,13 @@ import characters.*;
 import objects.*;
 import places.*;
 import utility.*;
-class End{
-    public void done(){
+
+public class Main {
+    class End{
+         private static void done(){
         System.out.println("Так они и сделали.");
     }
-}
-public class Main {
-    static End end = new End();
+    }
     public static void main(String[] args) {
         Neznayka neznayka = new Neznayka();
         Fuksiya fuksiya = new Fuksiya();
@@ -64,6 +64,6 @@ public class Main {
         System.out.println(neznayka.feelBad()+neznayka.and()+neznayka.fallDown());
         pilulkin.takeCareOfNeznayka(neznayka);
         System.out.println(neznayka.getName()+neznayka.recover()+neznayka.but()+neznayka.white());
-        end.done();
+        End.done();
     }
 }
