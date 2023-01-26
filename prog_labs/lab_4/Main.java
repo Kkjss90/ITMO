@@ -16,6 +16,7 @@ public class Main {
         Outside outside = new Outside("Где-то снаружи");
         Rocket rocket = new Rocket("Внутри ракеты");
         Sun sun = new Sun();
+        RockingChair.AssembledRockingChair chair = new RockingChair.AssembledRockingChair();
         Final end = new Final() {
             @Override
             public void end() {
@@ -66,5 +67,6 @@ public class Main {
         pilulkin.takeCareOfNeznayka(neznayka);
         System.out.println(neznayka.getName()+neznayka.recover()+neznayka.but()+neznayka.white());
         end.end();
+        System.out.println(chair.done()+znayka.comand(spacesuit)  );
     }
 }

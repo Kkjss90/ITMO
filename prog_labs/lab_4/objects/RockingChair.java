@@ -20,4 +20,10 @@ public class RockingChair implements Movable{
     public void move() {
         System.out.println(getName()+" подвинуто");
     }
+
+    public static class AssembledRockingChair{
+        public String done(){
+            return "Как только кресло было готово,";
+        }
+    }
 }

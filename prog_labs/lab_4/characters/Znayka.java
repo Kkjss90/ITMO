@@ -16,6 +16,10 @@ public class Znayka extends Human {
         super("Знайка");
     }
 
+    public String comand(Spacesuit spacesuit){
+        return " " + toString() + " отдал команду надеть всем " + spacesuit.getName() + "ы.";
+    }
+
     @Override
     public void jump() {
         System.out.println(getName()+" прыгает");
