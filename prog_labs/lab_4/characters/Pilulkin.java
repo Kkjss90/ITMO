@@ -11,7 +11,19 @@ public class Pilulkin extends Human {
         super("Доктор Пилюлькин");
     }
     public void takeCareOfNeznayka(Neznayka neznayka){
-        System.out.println(getName()+" подбежал и, увидев, что у "+neznayka.closeEyes()+" поскорей дал понюхать ему нашатырного спирта.");
+        class Smell{
+            private String action;
+            private String thing;
+            public Smell(String action, String thing){
+                this.thing = thing;
+                this.action = action;
+            }
+            public String doAction(){
+                return action+" "+thing;
+            }
+        }
+        Smell smell = new Smell("понюхать","нашатырный спирт");
+        System.out.println(getName()+" подбежал и, увидев, что у "+neznayka.closeEyes()+" поскорей дал "+smell.doAction());
     }
     @Override
     public void walkBy(Object obj) {
