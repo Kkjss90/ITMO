@@ -4,11 +4,6 @@ import places.*;
 import utility.*;
 
 public class Main {
-    class End{
-         private static void done(){
-        System.out.println("Так они и сделали.");
-    }
-    }
     public static void main(String[] args) {
         Neznayka neznayka = new Neznayka();
         Fuksiya fuksiya = new Fuksiya();
@@ -21,6 +16,12 @@ public class Main {
         Outside outside = new Outside("Где-то снаружи");
         Rocket rocket = new Rocket("Внутри ракеты");
         Sun sun = new Sun();
+        Final end = new Final() {
+            @Override
+            public void end() {
+                System.out.println("Так они и сделали.");
+            }
+        };
 
         System.out.println(outside.getName());
         pilulkin.walkBy(outside);
@@ -64,6 +65,6 @@ public class Main {
         System.out.println(neznayka.feelBad()+neznayka.and()+neznayka.fallDown());
         pilulkin.takeCareOfNeznayka(neznayka);
         System.out.println(neznayka.getName()+neznayka.recover()+neznayka.but()+neznayka.white());
-        End.done();
+        end.end();
     }
 }
