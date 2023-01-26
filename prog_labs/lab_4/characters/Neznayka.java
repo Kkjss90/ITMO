@@ -3,16 +3,18 @@ import jdk.dynalink.beans.StaticClass;
 import objects.*;
 import places.*;
 import utility.Human;
+import utility.NeznaykaIsAlreadyDressed;
 import utility.NeznaykaIsNotDressedException;
 
 import java.util.Objects;
 
 public class Neznayka extends Human {
-    static class Eye{
-        static String cry(){
+    private boolean dressed = false;
+    public static class Eye{
+       public String cry(){
             return ", слезы сейчас же закапали.";
         }
-        static String close(){
+        public String close(){
             return " глаза сами собой закрылись,";
         }
     }
@@ -29,7 +31,12 @@ public class Neznayka extends Human {
         System.out.println(getName() + " попробовал пошевелить рукой, однако слабость наступила такая, что ему трудно было пошевелить рукой или ногой");
     }
     public void dress(Spacesuit spacesuit){
-        System.out.println(getName()+" одет в "+spacesuit.getName());
+        if (dressed){
+            throw new NeznaykaIsAlreadyDressed();
+        }else {
+            dressed = true;
+            System.out.println(getName() + " одет в " + spacesuit.getName());
+        }
     }
     public void lie(Object obj) {
         if (obj!=null) {
