@@ -1,5 +1,4 @@
 package characters;
-import jdk.dynalink.beans.StaticClass;
 import objects.*;
 import places.*;
 import utility.Human;
@@ -10,7 +9,7 @@ import java.util.Objects;
 
 public class Neznayka extends Human {
     private boolean dressed = false;
-    public static class Eye{
+    private class Eye{
        public String cry(){
             return ", слезы сейчас же закапали.";
         }
@@ -18,12 +17,14 @@ public class Neznayka extends Human {
             return " глаза сами собой закрылись,";
         }
     }
-    Eye eye = new Eye();
     private Object place;
     public Neznayka() {
         super("Незнайка");
     }
-
+    public String closeEyes(){
+        Eye eye = new Eye();
+        return getName()+eye.close();
+    }
     public void shakeLeg(){
         System.out.println(getName() + " попробовал пошевелить ногой, однако слабость наступила такая, что ему трудно было пошевелить рукой или ногой");
     }
@@ -72,6 +73,7 @@ public class Neznayka extends Human {
         return " был очень бледен.";
     }
     public void rememberSun(Sun sun){
+        Eye eye = new Eye();
         System.out.println(getName() + " вспомнил про "+sun.getName()+eye.cry());
     }
     @Override

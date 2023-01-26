@@ -2,7 +2,6 @@ package characters;
 import objects.*;
 import places.*;
 import utility.*;
-import characters.Neznayka;
 
 import java.util.Objects;
 
@@ -12,7 +11,7 @@ public class Pilulkin extends Human {
         super("Доктор Пилюлькин");
     }
     public void takeCareOfNeznayka(Neznayka neznayka){
-        System.out.println(getName()+" подбежал и, увидев, что у "+neznayka.getName()+neznayka.eye.close()+" поскорей дал понюхать ему нашатырного спирта.");
+        System.out.println(getName()+" подбежал и, увидев, что у "+neznayka.closeEyes()+" поскорей дал понюхать ему нашатырного спирта.");
     }
     @Override
     public void walkBy(Object obj) {
