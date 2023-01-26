@@ -1,4 +1,5 @@
 package characters;
+import jdk.dynalink.beans.StaticClass;
 import objects.*;
 import places.*;
 import utility.Human;
@@ -6,15 +7,15 @@ import utility.NeznaykaIsNotDressedException;
 
 import java.util.Objects;
 
-class Eye{
-    public String cry(){
-        return ", слезы сейчас же закапали.";
-    }
-    public String close(){
-        return " глаза сами собой закрылись,";
-    }
-}
 public class Neznayka extends Human {
+    static class Eye{
+        static String cry(){
+            return ", слезы сейчас же закапали.";
+        }
+        static String close(){
+            return " глаза сами собой закрылись,";
+        }
+    }
     Eye eye = new Eye();
     private Object place;
     public Neznayka() {
