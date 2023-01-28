@@ -35,7 +35,7 @@ public class Neznayka extends Human {
         if (dressed){
             throw new NeznaykaIsAlreadyDressed();
         }else {
-            this.dressed = true;
+            dressed = true;
             System.out.println(getName() + " одет в " + spacesuit.getName());
         }
     }
