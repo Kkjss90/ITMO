@@ -1,4 +1,4 @@
 package commands;
 
-public class Shuffle extends AbstractCommand{
+public class Shuffle extends Command {
 }

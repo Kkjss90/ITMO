@@ -1,4 +1,4 @@
 package commands;
 
-public class FilterByDistance extends AbstractCommand{
+public class FilterByDistance extends Command {
 }

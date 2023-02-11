@@ -1,4 +1,5 @@
 package commands;
 
-public class Clear extends AbstractCommand{
+public class Clear extends Command {
+
 }

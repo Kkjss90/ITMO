@@ -1,4 +1,4 @@
 package commands;
 
-public class RemoveGreater extends AbstractCommand{
+public class RemoveGreater extends Command {
 }

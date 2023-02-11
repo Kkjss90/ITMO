@@ -1,4 +1,4 @@
 package commands;
 
-public class GroupCountingByFrom extends AbstractCommand{
+public class GroupCountingByFrom extends Command {
 }

@@ -1,4 +1,4 @@
 package commands;
 
-public class Save extends AbstractCommand{
+public class Save extends Command {
 }

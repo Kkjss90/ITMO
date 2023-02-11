@@ -1,4 +1,4 @@
 package commands;
 
-public class RemoveAnyByDistance extends AbstractCommand{
+public class RemoveAnyByDistance extends Command {
 }

@@ -1,4 +1,4 @@
 package commands;
 
-public class ExecuteScript extends AbstractCommand{
+public class ExecuteScript extends Command {
 }

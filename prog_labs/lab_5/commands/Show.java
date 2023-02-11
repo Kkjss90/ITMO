@@ -1,4 +1,4 @@
 package commands;
 
-public class Show extends AbstractCommand{
+public class Show extends Command {
 }

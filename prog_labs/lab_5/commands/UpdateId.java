@@ -1,4 +1,4 @@
 package commands;
 
-public class UpdateId extends AbstractCommand{
+public class UpdateId extends Command {
 }

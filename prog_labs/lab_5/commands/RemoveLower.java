@@ -1,4 +1,4 @@
 package commands;
 
-public class RemoveLower extends AbstractCommand{
+public class RemoveLower extends Command {
 }
