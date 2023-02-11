@@ -1,4 +1,4 @@
 package commands;
 
-public class Info extends Command {
+public class Info implements Command {
 }

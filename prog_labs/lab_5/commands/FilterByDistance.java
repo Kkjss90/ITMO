@@ -1,4 +1,4 @@
 package commands;
 
-public class FilterByDistance extends Command {
+public class FilterByDistance implements Command {
 }

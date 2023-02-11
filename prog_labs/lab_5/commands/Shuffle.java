@@ -1,4 +1,4 @@
 package commands;
 
-public class Shuffle extends Command {
+public class Shuffle implements Command {
 }

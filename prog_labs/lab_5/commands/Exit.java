@@ -1,4 +1,4 @@
 package commands;
 
-public class Exit extends Command {
+public class Exit implements Command {
 }

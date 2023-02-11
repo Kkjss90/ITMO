@@ -1,4 +1,4 @@
 package commands;
 
-public class RemoveLower extends Command {
+public class RemoveLower implements Command {
 }

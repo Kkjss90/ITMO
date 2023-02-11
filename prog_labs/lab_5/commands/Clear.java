@@ -1,5 +1,5 @@
 package commands;
 
-public class Clear extends Command {
+public class Clear implements Command {
 
 }

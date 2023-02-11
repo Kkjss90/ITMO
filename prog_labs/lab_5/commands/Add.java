@@ -1,5 +1,4 @@
 package commands;
 
-public class Add extends Command {
-
+public class Add implements Command {
 }

@@ -1,4 +1,4 @@
 package commands;
 
-public class ExecuteScript extends Command {
+public class ExecuteScript implements Command {
 }

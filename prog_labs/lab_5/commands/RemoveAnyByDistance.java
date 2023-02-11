@@ -1,4 +1,4 @@
 package commands;
 
-public class RemoveAnyByDistance extends Command {
+public class RemoveAnyByDistance implements Command {
 }

@@ -1,4 +1,4 @@
 package commands;
 
-public class GroupCountingByFrom extends Command {
+public class GroupCountingByFrom implements Command {
 }
