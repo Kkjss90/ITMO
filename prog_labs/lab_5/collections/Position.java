@@ -1,5 +1,8 @@
 package collections;
 
+/**
+ * Позиция - класс, который содержит координаты элемента коллекции
+ */
 public class Position {
     private Float x; //Поле не может быть null
     private Float y; //Поле не может быть null

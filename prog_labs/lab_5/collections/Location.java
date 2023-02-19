@@ -1,5 +1,8 @@
 package collections;
 
+/**
+ * Локация - класс, который содержит координаты и название локации элемента коллекции
+ */
 public class Location {
     private double x;
     private int y;
