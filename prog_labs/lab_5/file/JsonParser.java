@@ -1,5 +1,6 @@
 package file;
+import com.google.gson.Gson;
 
-public class JsonParser {
-
+public class JsonParser{
+    Gson gson = new Gson();
 }
