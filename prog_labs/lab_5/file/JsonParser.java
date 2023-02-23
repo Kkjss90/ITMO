@@ -2,5 +2,8 @@ package file;
 import com.google.gson.Gson;
 
 public class JsonParser{
-    Gson gson = new Gson();
+    public Route<> parseToCollection(){
+        Gson gson = new Gson();
+        return null;
+    }
 }
