@@ -41,14 +41,19 @@ public class Help implements Command {
     }
 
     /**
-     * @return Описание данной команды.
-     * @see Command
+     * Метод, возвращающий описание команды.
+     *
+     * @return Возвращает описание команды help.
      */
     @Override
     public String getDescription() {
         return "вывести справку по доступным командам";
     }
 
+    /** Метод, возвращающий название команды.
+     *
+     * @return Возвращает название команды help.
+     */
     @Override
     public String getName() {
         return "help";
