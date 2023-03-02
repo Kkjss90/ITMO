@@ -3,7 +3,7 @@ package file.data;
 import java.io.*;
 
 /**
- * Класс, отвечающий за чтение данных из файла.
+ * Класс, отвечающий за чтение/запись данных из файла/в файл.
  */
 public class Fs implements Data{
     private final String filepath;
