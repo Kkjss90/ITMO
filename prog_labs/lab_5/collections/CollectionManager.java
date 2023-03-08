@@ -1,4 +1,4 @@
-package collections;
+package managers;
 
 import file.*;
 import java.util.Vector;

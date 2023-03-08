@@ -6,9 +6,17 @@ import java.io.*;
  * Класс, отвечающий за чтение/запись данных из файла/в файл.
  */
 public class Fs implements Data{
-    private final String filepath;
-    public Fs(String filepath){
+    /**
+     *
+     */
+    private String filepath;
+    /**
+     *
+     */
+    private String env;
+    public Fs(String filepath, String env){
         this.filepath = filepath;
+        this.env = env;
     }
     /**
      * Метод, производящий чтение данных из указанного файла. В случае критических ошибок программа завершает свою работу.
@@ -78,14 +86,22 @@ public class Fs implements Data{
             }
         }
     }
+
+    /**
+     * Метод, производящий чтение данных.
+     */
     @Override
     public String getData(){
-        return getFromFile();
+        getFromFile();
+        return "Изъятие данных из файла";
     }
 
+    /**
+     * Метод, производящий запись данных.
+     */
     @Override
     public String pullData(String str) {
         writeToFile(str);
-        return null;
+        return "Запись данных в файл";
     }
 }
