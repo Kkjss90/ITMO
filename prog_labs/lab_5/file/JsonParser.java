@@ -13,7 +13,6 @@ public class JsonParser{
         try{
             str = str.trim();
             Vector<Route> route = gson.fromJson(str, collectionType);
-            console.println("Коллекция успешна загружена!");
             return route;
         }catch (IllegalStateException | IOException exception) {
             console.printError("Непредвиденная ошибка!");
@@ -22,4 +21,8 @@ public class JsonParser{
         return new Vector<>();
     }
 
+    public String parseToJson(Route<> route){
+        StringBuilder sb = new StringBuilder();
+        return gson.toJson(route);
+    }
 }

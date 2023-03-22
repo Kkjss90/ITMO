@@ -6,13 +6,7 @@ import java.io.*;
  * Класс, отвечающий за чтение/запись данных из файла/в файл.
  */
 public class Fs implements Data{
-    /**
-     *
-     */
     private String filepath;
-    /**
-     *
-     */
     private String env;
     public Fs(String filepath, String env){
         this.filepath = filepath;
