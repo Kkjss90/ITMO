@@ -18,4 +18,10 @@ public class Coordinates {
     public int getY() {
         return y;
     }
+    public void setX(Float x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
 }

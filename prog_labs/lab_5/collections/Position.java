@@ -24,4 +24,13 @@ public class Position {
     public Double getZ() {
         return z;
     }
+    public void setX(Float x){
+        this.x = x;
+    }
+    public void setY(Float y){
+        this.y = y;
+    }
+    public void setZ(Double z){
+        this.z = z;
+    }
 }

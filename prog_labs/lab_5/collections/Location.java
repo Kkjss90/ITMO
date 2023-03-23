@@ -30,4 +30,16 @@ public class Location {
     public String getName() {
         return name;
     }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setX(double x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
+    public void setZ(Float z){
+        this.z = z;
+    }
 }
