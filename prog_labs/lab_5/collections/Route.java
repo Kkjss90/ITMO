@@ -55,7 +55,7 @@ public class Route {
         return creationDate.format(formatter);
     }
 
-        public Location getFrom() {
+    public Location getFrom() {
         return from;
     }
 
