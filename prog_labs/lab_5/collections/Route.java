@@ -66,4 +66,22 @@ public class Route {
     public float getDistance() {
         return distance;
     }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setCoordinateX(int x){
+        this.coordinates.getCoordinates().setX(x);
+    }
+    public void setCoordinateY(int y){
+        this.coordinates.getCoordinates().setY(y);
+    }
+    public void setFrom(Location from){
+        this.from = from;
+    }
+    public void setTo(Position to){
+        this.to = to;
+    }
+    public void setDistance(float distance){
+        this.distance = distance;
+    }
 }

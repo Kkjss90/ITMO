@@ -68,6 +68,17 @@ public class CollectionManager {
     public void clear() {
         collection.clear();
     }
-
+    public void update(Integer id, String field, String value){
+        try{
+            switch(field){
+                case "name":{
+                    if (value.equals("")) throw new NullPointerException();
+                    collection.get(id).setName(value);
+                    System.out.println("Значение поля было изменено");
+                    break;
+                }
+            }
+        }
+    }
 }
 
