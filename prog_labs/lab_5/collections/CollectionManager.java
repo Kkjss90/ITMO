@@ -16,6 +16,10 @@ public class CollectionManager {
         String i = Instant.now().toString();
         collectionInitialization = ZonedDateTime.parse(i);
     }
+
+    /**
+     * Метод, выводящий основную информацию по используемой коллекции.
+     */
     public void info() {
         System.out.println("Коллекция " + collection.getClass().getSimpleName());
         System.out.println("Тип элементов коллекции: " + Route.class.getSimpleName());
@@ -25,6 +29,10 @@ public class CollectionManager {
         System.out.println("Время ининициализации коллекции: " + collectionInitialization.plusHours(3).format(europeanDateFormatter));
         System.out.println("Количество элементов в коллекции: " + collection.size());
     }
+
+    /**
+     * Метод, выводящий информацию об элементах коллекции.
+     */
     public void show() {
         if (collection.size() == 0) {
             System.out.println("Коллекция пуста.");
@@ -34,14 +42,29 @@ public class CollectionManager {
             }
         }
     }
+
+    /**
+     *  Метод, добавляющий в коллекцию новый элемент.
+     * @param id    уникальный идентицикатор элемента коллекции (ключ)
+     * @param route элемент коллекции, требующий добавления
+     */
     public void insert(Integer id, Route route) {
         if (collection.get(id) == null) {
             collection.put(id, route);
         } else System.out.println("Элемент с данным ключом уже существует");
     }
+
+    /**
+     * Метод, удялющий элемент, выбранный по ключу.
+     * @param id уникальный идентицикатор элемента коллекции (ключ)
+     */
     public void removeKey(Integer id) {
         collection.remove(id);
     }
+
+    /**
+     * Метод, удаляющий все элементы коллекции.
+     */
     public void clear() {
         collection.clear();
     }
