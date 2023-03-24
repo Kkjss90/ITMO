@@ -1,4 +1,4 @@
-package commands;
+package org.example.commands;
 
 public class ExecuteScript implements Command {
     @Override

@@ -1,6 +1,6 @@
-package file.data;
+package org.example.file.data;
 
 public interface Data {
     public String getData();
-    public String pullData(Object obj);
+    public String pullData(String str);
 }

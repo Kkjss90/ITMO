@@ -1,4 +1,4 @@
-package commands;
+package org.example.commands;
 
 public class FilterByDistance implements Command {
     @Override

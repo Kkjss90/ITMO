@@ -1,4 +1,4 @@
-package collections;
+package org.example.collections;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

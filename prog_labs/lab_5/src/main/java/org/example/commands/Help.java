@@ -1,4 +1,4 @@
-package commands;
+package org.example.commands;
 
 import java.util.HashMap;
 import java.util.Map;

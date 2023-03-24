@@ -1,4 +1,4 @@
-package commands;
+package org.example.commands;
 
 public interface Command {
     public abstract void execute();

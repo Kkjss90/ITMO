@@ -1,4 +1,6 @@
-package commands;
+package org.example.commands;
+
+import org.example.collections.CollectionManager;
 
 public class RemoveById implements Command {
     /**
@@ -14,7 +16,7 @@ public class RemoveById implements Command {
      *
      * @param collectionManager Хранит ссылку на созданный в объекте Application объект CollectionManager.
      */
-    public RemoveAnyByColorCommand(CollectionManager collectionManager) {
+    public RemoveById(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
     }
 

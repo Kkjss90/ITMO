@@ -1,4 +1,4 @@
-package collections;
+package org.example.collections;
 
 /**
  * Локация - класс, который содержит координаты и название локации элемента коллекции

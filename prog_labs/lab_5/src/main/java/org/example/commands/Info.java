@@ -1,6 +1,6 @@
-package commands;
+package org.example.commands;
 
-import collections.CollectionManager;
+import org.example.collections.CollectionManager;
 
 public class Info implements Command {
     /**

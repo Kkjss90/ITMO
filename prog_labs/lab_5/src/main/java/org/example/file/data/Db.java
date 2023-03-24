@@ -1,4 +1,4 @@
-package file.data;
+package org.example.file.data;
 /**
  * Класс, отвечающий за чтение/запись данных из базы данных/в базу данных.
  */

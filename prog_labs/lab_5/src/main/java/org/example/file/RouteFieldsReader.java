@@ -1,5 +1,8 @@
-import collection.*;
-import io.UserIO;
+package org.example.file;
+
+import org.example.collections.*;
+import org.example.io.UserIO;
+import org.example.exceptions.ValidValuesRangeException;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -49,6 +52,7 @@ public class RouteFieldsReader {
     public float readDistance() {
         float distance;
         while (true) {
+            try{
             userIO.printCommandText("distance (not null & > 1): ");
             distance = float.parseFloat(userIO.readLine().trim());
             if (distance <= 1) throw new ValidValuesRangeException();
@@ -112,7 +116,7 @@ public class RouteFieldsReader {
         double x;
         while (true) {
             try {
-                userIO.printCammandText("coordinate_x (double & can be null): ");
+                userIO.printCommandText("coordinate_x (double & can be null): ");
                 x = double.parseDouble(userIO.readLine().trim());
                 if (x==0) throw new ValidValuesRangeException();
                 else return x;
@@ -127,7 +131,7 @@ public class RouteFieldsReader {
         Float y;
         while (true){
             try{
-                userIO.printCammandText("coordinate_y (float & not null): ");
+                userIO.printCommandText("coordinate_y (float & not null): ");
                 y = Float.parseFloat(userIO.readLine().trim());
                 return y;
             }catch (NumberFormatException ex){
@@ -139,7 +143,7 @@ public class RouteFieldsReader {
         Float z;
         while (true){
             try{
-                userIO.printCammandText("coordinate_z (float & not null): ");
+                userIO.printCommandText("coordinate_z (float & not null): ");
                 z = Float.parseFloat(userIO.readLine().trim());
                 if (z == 0) throw new ValidValuesRangeException();
                 else return z;
@@ -157,7 +161,7 @@ public class RouteFieldsReader {
         double z;
         while (true) {
             try{
-                userIO.printCammandText("coordinate_z (double & not null): ");
+                userIO.printCommandText("coordinate_z (double & not null): ");
                 z = double.parseDouble(userIO.readLine().trim());
                 if (z==0) throw new ValidValuesRangeException();
                 else return z;

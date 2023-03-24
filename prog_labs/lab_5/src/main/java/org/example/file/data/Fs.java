@@ -1,4 +1,4 @@
-package file.data;
+package org.example.file.data;
 
 import java.io.*;
 

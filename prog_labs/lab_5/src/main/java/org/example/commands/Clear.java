@@ -1,4 +1,6 @@
-package commands;
+package org.example.commands;
+
+import org.example.collections.CollectionManager;
 
 public class Clear implements Command {
     /**
@@ -11,7 +13,7 @@ public class Clear implements Command {
      *
      * @param collectionManager Хранит ссылку на созданный в объекте Application объект CollectionManager.
      */
-    public ClearCommand(CollectionManager collectionManager) {
+    public Clear(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
     }
 

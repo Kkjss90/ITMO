@@ -1,6 +1,8 @@
-package managers;
+package org.example.collections;
 
-import file.*;
+import org.example.file.*;
+
+import java.time.Instant;
 import java.util.Vector;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,10 +11,10 @@ import java.time.format.DateTimeFormatter;
  * Менеджер коллекции - класс отвечающий за работу с коллекциями
  */
 public class CollectionManager {
-    private Vector<Route> collection = new Vector<Route>();
+    private Vector<Route> collection;
     private ZonedDateTime collectionInitialization;
     public CollectionManager(){
-        this.collection = new Vector<Route>;
+        this.collection = new Vector<>();
         String i = Instant.now().toString();
         collectionInitialization = ZonedDateTime.parse(i);
     }
@@ -37,8 +39,8 @@ public class CollectionManager {
         if (collection.size() == 0) {
             System.out.println("Коллекция пуста.");
         } else {
-            for (Map.Entry<Route> entry : collection.entrySet()) {
-                System.out.println(entry.getValue().toString());
+            for (int i=0;i<collection.size();i++) {
+                System.out.println(collection.get(i).toString());
             }
         }
     }
@@ -50,7 +52,7 @@ public class CollectionManager {
      */
     public void insert(Integer id, Route route) {
         if (collection.get(id) == null) {
-            collection.put(id, route);
+            collection.add(id, route);
         } else System.out.println("Элемент с данным ключом уже существует");
     }
 

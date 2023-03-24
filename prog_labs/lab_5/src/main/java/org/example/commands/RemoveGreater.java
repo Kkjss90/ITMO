@@ -1,4 +1,4 @@
-package commands;
+package org.example.commands;
 
 public class RemoveGreater implements Command {
     @Override

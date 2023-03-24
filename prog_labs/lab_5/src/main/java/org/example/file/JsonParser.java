@@ -1,10 +1,12 @@
 package file;
-import collections.*;
+
+import com.google.gson.reflect.TypeToken;
+import org.example.collections.*;
 import com.google.gson.*;
+
+import java.io.IOException;
 import java.util.Vector;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 public class JsonParser{
     private Gson gson;

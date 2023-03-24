@@ -1,8 +1,11 @@
-package commands;
+package org.example.commands;
 
-import io.*;
-import collection.*;
-import file.RouteFieldsReader;
+import org.example.io.*;
+import org.example.collections.*;
+import org.example.file.RouteFieldsReader;
+
+import java.util.HashMap;
+
 /**
  * Класс, через который осуществляется исполнение команд. Хранит коллекции всех существующих команд.
  */

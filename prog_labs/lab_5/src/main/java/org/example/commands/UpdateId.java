@@ -1,4 +1,4 @@
-package commands;
+package org.example.commands;
 
 public class UpdateId implements Command {
     @Override

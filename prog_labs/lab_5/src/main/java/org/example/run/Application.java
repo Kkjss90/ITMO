@@ -1,16 +1,13 @@
-package run;
+package org.example.run;
 
-import collection.CollectionManager;
-import collection.Dragon;
-import commands.CommandInvoker;
-import file.DragonFieldsReader;
-import file.FileManager;
-import file.XmlParser;
-import io.UserIO;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import org.example.collections.Route;
+import org.example.collections.CollectionManager;
+import org.example.commands.CommandInvoker;
+import org.example.file.RouteFieldsReader;
+import org.example.file.data.Data;
+import org.example.file.data.Fs;
+import org.example.io.UserIO;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -25,13 +22,13 @@ public class Application {
      */
     CollectionManager collectionManager;
     /**
-     * менеджер файлов
+     * json парсер
      */
-    FileManager fileManager;
+    file.JsonParser jsonParser;
     /**
-     * XML парсер
+     * менеджер данных
      */
-    XmlParser xmlParser;
+    Data data;
     /**
      * хранит ссылку на объект, производящий чтение и вывод команд
      */
@@ -43,7 +40,7 @@ public class Application {
     /**
      * хранит ссылку на объект, производящий чтение полей класса Dragon
      */
-    DragonFieldsReader dragonFieldsReader;
+    RouteFieldsReader routeFieldsReader;
 
     /**
      * Метод, выполняющий запуск программы. Через него происходит работа всей программы.
@@ -53,8 +50,7 @@ public class Application {
     public void start(String inputFile) {
 
         collectionManager = new CollectionManager();
-        fileManager = new FileManager();
-        xmlParser = new XmlParser();
+        data = new Fs(inputFile);
         userIO = new UserIO();
 
         dragonFieldsReader = new DragonFieldsReader(userIO);
