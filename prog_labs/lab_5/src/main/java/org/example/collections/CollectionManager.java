@@ -70,7 +70,15 @@ public class CollectionManager {
     public void clear() {
         collection.clear();
     }
-    /* public void update(Integer id, String field, String value){
+
+    /**
+     * Метод, изменяющий поле выбранного по идентификатору элемента коллекции.
+     *
+     * @param id
+     * @param field
+     * @param value
+     */
+    /*public void update(Integer id, String field, String value){
         try{
             switch(field){
                 case "name":{
@@ -78,8 +86,10 @@ public class CollectionManager {
                     collection.get(id).setName(value);
                     System.out.println("Значение поля было изменено");
                     break;
-                }
+                }case "coordinates"
             }
+        }catch (){
+
         }
     }*/
 }

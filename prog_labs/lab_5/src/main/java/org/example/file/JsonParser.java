@@ -23,7 +23,7 @@ public class JsonParser{
         return new Vector<>();
     }
 
-    public String parseToJson(Route<> route){
+    public String parseToJson(Route route){
         StringBuilder sb = new StringBuilder();
         return gson.toJson(route);
     }

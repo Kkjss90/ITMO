@@ -3,6 +3,7 @@ package org.example.run;
 import org.example.collections.Route;
 import org.example.collections.CollectionManager;
 import org.example.commands.CommandInvoker;
+import org.example.file.JsonParser;
 import org.example.file.RouteFieldsReader;
 import org.example.file.data.Data;
 import org.example.file.data.Fs;
@@ -24,7 +25,7 @@ public class Application {
     /**
      * json парсер
      */
-    file.JsonParser jsonParser;
+    JsonParser jsonParser;
     /**
      * менеджер данных
      */
@@ -53,18 +54,18 @@ public class Application {
         data = new Fs(inputFile);
         userIO = new UserIO();
 
-        dragonFieldsReader = new DragonFieldsReader(userIO);
+        routeFieldsReader = new RouteFieldsReader(userIO);
 
-        this.commandInvoker = new CommandInvoker(collectionManager, userIO, inputFile, dragonFieldsReader);
+        this.commandInvoker = new CommandInvoker(collectionManager, userIO, inputFile, routeFieldsReader);
 
         try {
 
             File ioFile = new File(inputFile);
             if (!ioFile.canWrite() || ioFile.isDirectory() || !ioFile.isFile()) throw new IOException();
-            String file = fileManager.readFromFile(inputFile);
+            String file = data.getData();
 
-            Dragon[] dragons = xmlParser.parseToCollection(new InputSource(new StringReader(file)));
-            for (Dragon dragon : dragons) {
+            Route[] route= jsonParser.parseToCollection(new InputSource(new StringReader(file)));
+            for (Route route : routes) {
                 collectionManager.insert(dragon.getId(), dragon);
             }
             userIO.printCommandText("Элементы коллекций из указанного файла были загружены\n");

@@ -15,6 +15,7 @@ public class Coordinates {
         return x;
     }
 
+
     public int getY() {
         return y;
     }
@@ -22,6 +23,6 @@ public class Coordinates {
         this.x = x;
     }
     public void setY(int y){
-        this.y = y;
+        this.y = y > -443 ? y : this.y;
     }
 }

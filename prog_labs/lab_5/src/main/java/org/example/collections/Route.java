@@ -43,6 +43,11 @@ public class Route {
         return name;
     }
 
+    /**
+     * Метод, возвращающий координаты объекта класса
+     *
+     * @return coordinates - координаты объекта класса
+     */
     public Coordinates getCoordinates() {
         return coordinates;
     }
