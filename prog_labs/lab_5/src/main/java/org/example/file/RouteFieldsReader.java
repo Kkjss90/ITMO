@@ -28,9 +28,9 @@ public class RouteFieldsReader {
      * @param id уникальный идентификатор объекта класса Route, который должен быть записан в качестве ключа в коллекцию
      * @return возращает объект типа Route
      */
-    public Route read(Integer id) {
+    public Route read(Long id) {
         String i = Instant.now().toString();
-        return new Route(id, readName(), readCoordinates(), readFrom(), readTo(), readDistance(), LocalDate.parse(i));
+        return new Route(id, readName(), readCoordinates(), LocalDate.parse(i), readFrom(), readTo(), readDistance());
     }
 
     /**
@@ -54,7 +54,7 @@ public class RouteFieldsReader {
         while (true) {
             try{
             userIO.printCommandText("distance (not null & > 1): ");
-            distance = float.parseFloat(userIO.readLine().trim());
+            distance = Float.parseFloat(userIO.readLine().trim());
             if (distance <= 1) throw new ValidValuesRangeException();
             else return distance;
         } catch (ValidValuesRangeException ex) {
@@ -105,7 +105,7 @@ public class RouteFieldsReader {
         while (true) {
             try {
                 userIO.printCommandText("coordinate_y (int & can be null): ");
-                y = int.parseInt(userIO.readLine().trim());
+                y = Integer.parseInt(userIO.readLine().trim());
                 return y;
             } catch (NumberFormatException ex) {
                 System.err.println("Число должно быть типа int");
@@ -117,7 +117,7 @@ public class RouteFieldsReader {
         while (true) {
             try {
                 userIO.printCommandText("coordinate_x (double & can be null): ");
-                x = double.parseDouble(userIO.readLine().trim());
+                x = Double.parseDouble(userIO.readLine().trim());
                 if (x==0) throw new ValidValuesRangeException();
                 else return x;
             } catch (ValidValuesRangeException ex) {
@@ -155,14 +155,14 @@ public class RouteFieldsReader {
         }
     }
     public Location readFrom(){
-        return new Location(readName(), readCoordinate_X(), readCoordinateY(), readCoordinate_Z());
+        return new Location(readCoordinate_X(), readCoordinateY(), readCoordinate_Z(), readName());
     }
     public double readCoordinateZ() {
         double z;
         while (true) {
             try{
                 userIO.printCommandText("coordinate_z (double & not null): ");
-                z = double.parseDouble(userIO.readLine().trim());
+                z = Double.parseDouble(userIO.readLine().trim());
                 if (z==0) throw new ValidValuesRangeException();
                 else return z;
             }catch (NumberFormatException ex){
