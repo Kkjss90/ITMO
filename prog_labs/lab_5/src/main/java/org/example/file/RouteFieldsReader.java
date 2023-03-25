@@ -49,6 +49,11 @@ public class RouteFieldsReader {
         }
     }
 
+    /**
+     * Метод, производящий чтение поля distance типа float объекта Route из потока, указанного в поле userIO.
+     *
+     * @return значение поля distance, уже проверенное на недопустимую ОДЗ.
+     */
     public float readDistance() {
         float distance;
         while (true) {
@@ -112,6 +117,12 @@ public class RouteFieldsReader {
             }
         }
     }
+
+    /**
+     * Метод, производящий чтение поля х типа double объекта Route из потока, указанного в поле userIO.
+     *
+     * @return значение поля x, уже проверенное на недопустимую ОДЗ.
+     */
     public double readCoordinate_X() {
         double x;
         while (true) {
@@ -127,6 +138,12 @@ public class RouteFieldsReader {
             }
         }
     }
+
+    /**
+     * Метод, производящий чтение поля y типа Float объекта Route из потока, указанного в поле userIO.
+     *
+     * @return значение поля y, уже проверенное на недопустимую ОДЗ.
+     */
     public Float readCoordinate_Y(){
         Float y;
         while (true){
@@ -139,6 +156,12 @@ public class RouteFieldsReader {
             }
         }
     }
+
+    /**
+     * Метод, производящий чтение поля z типа Float объекта Route из потока, указанного в поле userIO.
+     *
+     * @return значение поля z, уже проверенное на недопустимую ОДЗ.
+     */
     public Float readCoordinate_Z(){
         Float z;
         while (true){
@@ -154,9 +177,21 @@ public class RouteFieldsReader {
             }
         }
     }
+
+    /**
+     * Метод, производящий чтение координат x, y, z и переменной name.
+     *
+     * @return возвращает объект типа Location.
+     */
     public Location readFrom(){
         return new Location(readCoordinate_X(), readCoordinateY(), readCoordinate_Z(), readName());
     }
+
+    /**
+     * Метод, производящий чтение поля z типа double объекта Route из потока, указанного в поле userIO.
+     *
+     * @return значение поля z, уже проверенное на недопустимую ОДЗ.
+     */
     public double readCoordinateZ() {
         double z;
         while (true) {
@@ -172,6 +207,12 @@ public class RouteFieldsReader {
             }
         }
     }
+
+    /**
+     * Метод, производящий чтение координат x, y, z.
+     *
+     * @return возвращает объект типа Position.
+     */
     public Position readTo(){
         return new Position(readCoordinateX(), readCoordinate_Y(), readCoordinateZ());
     }
