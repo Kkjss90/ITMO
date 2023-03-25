@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Moscow - Piter",
+    "coordinates": {"x": 2.0, "y": 1},
+    "creationDate":{"date":{"year":2020,"month":3,"day":5},"time":{"hour":19,"minute":56,"second":29,"nano":163000000}},
+    "from": {"x": 1.2, "y": 2, "z":  3.4, "name": "Moscow"},
+    "to": {"x": 4.5, "y": 8.2, "z": 9.4},
+    "distance": 9.3
+  },
+  {
+    "id": 2,
+    "name": "Piter - Moscow",
+    "coordinates": {"x": 3.5, "y": 6.4},
+    "creationDate":{"date":{"year":2023,"month":6,"day":10},"time":{"hour":10,"minute":29,"second":47,"nano":168750000}},
+    "from": {"x": 4.5, "y": 8, "z":  9.4, "name": "Piter"},
+    "to": {"x": 1.2, "y": 2.0, "z": 3.4},
+    "distance": 9.3
+  }
+]
