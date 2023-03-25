@@ -22,9 +22,7 @@ public class RemoveById implements Command {
 
     @Override
     public void execute() {
-        try{
-            
-        }
+
     }
 
     @Override

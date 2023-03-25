@@ -70,7 +70,7 @@ public class CollectionManager {
     public void clear() {
         collection.clear();
     }
-    public void update(Integer id, String field, String value){
+    /* public void update(Integer id, String field, String value){
         try{
             switch(field){
                 case "name":{
@@ -81,6 +81,6 @@ public class CollectionManager {
                 }
             }
         }
-    }
+    }*/
 }
 

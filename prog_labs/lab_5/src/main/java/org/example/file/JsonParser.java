@@ -1,4 +1,4 @@
-package file;
+package org.example.file;
 
 import com.google.gson.reflect.TypeToken;
 import org.example.collections.*;
@@ -10,14 +10,14 @@ import java.util.Vector;
 
 public class JsonParser{
     private Gson gson;
-    public Route<> parseToCollection(String str){
+    public Vector<Route> parseToCollection(String str){
         var collectionType = new TypeToken<Vector<Route>>() {}.getType();
         try{
             str = str.trim();
             Vector<Route> route = gson.fromJson(str, collectionType);
             return route;
-        }catch (IllegalStateException | IOException exception) {
-            console.printError("Непредвиденная ошибка!");
+        }catch (IllegalStateException exception) {
+            System.err.println("Непредвиденная ошибка!");
             System.exit(0);
         }
         return new Vector<>();
