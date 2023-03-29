@@ -74,11 +74,11 @@ public class Route {
     public void setName(String name){
         this.name = name;
     }
-    public void setCoordinateX(int x){
-        this.coordinates.getCoordinates().setX(x);
+    public void setCoordinateX(Float x){
+        this.getCoordinates().setX(x);
     }
     public void setCoordinateY(int y){
-        this.coordinates.getCoordinates().setY(y);
+        this.getCoordinates().setY(y);
     }
     public void setFrom(Location from){
         this.from = from;
