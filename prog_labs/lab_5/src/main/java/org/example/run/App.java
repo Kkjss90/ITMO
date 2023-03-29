@@ -10,7 +10,7 @@ public class App {
             }
         } else {
             Application application = new Application();
-            application.start("/Users/a11/IdeaProjects/ITMO/prog_labs/lab_5/try.json");
+            application.start("/Users/a11/IdeaProjects/ITMO/prog_labs/lab_5/src/main/java/org/example/try.json");
         }
     }
 }

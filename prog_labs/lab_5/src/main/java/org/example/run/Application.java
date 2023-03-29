@@ -11,8 +11,8 @@ import org.example.io.UserIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.NoSuchElementException;
+import java.util.Vector;
 
 /**
  * Класс, через который производится запуск данного приложения.
@@ -59,17 +59,16 @@ public class Application {
         this.commandInvoker = new CommandInvoker(collectionManager, userIO, inputFile, routeFieldsReader);
 
         try {
-
             File ioFile = new File(inputFile);
             if (!ioFile.canWrite() || ioFile.isDirectory() || !ioFile.isFile()) throw new IOException();
             String file = data.getData();
 
-            Route[] route= jsonParser.parseToCollection(new InputSource(new StringReader(file)));
+            Vector<Route> routes= jsonParser.parseToCollection(file);
             for (Route route : routes) {
-                collectionManager.insert(dragon.getId(), dragon);
+                collectionManager.insert(Math.toIntExact(route.getId()), route);
             }
             userIO.printCommandText("Элементы коллекций из указанного файла были загружены\n");
-        } catch (ParserConfigurationException | IOException | SAXException e) {
+        } catch (IOException e) {
             System.err.println("По указанному адресу нет подходящего файла");
             System.exit(0);
         }
