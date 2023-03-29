@@ -12,6 +12,9 @@ public class Fs implements Data{
         this.filepath = filepath;
         this.env = env;
     }
+    public Fs(String filepath){
+        this.filepath = filepath;
+    }
     /**
      * Метод, производящий чтение данных из указанного файла. В случае критических ошибок программа завершает свою работу.
      *
