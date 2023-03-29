@@ -71,6 +71,10 @@ public class CollectionManager {
         collection.clear();
     }
 
+    public void save(String filepath){
+
+    }
+
     /**
      * Метод, изменяющий поле выбранного по идентификатору элемента коллекции.
      *
