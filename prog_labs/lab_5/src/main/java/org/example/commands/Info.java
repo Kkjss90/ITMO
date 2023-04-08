@@ -1,42 +1,53 @@
 package org.example.commands;
 
-import org.example.collections.CollectionManager;
+import org.example.exceptions.WrongAmountOfElementsException;
+import org.example.utility.CollectionManager;
+import org.example.utility.Console;
 
-public class Info implements Command {
+import java.util.Date;
+
+/**
+ * Команда 'info'. Выводит информацию о коллекции.
+ */
+public class Info extends AbstractCommand {
     /**
-     * Поле, хранящее ссылку на объект класса CollectionManager.
+     * Менеджер коллекции.
      */
     private CollectionManager collectionManager;
     /**
-     * Конструктор класса.
+     * Конструктор создает новый объект команды и задает ее имя и описание.
+     * @param collectionManager менеджер коллекции, с которым будет работать команда.
      */
-    public Info(CollectionManager collectionManager){
+    public Info(CollectionManager collectionManager) {
+        super("info", "вывести информацию о коллекции");
         this.collectionManager = collectionManager;
     }
-    /**
-     * Метод, исполняющий команду. Выводит описание коллекции Vector экземпляров Route.
-     */
-    @Override
-    public void execute() {
-        collectionManager.info();
-    }
 
     /**
-     * Метод, возвращающий описание команды.
-     *
-     * @return Возвращает описание команды info.
+     * Выводит информацию о коллекции.
+     * @return Статус выполнения команды.
      */
     @Override
-    public String getDescription() {
-        return "вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)";
-    }
+    public boolean execute(String argument) {
+        try {
+            if (!argument.isEmpty()) throw new WrongAmountOfElementsException();
+            Date lastInitTime = collectionManager.getLastInitTime();
+            String lastInitTimeString = (lastInitTime == null) ? "в данной сессии инициализации еще не происходило" :
+                    String.valueOf(lastInitTime);
 
-    /** Метод, возвращающий название команды.
-     *
-     * @return Возвращает название команды info.
-     */
-    @Override
-    public String getName() {
-        return "info";
+            Date lastSaveTime = collectionManager.getLastSaveTime();
+            String lastSaveTimeString = (lastSaveTime == null) ? "в данной сессии сохранения еще не происходило" :
+                    String.valueOf(lastSaveTime);
+
+            Console.println("Сведения о коллекции:");
+            Console.println(" Тип: " + collectionManager.collectionType());
+            Console.println(" Количество элементов: " + collectionManager.collectionSize());
+            Console.println(" Дата последнего сохранения: " + lastSaveTimeString);
+            Console.println(" Дата последней инициализации: " + lastInitTimeString);
+            return true;
+        } catch (WrongAmountOfElementsException exception) {
+            Console.println("Использование: '" + getName() + "'");
+        }
+        return false;
     }
 }

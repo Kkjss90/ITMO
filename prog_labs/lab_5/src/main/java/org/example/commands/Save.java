@@ -1,19 +1,40 @@
 package org.example.commands;
 
-public class Save implements Command {
+import org.example.exceptions.WrongAmountOfElementsException;
+import org.example.utility.CollectionManager;
+import org.example.utility.Console;
 
-    @Override
-    public void execute() {
+/**
+ * Команда 'Save'. Записывает коллекцию в файл.
+ */
+public class Save extends AbstractCommand {
+    /**
+     * Менеджер коллекции.
+     */
+    private CollectionManager collectionManager;
 
+    /**
+     * Конструктор Save создает новый объект команды "save".
+     * @param collectionManager объект для работы с коллекцией.
+     */
+    public Save(CollectionManager collectionManager) {
+        super("save", "сохранить коллекцию в файл");
+        this.collectionManager = collectionManager;
     }
 
+    /**
+     * Записывает коллекцию в файл.
+     * @return Статус выполнения команды.
+     */
     @Override
-    public String getDescription() {
-        return "сохранить коллекцию в файл";
-    }
-
-    @Override
-    public String getName() {
-        return "save";
+    public boolean execute(String argument) {
+        try {
+            if (!argument.isEmpty()) throw new WrongAmountOfElementsException();
+            collectionManager.saveCollection();
+            return true;
+        } catch (WrongAmountOfElementsException exception) {
+            Console.println("Использование: '" + getName() + "'");
+        }
+        return false;
     }
 }

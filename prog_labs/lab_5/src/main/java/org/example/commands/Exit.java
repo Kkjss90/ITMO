@@ -1,37 +1,31 @@
 package org.example.commands;
 
-public class Exit implements Command {
+import org.example.exceptions.WrongAmountOfElementsException;
+import org.example.utility.Console;
+
+/**
+ * Команда 'exit'. Завершение программы.
+ */
+public class Exit extends AbstractCommand {
     /**
-     * Конструктор класса.
+     * Конструктор создает новый объект команды и задает ее имя и описание.
      */
     public Exit() {
+        super("exit", "завершить программу (без сохранения в файл)");
     }
 
     /**
-     * Метод, завершающий работу программы. При завершении выводит соответствующее сообщение.
+     * Завершение программы
+     * @return Статус выполнения команды.
      */
     @Override
-    public void execute() {
-        System.out.println("Завершение работы программы.");
-        System.exit(0);
-    }
-
-    /**
-     * Метод, возвращающий описание команды.
-     *
-     * @return Возвращает описание команды exit.
-     */
-    @Override
-    public String getDescription() {
-        return "завершить программу (без сохранения в файл)";
-    }
-
-    /** Метод, возвращающий название команды.
-     *
-     * @return Возвращает название команды exit.
-     */
-    @Override
-    public String getName() {
-        return "exit";
+    public boolean execute(String argument) {
+        try {
+            if (!argument.isEmpty()) throw new WrongAmountOfElementsException();
+            return true;
+        } catch (WrongAmountOfElementsException exception) {
+            Console.println("Использование: '" + getName() + "'");
+        }
+        return false;
     }
 }

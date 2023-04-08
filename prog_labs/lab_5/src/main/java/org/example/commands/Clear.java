@@ -1,38 +1,43 @@
 package org.example.commands;
 
-import org.example.collections.CollectionManager;
 
-public class Clear implements Command {
+import org.example.exceptions.WrongAmountOfElementsException;
+import org.example.utility.CollectionManager;
+import org.example.utility.Console;
+
+/**
+ * Команда 'Clear'. Очищает коллекцию.
+ */
+public class Clear extends AbstractCommand {
+
     /**
-     * Поле, хранящее ссылку на объект класса CollectionManager.
+     * Менеджер коллекции.
      */
     private CollectionManager collectionManager;
 
     /**
-     * Конструктор класса
-     *
-     * @param collectionManager Хранит ссылку на созданный в объекте Application объект CollectionManager.
+     * Конструктор создает новый объект команды и задает ее имя и описание.
+     * @param collectionManager менеджер коллекции, с которым будет работать команда.
      */
     public Clear(CollectionManager collectionManager) {
+        super("clear", "очистить коллекцию");
         this.collectionManager = collectionManager;
     }
 
     /**
-     * Метод, исполняющий команду. Выводит сообщение когда коллекция очищена.
+     * Очистка коллекции.
+     * @return Статус выполнения команды.
      */
     @Override
-    public void execute() {
-        collectionManager.clear();
-        System.out.println("Коллекция была очищена");
-    }
-
-    @Override
-    public String getDescription() {
-        return "очистить коллекцию";
-    }
-
-    @Override
-    public String getName() {
-        return "clear";
+    public boolean execute(String argument) {
+        try {
+            if (!argument.isEmpty()) throw new WrongAmountOfElementsException();
+            collectionManager.clearCollection();
+            Console.println("Коллекция очищена!");
+            return true;
+        } catch (WrongAmountOfElementsException exception) {
+            Console.println("Использование: '" + getName() + "'");
+        }
+        return false;
     }
 }

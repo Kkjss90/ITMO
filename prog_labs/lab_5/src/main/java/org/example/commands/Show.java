@@ -1,38 +1,40 @@
 package org.example.commands;
 
-import org.example.collections.CollectionManager;
 
-public class Show implements Command {
+import org.example.exceptions.WrongAmountOfElementsException;
+import org.example.utility.CollectionManager;
+import org.example.utility.Console;
+
+/**
+ * Команда 'show'. Выводит информацию о всех элементах коллекции.
+ */
+public class Show extends AbstractCommand {
     /**
-     * Поле, хранящее ссылку на объект класса CollectionManager.
+     * Менеджер коллекции.
      */
     private CollectionManager collectionManager;
     /**
-     * Конструктор класса.
+     * Конструктор создает новый объект команды и задает ее имя и описание.
+     * @param collectionManager менеджер коллекции, с которым будет работать команда.
      */
-    public Show(CollectionManager collectionManager){
+    public Show(CollectionManager collectionManager) {
+        super("show", "вывести все элементы коллекции");
         this.collectionManager = collectionManager;
     }
-    /**
-     * Метод, исполняющий команду. Выводит описание коллекции Vector экземпляров Route.
-     */
-    @Override
-    public void execute() {
-        collectionManager.show();
-    }
 
     /**
-     * Метод, возвращающий описание команды.
-     *
-     * @return Возвращает описание команды info.
+     * Выводит информацию о всех элементах коллекции.
+     * @return Статус выполнения команды.
      */
     @Override
-    public String getDescription() {
-        return "вывести в стандартный поток вывода все элементы коллекции в строковом представлении";
-    }
-
-    @Override
-    public String getName() {
-        return "show";
+    public boolean execute(String argument) {
+        try {
+            if (!argument.isEmpty()) throw new WrongAmountOfElementsException();
+            Console.println(collectionManager);
+            return true;
+        } catch (WrongAmountOfElementsException exception) {
+            Console.println("Использование: '" + getName() + "'");
+        }
+        return false;
     }
 }

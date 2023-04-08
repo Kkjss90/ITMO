@@ -1,16 +1,46 @@
 package org.example.run;
 
-public class App {
-    public static void main(String[] args) {
+import org.example.commands.*;
+import org.example.utility.*;
 
-        if (args.length > 0) {
-            if (!args[0].equals("")) {
-                Application application = new Application();
-                application.start(args[0]);
-            }
-        } else {
-            Application application = new Application();
-            application.start("/Users/a11/IdeaProjects/ITMO/prog_labs/lab_5/src/main/java/org/example/try.json");
+import java.util.Scanner;
+
+/**
+ * Главный класс. Запуск программы
+ * @author Князева Александра P3120
+ */
+public class App {
+    public static final String PS1 = ">> ";
+    public static final String PS2 = "> ";
+
+    public static void main(String[] args) {
+        try (Scanner userScanner = new Scanner(System.in)) {
+            final String envVariable = "LAB5";
+
+            RouteAsker routeAsker = new RouteAsker(userScanner);
+            FileManager fileManager = new FileManager(envVariable);
+            CollectionManager collectionManager = new CollectionManager(fileManager);
+            CommandManager commandManager = new CommandManager(
+                    new Help(),
+                    new Info(collectionManager),
+                    new Show(collectionManager),
+                    new Add(collectionManager, routeAsker),
+                    new RemoveById(collectionManager),
+                    new Save(collectionManager),
+                    new Clear(collectionManager),
+                    new Exit(),
+                    new ExecuteScript(),
+                    new RemoveGreater(collectionManager, routeAsker),
+                    new RemoveLower(collectionManager, routeAsker),
+                    new Shuffle(collectionManager),
+                    new FilterByDistance(collectionManager),
+                    new RemoveAnyByDistance(collectionManager),
+                    new GroupCountingByDistance(collectionManager),
+                    new UpdateId(collectionManager, routeAsker)
+            );
+            Console console = new Console(commandManager, userScanner, routeAsker);
+
+            console.interactiveMode();
         }
     }
 }

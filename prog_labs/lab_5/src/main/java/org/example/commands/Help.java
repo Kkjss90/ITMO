@@ -1,61 +1,35 @@
 package org.example.commands;
 
+import org.example.exceptions.WrongAmountOfElementsException;
+import org.example.utility.Console;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Класс команды, которая выводит описания всех команд, реализованных в программе.
+/*
+ * Команда 'help'. Вывести справку по доступным командам.
  */
-public class Help implements Command {
+public class Help extends AbstractCommand {
     /**
-     * Коллекция, содержащая объекты всех доступных в программе команд без дополнительных аргументов.
+     * Конструктор создает новый объект команды и задает ее имя и описание.
      */
-    private HashMap<String, Command> commandWithoutArgumentsHashMap;
-    /**
-     * Коллекция, содержащая объекты всех доступных в программе команд с дополнительными аргументами.
-     */
-    private HashMap<String, CommandWithArguments> commandWithArgumentsHashMap;
-
-    /**
-     * Конструктор класса.
-     *
-     * @param commandHashMap              Коллекция, содержащая объекты всех доступных в программе команд без дополнительных аргументов.
-     * @param commandWithArgumentsHashMap Коллекция, содержащая объекты всех доступных в программе команд с дополнительными аргументами.
-     */
-    public Help(HashMap<String, Command> commandHashMap, HashMap<String, CommandWithArguments> commandWithArgumentsHashMap) {
-        this.commandWithoutArgumentsHashMap = commandHashMap;
-        this.commandWithArgumentsHashMap = commandWithArgumentsHashMap;
+    public Help() {
+        super("help", "вывести справку по доступным командам");
     }
 
     /**
-     * Метод, исполняющий команду. Выводит описание всех доступных в программе команд.
+     * Вывести справку по доступным командам.
+     * @return Статус выполнения команды.
      */
     @Override
-    public void execute() {
-        for (Map.Entry<String, Command> entry : commandWithoutArgumentsHashMap.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue().getDescription());
+    public boolean execute(String argument) {
+        try {
+            if (!argument.isEmpty()) throw new WrongAmountOfElementsException();
+            return true;
+        } catch (WrongAmountOfElementsException exception) {
+            Console.println("Использование: '" + getName() + "'");
         }
-        for (Map.Entry<String, CommandWithArguments> entry : commandWithArgumentsHashMap.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue().getDescription());
-        }
+        return false;
     }
 
-    /**
-     * Метод, возвращающий описание команды.
-     *
-     * @return Возвращает описание команды help.
-     */
-    @Override
-    public String getDescription() {
-        return "вывести справку по доступным командам";
-    }
-
-    /** Метод, возвращающий название команды.
-     *
-     * @return Возвращает название команды help.
-     */
-    @Override
-    public String getName() {
-        return "help";
-    }
 }
