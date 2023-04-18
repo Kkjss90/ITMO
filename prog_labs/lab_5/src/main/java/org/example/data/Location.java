@@ -63,11 +63,9 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "x=" + x +
+        return "x=" + x +
                 ", y=" + y +
                 ", z=" + z +
-                ", name='" + name + '\'' +
-                '}';
+                ", имя='" + name + '\'';
     }
 }
