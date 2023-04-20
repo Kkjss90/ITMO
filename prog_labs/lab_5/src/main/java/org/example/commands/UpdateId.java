@@ -84,7 +84,7 @@ public class UpdateId extends AbstractCommand {
         } catch (NumberFormatException exception) {
             Console.printerror("ID должен быть представлен числом!");
         } catch (RouteNotFoundException exception) {
-            Console.printerror("Солдата с таким ID в коллекции нет!");
+            Console.printerror("Пути с таким ID в коллекции нет!");
         } catch (IncorrectInputInScriptException exception) {}
         return false;
     }

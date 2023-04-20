@@ -269,6 +269,30 @@ public class RouteAsker {
         }
         return y;
     }
+    public double askZ(){
+        String strZ;
+        Double z;
+        while (true) {
+            try {
+                Console.println("Введите координату Z:");
+                Console.print(App.PS2);
+                strZ = userScanner.nextLine().trim();
+                if (fileMode) Console.println(strZ);
+                z = Double.parseDouble(strZ);
+                break;
+            } catch (NoSuchElementException exception) {
+                Console.printerror("Координата Z не распознана!");
+                if (fileMode) throw new IncorrectInputInScriptException();
+            } catch (NumberFormatException exception) {
+                Console.printerror("Координата Z должна быть представлена числом!");
+                if (fileMode) throw new IncorrectInputInScriptException();
+            } catch (NullPointerException | IllegalStateException exception) {
+                Console.printerror("Непредвиденная ошибка!");
+                System.exit(0);
+            }
+        }
+        return z;
+    }
     /**
      * Спрашивает у пользователя координаты позиции.
      * @return координаты позиции.
@@ -280,7 +304,7 @@ public class RouteAsker {
         double z;
         x=askX();
         y=ask_Y();
-        z=ask_Z();
+        z=askZ();
         return new Position(x,y,z);
     }
     /**

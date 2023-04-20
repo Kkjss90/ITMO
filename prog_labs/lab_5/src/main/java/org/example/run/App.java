@@ -3,6 +3,8 @@ package org.example.run;
 import org.example.commands.*;
 import org.example.utility.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -15,7 +17,7 @@ public class App {
 
     public static void main(String[] args) {
         try (Scanner userScanner = new Scanner(System.in)) {
-            final String envVariable = "LAB5";
+            final String envVariable = "/Users/a11/IdeaProjects/ITMO/prog_labs/lab_5/src/main/java/org/example/try.json";
 
             RouteAsker routeAsker = new RouteAsker(userScanner);
             FileManager fileManager = new FileManager(envVariable);

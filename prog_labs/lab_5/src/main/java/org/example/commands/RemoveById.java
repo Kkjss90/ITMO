@@ -38,7 +38,7 @@ public class RemoveById extends AbstractCommand {
             Route routeToRemove = collectionManager.getById(id);
             if (routeToRemove == null) throw new RouteNotFoundException();
             collectionManager.removeFromCollection(routeToRemove);
-            Console.println("Солдат успешно удален!");
+            Console.println("Путь успешно удален!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
             Console.println("Использование: '" + getName() + "'");
@@ -47,7 +47,7 @@ public class RemoveById extends AbstractCommand {
         } catch (NumberFormatException exception) {
             Console.printerror("ID должен быть представлен числом!");
         } catch (RouteNotFoundException exception) {
-            Console.printerror("Солдата с таким ID в коллекции нет!");
+            Console.printerror("Пути с таким ID в коллекции нет!");
         }
         return false;
     }

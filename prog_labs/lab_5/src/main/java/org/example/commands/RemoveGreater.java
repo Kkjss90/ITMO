@@ -55,14 +55,14 @@ public class RemoveGreater extends AbstractCommand {
             Route routeFromCollection = collectionManager.getByValue(routeToFind);
             if (routeFromCollection == null) throw new RouteNotFoundException();
             collectionManager.removeGreater(routeFromCollection);
-            Console.println("Солдаты успешно удалены!");
+            Console.println("Пути успешно удалены!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
             Console.println("Использование: '" + getName() + "'");
         } catch (CollectionIsEmptyException exception) {
             Console.printerror("Коллекция пуста!");
         } catch (RouteNotFoundException exception) {
-            Console.printerror("Солдата с такими характеристиками в коллекции нет!");
+            Console.printerror("Путя с такими характеристиками в коллекции нет!");
         } catch (IncorrectInputInScriptException exception) {}
         return false;
     }
