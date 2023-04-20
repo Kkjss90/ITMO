@@ -50,7 +50,7 @@ public class Add extends AbstractCommand {
                     routeAsker.askPosition(),
                     routeAsker.askDistance()
             ));
-            Console.println("Солдат успешно добавлен!");
+            Console.println("Путь успешно добавлен!");
             return true;
         } catch (WrongAmountOfElementsException exception) {
             Console.println("Использование: '" + getName() + "'");
