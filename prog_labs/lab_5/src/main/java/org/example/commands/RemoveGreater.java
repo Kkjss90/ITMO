@@ -62,7 +62,7 @@ public class RemoveGreater extends AbstractCommand {
         } catch (CollectionIsEmptyException exception) {
             Console.printerror("Коллекция пуста!");
         } catch (RouteNotFoundException exception) {
-            Console.printerror("Путя с такими характеристиками в коллекции нет!");
+            Console.printerror("Пути с такими характеристиками в коллекции нет!");
         } catch (IncorrectInputInScriptException exception) {}
         return false;
     }
