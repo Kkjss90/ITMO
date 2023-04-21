@@ -83,7 +83,7 @@ public class Route implements Comparable<Route>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Route route = (Route) o;
-        return id == route.id && distance == route.distance && Objects.equals(name, route.name) && Objects.equals(coordinates, route.coordinates) && Objects.equals(creationDate, route.creationDate) && Objects.equals(from, route.from) && Objects.equals(to, route.to);
+        return name.equals(route.getName()) && coordinates.equals(route.getCoordinates()) && from.equals(route.getFrom()) && to.equals(route.getTo()) && distance == route.getDistance();
     }
 
     @Override

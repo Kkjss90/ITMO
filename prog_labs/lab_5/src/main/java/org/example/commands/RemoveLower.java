@@ -41,21 +41,11 @@ public class RemoveLower extends AbstractCommand {
     @Override
     public boolean execute(String argument) {
         try {
-            if (!argument.isEmpty()) throw new WrongAmountOfElementsException();
+            if (argument.isEmpty()) throw new WrongAmountOfElementsException();
             if (collectionManager.collectionSize() == 0) throw new CollectionIsEmptyException();
-            Route routeToFind = new Route(
-                    collectionManager.generateNextId(),
-                    routeAsker.askName(),
-                    routeAsker.askCoordinates(),
-                    new Date(),
-                    routeAsker.askLocation(),
-                    routeAsker.askPosition(),
-                    routeAsker.askDistance()
-            );
-            Route routeFromCollection = collectionManager.getByValue(routeToFind);
-            if (routeFromCollection == null) throw new RouteNotFoundException();
-            collectionManager.removeLower(routeFromCollection);
-            Console.println("Пути успешно удалены!");
+            long distance = Long.parseLong(argument);
+            if (distance == 0) throw new RouteNotFoundException();
+            collectionManager.removeLower(distance);
             return true;
         } catch (WrongAmountOfElementsException exception) {
             Console.println("Использование: '" + getName() + "'");

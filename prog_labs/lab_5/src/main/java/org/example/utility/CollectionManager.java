@@ -149,10 +149,20 @@ public class CollectionManager {
 
     /**
      * Удаляет путь, значение которого больше выбранного.
-     * @param routeToCompare путь для сравнения.
      */
-    public void removeGreater(Route routeToCompare) {
-        routesCollection.removeIf(route -> route.compareTo(routeToCompare) > 0);
+    public void removeGreater(long distance) {
+        Iterator<Route> iterator = routesCollection.iterator();
+        while (iterator.hasNext()) {
+            Route route = iterator.next();
+            {
+                if (route.getDistance() > distance) {
+                    iterator.remove();
+                    System.out.println("Элемент удален из коллекции: " + route.getName());
+                } else if (!iterator.hasNext()) {
+                    System.out.println("Нет элементов с такой же дистанцией");
+                }
+            }
+        }
     }
     /**
      * @param routeToFind путь, значение которого будет найдено.
@@ -166,10 +176,20 @@ public class CollectionManager {
     }
     /**
      * Удаляет путь, значение которого меньше выбранного.
-     * @param routeToCompare путь для сравнения.
      */
-    public void removeLower(Route routeToCompare){
-        routesCollection.removeIf(route -> route.compareTo(routeToCompare) < 0);
+    public void removeLower(long distance) {
+        Iterator<Route> iterator = routesCollection.iterator();
+        while (iterator.hasNext()) {
+            Route route = iterator.next();
+            {
+                if (route.getDistance() < distance) {
+                    iterator.remove();
+                    System.out.println("Элемент удален из коллекции: " + route.getName());
+                } else if (!iterator.hasNext()) {
+                    System.out.println("Нет элементов с такой же дистанцией");
+                }
+            }
+        }
     }
 
     /**
