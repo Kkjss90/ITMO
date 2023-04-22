@@ -17,7 +17,7 @@ public class App {
 
     public static void main(String[] args) {
         try (Scanner userScanner = new Scanner(System.in)) {
-            final String envVariable = "/Users/a11/IdeaProjects/ITMO/prog_labs/lab_5/src/main/java/org/example/try.json";
+            final String envVariable = "LAB5";
 
             RouteAsker routeAsker = new RouteAsker(userScanner);
             FileManager fileManager = new FileManager(envVariable);

@@ -50,8 +50,8 @@ public class FileManager {
      * @param collection Коллекция для записи.
      */
     public void writeCollection(Collection<?> collection) {
-        if (envVariable != null) {
-            try (BufferedWriter collectionFileWriter = new BufferedWriter(new FileWriter(envVariable))) {
+        if (System.getenv(envVariable)!= null) {
+            try (BufferedWriter collectionFileWriter = new BufferedWriter(new FileWriter(System.getenv(envVariable)))) {
                 collectionFileWriter.write(gson.toJson(collection));
                 Console.println("Коллекция успешна сохранена в файл!");
             } catch (IOException exception) {
@@ -65,12 +65,12 @@ public class FileManager {
      * @return коллекция типа java.util.Vector.
      */
     public Vector<Route> readCollection() {
-        if (envVariable != null) {
+        if (System.getenv(envVariable) != null) {
             FileInputStream fileInputStream = null;
             BufferedInputStream bufferedInputStream = null;
             StringBuilder stringBuilder = null;
             try {
-                fileInputStream = new FileInputStream(envVariable);
+                fileInputStream = new FileInputStream(System.getenv(envVariable));
                 bufferedInputStream = new BufferedInputStream(fileInputStream);
                 stringBuilder = new StringBuilder();
                 while (bufferedInputStream.read()!=-1){
@@ -78,7 +78,7 @@ public class FileManager {
                 }
                 Vector<Route> collection;
                 Type collectionType = new TypeToken<Vector<Route>>() {}.getType();
-                String json = Files.readString(Paths.get(envVariable));
+                String json = Files.readString(Paths.get(System.getenv(envVariable)));
                 collection = gson.fromJson(json, collectionType);
                 Console.println("Коллекция успешна загружена!");
                 return collection;
