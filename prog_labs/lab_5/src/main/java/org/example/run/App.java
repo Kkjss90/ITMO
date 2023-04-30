@@ -22,24 +22,7 @@ public class App {
             RouteAsker routeAsker = new RouteAsker(userScanner);
             FileManager fileManager = new FileManager(envVariable);
             CollectionManager collectionManager = new CollectionManager(fileManager);
-            CommandManager commandManager = new CommandManager(
-                    new Help(),
-                    new Info(collectionManager),
-                    new Show(collectionManager),
-                    new Add(collectionManager, routeAsker),
-                    new RemoveById(collectionManager),
-                    new Clear(collectionManager),
-                    new Save(collectionManager),
-                    new Exit(),
-                    new ExecuteScript(),
-                    new RemoveGreater(collectionManager, routeAsker),
-                    new RemoveLower(collectionManager, routeAsker),
-                    new Shuffle(collectionManager),
-                    new FilterByDistance(collectionManager),
-                    new RemoveAnyByDistance(collectionManager),
-                    new GroupCountingByDistance(collectionManager),
-                    new UpdateId(collectionManager, routeAsker)
-            );
+            CommandManager commandManager = new CommandManager(collectionManager);
             Console console = new Console(commandManager, userScanner, routeAsker);
 
             console.interactiveMode();

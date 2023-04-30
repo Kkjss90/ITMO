@@ -1,14 +1,13 @@
 package org.example.utility;
 
+import org.example.commands.Command;
 import org.example.exceptions.ScriptRecursionException;
 import org.example.run.App;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Управляет вводом команд.
@@ -118,61 +117,23 @@ public class Console {
      * @return Выход из мода.
      */
     private int launchCommand(String[] userCommand) {
-        switch (userCommand[0]) {
-            case "":
-                break;
-            case "help":
-                if (!commandManager.help(userCommand[1])) return 1;
-                break;
-            case "info":
-                if (!commandManager.info(userCommand[1])) return 1;
-                break;
-            case "show":
-                if (!commandManager.show(userCommand[1])) return 1;
-                break;
-            case "add":
-                if (!commandManager.add(userCommand[1])) return 1;
-                break;
-            case "update_id":
-                if (!commandManager.update(userCommand[1])) return 1;
-                break;
-            case "remove_by_id":
-                if (!commandManager.removeById(userCommand[1])) return 1;
-                break;
-            case "clear":
-                if (!commandManager.clear(userCommand[1])) return 1;
-                break;
-            case "save":
-                if (!commandManager.save(userCommand[1])) return 1;
-                break;
-            case "execute_script":
-                if (!commandManager.executeScript(userCommand[1])) return 1;
-                else return scriptMode(userCommand[1]);
-            case "remove_greater":
-                if (!commandManager.removeGreater(userCommand[1])) return 1;
-                break;
-            case "remove_lower":
-                if (!commandManager.removeLower(userCommand[1])) return 1;
-                break;
-            case "shuffle":
-                if (!commandManager.shuffle(userCommand[1])) return 1;
-                break;
-            case "filter_by_distance":
-                if (!commandManager.filterByDistance(userCommand[1])) return 1;
-                break;
-            case "remove_any_by_distance":
-                if (!commandManager.removeAnyByDistance(userCommand[1])) return 1;
-                break;
-            case "group_counting_by_distance":
-                if (!commandManager.groupCountingByDistance(userCommand[1])) return 1;
-                break;
-            case "exit":
-                if (!commandManager.exit(userCommand[1])) return 1;
-                else return 2;
-            default:
-                if (!commandManager.noSuchCommand(userCommand[0])) return 1;
+        try {
+            Map<String, Command> commandMap = commandManager.getCommands();
+            if (commandMap.containsKey(userCommand[0])) {
+                String key = userCommand[0];
+                if (key.equals("execute_script")){
+                     return scriptMode(userCommand[1]);
+                }else {
+                    commandMap.get(userCommand[0]).execute(userCommand[1]);
+                    return 1;
+                }
+            } else {
+                commandManager.noSuchCommand(userCommand[0]);
+                return 1;
+            }
+        } catch (NoSuchElementException e) {
+            return 0;
         }
-        return 0;
     }
 
     /**
