@@ -25,10 +25,11 @@ public class Request implements Serializable, Data {
     /**
      * Аргумент команды - объект Route.
      */
-    private Route route;
+    private Route routeArgument;
 
     /**
      * Конструктор класса, принимающий имя команды.
+     *
      * @param commandName имя команды
      */
     public Request(String commandName) {
@@ -37,7 +38,8 @@ public class Request implements Serializable, Data {
 
     /**
      * Конструктор класса, принимающий имя команды и числовой аргумент.
-     * @param commandName имя команды
+     *
+     * @param commandName     имя команды
      * @param numericArgument числовой аргумент команды
      */
     public Request(String commandName, Long numericArgument) {
@@ -47,29 +49,70 @@ public class Request implements Serializable, Data {
 
     /**
      * Конструктор класса, принимающий имя команды и объект Organization.
-     * @param commandName имя команды
-     * @param route объект организации
+     *
+     * @param commandName   имя команды
+     * @param routeArgument объект организации
      */
-    public Request(String commandName, Route route) {
+    public Request(String commandName, Route routeArgument) {
         this.commandName = commandName;
-        this.route = route;
+        this.routeArgument = routeArgument;
     }
 
     /**
      * Конструктор класса, принимающий имя команды, числовой аргумент и объект Organization.
-     * @param commandName имя команды
+     *
+     * @param commandName     имя команды
      * @param numericArgument числовой аргумент команды
-     * @param route объект организации
+     * @param routeArgument   объект организации
      */
-    public Request(String commandName, Long numericArgument, Route route) {
+    public Request(String commandName, Long numericArgument, Route routeArgument) {
         this.commandName = commandName;
         this.numericArgument = numericArgument;
-        this.route = route;
+        this.routeArgument = routeArgument;
     }
 
+    /**
+     * Получает имя команды.
+     *
+     * @return имя команды
+     */
+    public String getCommandName() {
+        return commandName;
+    }
 
+    /**
+     * Получает числовой аргумент.
+     *
+     * @return числовой аргумент команды
+     */
+    public Long getNumericArgument() {
+        return numericArgument;
+    }
+
+    /**
+     * Получает объект организации.
+     *
+     * @return объект пути
+     */
+    public Route getRouteArgument() {
+        return routeArgument;
+    }
+
+    /**
+     * Метод getData() возвращает строковое представление данных объекта в виде имени команды и соответствующих аргументов.
+     */
     @Override
     public String getData() {
-        return null;
+        return "Имя команды для отправки: " + commandName
+                + (routeArgument == null ? "" : ("\nИнформация об пути для отправки:\n " + routeArgument))
+                + (numericArgument == null ? "" : ("\nЧисловой аргумент для отправки:\n " + numericArgument));
+    }
+
+    /**
+     * Возвращает строковое представление объекта в формате "Ответ[имя команды]".
+     */
+    @Override
+    public String toString() {
+        return "Ответ[" + commandName + "]";
     }
 }
