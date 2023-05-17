@@ -16,7 +16,7 @@ public class Response implements Serializable, Data {
      */
     private String messageToResponse;
     /**
-     * Данные об пути, отправляемые в ответ на запрос.
+     * Данные о пути, отправляемые в ответ на запрос.
      */
     private Route routeToResponse;
     /**
@@ -34,10 +34,10 @@ public class Response implements Serializable, Data {
     }
 
     /**
-     * Конструктор класса Response, принимающий сообщение и информацию об пути для ответа.
+     * Конструктор класса Response, принимающий сообщение и информацию о пути для ответа.
      *
      * @param messageToResponse сообщение для ответа
-     * @param routeToResponse   информация об пути для ответа
+     * @param routeToResponse   информация о пути для ответа
      */
     public Response(String messageToResponse, Route routeToResponse) {
         this.messageToResponse = messageToResponse;
@@ -56,9 +56,9 @@ public class Response implements Serializable, Data {
     }
 
     /**
-     * Конструктор класса Response, принимающий информацию об пути для ответа.
+     * Конструктор класса Response, принимающий информацию о пути для ответа.
      *
-     * @param routeToResponse информация об пути для ответа
+     * @param routeToResponse информация о пути для ответа
      */
     public Response(Route routeToResponse) {
         this.routeToResponse = routeToResponse;
@@ -83,9 +83,9 @@ public class Response implements Serializable, Data {
     }
 
     /**
-     * Метод, возвращающий информацию об пути для ответа.
+     * Метод, возвращающий информацию о пути для ответа.
      *
-     * @return информация об пути для ответа
+     * @return информация о пути для ответа
      */
     public Route getRouteToResponse() {
         return routeToResponse;

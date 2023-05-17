@@ -48,7 +48,7 @@ public class Request implements Serializable, Data {
     }
 
     /**
-     * Конструктор класса, принимающий имя команды и объект Organization.
+     * Конструктор класса, принимающий имя команды и объект Route.
      *
      * @param commandName   имя команды
      * @param routeArgument объект организации
@@ -59,7 +59,7 @@ public class Request implements Serializable, Data {
     }
 
     /**
-     * Конструктор класса, принимающий имя команды, числовой аргумент и объект Organization.
+     * Конструктор класса, принимающий имя команды, числовой аргумент и объект Route.
      *
      * @param commandName     имя команды
      * @param numericArgument числовой аргумент команды

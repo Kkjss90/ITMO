@@ -1,6 +1,6 @@
 package org.example.exceptions;
 
-public class NotInDeclaredLimitsException extends RuntimeException {
+public class NotInDeclaredLimitsException extends Throwable {
     public NotInDeclaredLimitsException() {
     }
 }
