@@ -72,7 +72,7 @@ public class FileManager {
      */
     public static String getFileName() {
         try {
-            path = System.getenv("§");
+            path = System.getenv("LAB5");
             String[] checkPaths = path.split(";");
             if (checkPaths.length > 1) {
                 ServerApp.logger.warning("В этой переменной содержится более одного пути к файлам. Работа сервера завершена.");
@@ -91,12 +91,13 @@ public class FileManager {
      * @return коллекция типа java.util.Vector.
      */
     public Vector<Route> readCollection() {
-        if (System.getenv(envVariable) != null) {
+        path = System.getenv("LAB5");
+        if (path != null) {
             FileInputStream fileInputStream = null;
             BufferedInputStream bufferedInputStream = null;
             StringBuilder stringBuilder = null;
             try {
-                fileInputStream = new FileInputStream(System.getenv(envVariable));
+                fileInputStream = new FileInputStream(path);
                 bufferedInputStream = new BufferedInputStream(fileInputStream);
                 stringBuilder = new StringBuilder();
                 while (bufferedInputStream.read()!=-1){
@@ -104,8 +105,9 @@ public class FileManager {
                 }
                 Vector<Route> collection;
                 Type collectionType = new TypeToken<Vector<Route>>() {}.getType();
-                String json = Files.readString(Paths.get(System.getenv(envVariable)));
+                String json = Files.readString(Paths.get(path));
                 collection = gson.fromJson(json, collectionType);
+                ServerApp.collectionManager.setCollection(collection);
                 ServerApp.logger.info("Коллекция успешна загружена!");
                 return collection;
             } catch (FileNotFoundException exception) {

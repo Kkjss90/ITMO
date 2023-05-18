@@ -61,7 +61,7 @@ public class ServerApp {
     /**
      * Командный менеджер, содержащий список команд для обработки запросов клиентов.
      */
-    public static CommandManager commandManager = new CommandManager();
+    public static CommandManager commandManager = new CommandManager(collectionManager);
 
     /**
      * Стандартный порт.

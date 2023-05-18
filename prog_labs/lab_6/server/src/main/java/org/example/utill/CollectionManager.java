@@ -23,7 +23,7 @@ public class CollectionManager {
     private final Date creationDate;
 
     /**
-     * Создает пустую коллекцию организаций и задает ее дату инициализации
+     * Создает пустую коллекцию путей и задает ее дату инициализации
      */
     public CollectionManager() {
         routesCollection = new Vector<>();
@@ -37,6 +37,13 @@ public class CollectionManager {
         return routesCollection;
     }
 
+    /**
+     * Устанавливает коллекцию путей
+     * @param routesCollection коллекция путей
+     */
+    public void setCollection(Vector<Route> routesCollection) {
+        this.routesCollection = routesCollection;
+    }
 
     /**
      * @return тип коллекции.
