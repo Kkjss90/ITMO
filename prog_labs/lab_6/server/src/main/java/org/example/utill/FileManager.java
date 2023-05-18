@@ -72,7 +72,7 @@ public class FileManager {
      */
     public static String getFileName() {
         try {
-            path = System.getenv("lab5");
+            path = System.getenv("LAB5");
             String[] checkPaths = path.split(";");
             if (checkPaths.length > 1) {
                 ServerApp.logger.warning("В этой переменной содержится более одного пути к файлам. Работа сервера завершена.");
