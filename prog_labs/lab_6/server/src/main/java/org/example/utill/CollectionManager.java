@@ -226,7 +226,7 @@ public class CollectionManager {
     public String show() {
         if (routesCollection.isEmpty()) return "Коллекция пуста";
         return routesCollection.stream()
-                .map(organization -> organization.toString() + "\n")
+                .map(route -> route.toString() + "\n")
                 .collect(Collectors.joining());
     }
 
