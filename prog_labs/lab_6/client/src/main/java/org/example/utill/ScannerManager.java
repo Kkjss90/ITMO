@@ -359,7 +359,7 @@ public class ScannerManager {
         long distance;
         while (true) {
             try {
-                TextWriter.printInfoMessage("Введите координату Z:");
+                TextWriter.printInfoMessage("Введите дистанцию:");
                 System.out.print(INPUT_INFO);
                 strDistance = userScanner.nextLine().trim();
                 distance = Long.parseLong(strDistance);

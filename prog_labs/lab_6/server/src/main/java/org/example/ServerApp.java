@@ -1,8 +1,10 @@
 package org.example;
 
+import ch.qos.logback.classic.Logger;
 import org.example.commands.AbstractCommand;
 import org.example.exceptions.DisconnectInitException;
 import org.example.utill.*;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,9 +13,7 @@ import java.net.SocketException;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+
 
 /**
  * Класс для установки соединения с клиентами.
@@ -42,19 +42,20 @@ public class ServerApp {
     /**
      * Логгер для записи сообщений о работе сервера.
      */
-    public static final Logger logger = Logger.getLogger(Server.class.getName());
+    public static final ch.qos.logback.classic.Logger logger =  (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Server.class.getName());
     static {
         try {
-            FileHandler fileHandler = new FileHandler("logs/log.log", true);
-            fileHandler.setEncoding("UTF-8");
-            fileHandler.setFormatter(new SimpleFormatter());
-            ServerApp.logger.addHandler(fileHandler);
-        } catch (IOException e) {
-            ServerApp.logger.warning("Не удалось открыть файл журнала: " + e.getMessage());
+            ch.qos.logback.core.FileAppender<ch.qos.logback.classic.spi.ILoggingEvent> fileAppender = new ch.qos.logback.core.FileAppender<>();
+            fileAppender.setFile("logs/log.log");
+            fileAppender.setAppend(true);
+            fileAppender.setEncoder(new ch.qos.logback.classic.encoder.PatternLayoutEncoder());
+            ch.qos.logback.classic.encoder.PatternLayoutEncoder encoder = (ch.qos.logback.classic.encoder.PatternLayoutEncoder) fileAppender.getEncoder();
+            encoder.setPattern("%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n");
+            ServerApp.logger.addAppender(fileAppender);
         } catch (SecurityException e) {
-            ServerApp.logger.warning("Отказано в доступе при открытии файла журнала: " + e.getMessage());
+            ServerApp.logger.warn("Отказано в доступе при открытии файла журнала: " + e.getMessage());
         } catch (Exception e) {
-            ServerApp.logger.warning("Произошла ошибка при открытии обработчика файла журнала: " + e.getMessage());
+            ServerApp.logger.warn("Произошла ошибка при открытии обработчика файла журнала: " + e.getMessage());
         }
     }
 
@@ -86,14 +87,14 @@ public class ServerApp {
                         startSelectorLoop(clientSocket, serverSocket);
                     } catch (SocketException e) {
                         if (e.getMessage().contains("Connection reset"));
-                        else { ServerApp.logger.severe(e.getMessage()); }
+                        else { ServerApp.logger.error(e.getMessage()); }
                     } catch (IOException | ClassNotFoundException | InterruptedException e) {
-                        ServerApp.logger.severe(e.getMessage());
+                        ServerApp.logger.error(e.getMessage());
                     }
                 });
             }
         } catch (IOException e) {
-            ServerApp.logger.warning("Не удается принять клиентское соединение: " + e.getMessage());
+            ServerApp.logger.warn("Не удается принять клиентское соединение: " + e.getMessage());
         }
     }
 
@@ -130,7 +131,7 @@ public class ServerApp {
                 try {
                     socket.close();
                 } catch (IOException e) {
-                    ServerApp.logger.warning("Ошибка при закрытии сокета: " + e.getMessage());
+                    ServerApp.logger.warn("Ошибка при закрытии сокета: " + e.getMessage());
                 }
             } else {
                 Response response = RequestBuilder.build(command, request);
@@ -140,18 +141,18 @@ public class ServerApp {
         } catch (DisconnectInitException e) {
             socket.close();
             serverSocket.close();
-            ServerApp.logger.severe("Работа сервера завершена.");
+            ServerApp.logger.error("Работа сервера завершена.");
             System.exit(1);
         } catch (IOException e) {
             if (e.getMessage().equals("Connection reset")) {
                 isClientDisconnected = true;
-                ServerApp.logger.warning("Клиент внезапно отключился."); }
+                ServerApp.logger.warn("Клиент внезапно отключился."); }
         } finally {
             if (isClientDisconnected) {
                 try {
                     socket.close();
                 } catch (IOException e) {
-                    ServerApp.logger.warning("Ошибка при закрытии сокета: " + e.getMessage());
+                    ServerApp.logger.warn("Ошибка при закрытии сокета: " + e.getMessage());
                 }
             }
         }

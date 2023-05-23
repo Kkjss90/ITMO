@@ -56,9 +56,9 @@ public class FileManager {
                 collectionFileWriter.write(gson.toJson(collection));
                 ServerApp.logger.info("Коллекция успешна сохранена в файл!");
             } catch (IOException exception) {
-                ServerApp.logger.warning("Загрузочный файл является директорией/не может быть открыт!");
+                ServerApp.logger.warn("Загрузочный файл является директорией/не может быть открыт!");
             }
-        } else ServerApp.logger.warning("Системная переменная с загрузочным файлом не найдена!");
+        } else ServerApp.logger.warn("Системная переменная с загрузочным файлом не найдена!");
     }
 
     /**
@@ -75,11 +75,11 @@ public class FileManager {
             path = System.getenv("LAB5");
             String[] checkPaths = path.split(";");
             if (checkPaths.length > 1) {
-                ServerApp.logger.warning("В этой переменной содержится более одного пути к файлам. Работа сервера завершена.");
+                ServerApp.logger.warn("В этой переменной содержится более одного пути к файлам. Работа сервера завершена.");
                 System.exit(1);
             }
         } catch (NullPointerException e) {
-            ServerApp.logger.warning("Некорректная переменная окружения. Работа сервера завершена.");
+            ServerApp.logger.warn("Некорректная переменная окружения. Работа сервера завершена.");
             System.exit(1);
         }
         File name = new File(path);
@@ -111,18 +111,18 @@ public class FileManager {
                 ServerApp.logger.info("Коллекция успешна загружена!");
                 return collection;
             } catch (FileNotFoundException exception) {
-                ServerApp.logger.warning("Загрузочный файл не найден!");
+                ServerApp.logger.warn("Загрузочный файл не найден!");
             } catch (NoSuchElementException exception) {
-                ServerApp.logger.warning("Загрузочный файл пуст!");
+                ServerApp.logger.warn("Загрузочный файл пуст!");
             } catch (JsonParseException | NullPointerException exception) {
-                ServerApp.logger.warning("В загрузочном файле не обнаружена необходимая коллекция!");
+                ServerApp.logger.warn("В загрузочном файле не обнаружена необходимая коллекция!");
             } catch (IllegalStateException exception) {
-                ServerApp.logger.warning("Непредвиденная ошибка!");
+                ServerApp.logger.warn("Непредвиденная ошибка!");
                 System.exit(0);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        } else ServerApp.logger.warning("Системная переменная с загрузочным файлом не найдена!");
+        } else ServerApp.logger.warn("Системная переменная с загрузочным файлом не найдена!");
         return new Vector<Route>();
     }
 

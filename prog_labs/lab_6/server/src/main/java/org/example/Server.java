@@ -34,7 +34,7 @@ public final class Server {
             consoleThread.start();
             ServerApp.startServer(args, serverSocket);
         } catch (IOException e) {
-            ServerApp.logger.severe("Произошла ошибка " + e.getMessage());
+            ServerApp.logger.error("Произошла ошибка " + e.getMessage());
         }
     }
 
