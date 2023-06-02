@@ -1,5 +1,7 @@
 package org.example.commands;
 
+import org.example.dataBase.DBManager;
+import org.example.exceptions.DatabaseException;
 import org.example.utill.CollectionManager;
 import org.example.utill.Request;
 import org.example.utill.Response;
@@ -18,8 +20,8 @@ public class Add extends AbstractCommand {
      * Создает новый объект команды.
      * @param collectionManager менеджер коллекции
      */
-    public Add(CollectionManager collectionManager) {
-        super("add", "добавить новый элемент в коллекцию", 0);
+    public Add(CollectionManager collectionManager, DBManager dbManager) {
+        super("add", "добавить новый элемент в коллекцию", 0, collectionManager, dbManager);
         this.collectionManager = collectionManager;
     }
 
@@ -30,7 +32,14 @@ public class Add extends AbstractCommand {
      */
     @Override
     public Response execute(Request request) {
-        collectionManager.addToCollection(request.getRouteArgument());
-        return new Response(TextWriter.getWhiteText("Организация добавлена в коллекцию."));
-    }
+        try {
+            if (dbManager.validateUser(request.getLogin(), request.getPassword())) {
+                collectionManager.addToCollection(request.getRouteArgument());
+                return new Response(TextWriter.getWhiteText("Путь был добавлен в коллекцию."));
+            }else {
+                return new Response("Несоответствие логина и пароля.");
+            }
+        }catch (DatabaseException e) {
+            return new Response(e.getMessage());
+        }
 }

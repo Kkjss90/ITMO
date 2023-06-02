@@ -2,6 +2,7 @@ package org.example.commands;
 
 
 import org.example.data.Route;
+import org.example.exceptions.DatabaseException;
 import org.example.utill.CollectionManager;
 import org.example.utill.Request;
 import org.example.utill.Response;
@@ -33,13 +34,23 @@ public class RemoveById extends AbstractCommand {
      */
     @Override
     public Response execute(Request request) {
-        int id = Math.toIntExact(request.getNumericArgument());
-        Route routeToRemove = collectionManager.getById(id);
-        if (routeToRemove == null)
-            return new Response(TextWriter.getRedText("Пути с таким id не существует."));
-        else {
-            collectionManager.removeById(id);
-            return new Response(TextWriter.getWhiteText("Путь был удалена."));
+        try {
+            if (dbManager.validateUser(request.getLogin(), request.getPassword())) {
+                if (dbManager.checkRouteExistence(request.getNumericArgument())) {
+                    if (dbManager.removeById(request.getNumericArgument(), request.getLogin())) {
+                        collectionManager.removeById(Math.toIntExact(request.getNumericArgument()));
+                        return new Response("Элемент с ИД " + request.getNumericArgument() + " был удален из коллекции.");
+                    } else {
+                        return new Response("Элемент был создан другим пользователем. У вас нет прав для его обновления.");
+                    }
+                } else {
+                    return new Response("Нет элемента с таким идентификатором.");
+                }
+            } else {
+                return new Response("Несоответствие логина и пароля.");
+            }
+        } catch (DatabaseException e) {
+            return new Response(e.getMessage());
         }
     }
 }

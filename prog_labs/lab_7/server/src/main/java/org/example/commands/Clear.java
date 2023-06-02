@@ -1,6 +1,8 @@
 package org.example.commands;
 
 
+import org.example.dataBase.DBManager;
+import org.example.exceptions.DatabaseException;
 import org.example.utill.CollectionManager;
 import org.example.utill.Request;
 import org.example.utill.Response;
@@ -19,8 +21,8 @@ public class Clear extends AbstractCommand {
      * Создает новый объект команды.
      * @param collectionManager менеджер коллекции
      */
-    public Clear(CollectionManager collectionManager) {
-        super("clear", "очистить коллекцию", 0);
+    public Clear(CollectionManager collectionManager, DBManager dbManager) {
+        super("clear", "очистить коллекцию", 0, collectionManager, dbManager);
         this.collectionManager = collectionManager;
     }
 
@@ -31,11 +33,19 @@ public class Clear extends AbstractCommand {
      */
     @Override
     public Response execute(Request request) {
-        if (collectionManager.getCollection().isEmpty())
-            return new Response(TextWriter.getRedText("Коллекция пуста."));
-        else {
-            collectionManager.clearCollection();
-            return new Response(TextWriter.getWhiteText("Коллекция очищена."));
+        try {
+            getDbManager().clear(request.getLogin());
+
+            if (collectionManager.getCollection().isEmpty())
+                return new Response(TextWriter.getRedText("Коллекция пуста."));
+            else {
+                collectionManager.clearCollection();
+                collectionManager.setCollection(dbManager.loadCollection());
+                return new Response(TextWriter.getWhiteText("Коллекция успешно очищена."));
+            }
+        } catch (DatabaseException e) {
+            return new Response(e.getMessage());
         }
+    }
     }
 }

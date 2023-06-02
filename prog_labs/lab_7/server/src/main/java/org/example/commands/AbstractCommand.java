@@ -1,12 +1,14 @@
 package org.example.commands;
 
+import org.example.dataBase.DBManager;
+import org.example.utill.CollectionManager;
 import org.example.utill.Request;
 import org.example.utill.Response;
 
 /**
  * Абстрактный класс для команд
  */
-public abstract class AbstractCommand{
+public abstract class AbstractCommand {
 
     /**
      * Название команды
@@ -24,6 +26,16 @@ public abstract class AbstractCommand{
     private final int amountOfArgs;
 
     /**
+     * Менеджер коллекции
+     */
+    protected CollectionManager collectionManager;
+
+    /**
+     * Менеджер БД
+     */
+    protected DBManager dbManager;
+
+    /**
      * Конструктор абстрактного класса команды
      * @param name название команды
      * @param description описание команды
@@ -36,12 +48,27 @@ public abstract class AbstractCommand{
     }
 
     /**
+     * Конструктор абстрактного класса команды
+     * @param name название команды
+     * @param description описание команды
+     * @param amountOfArgs количество аргументов у команды
+     * @param collectionManager менеджер коллекции
+     * @param dbManager менеджер БД
+     */
+    public AbstractCommand(String name, String description, int amountOfArgs, CollectionManager collectionManager, DBManager dbManager) {
+        this.name = name;
+        this.description = description;
+        this.amountOfArgs = amountOfArgs;
+        this.collectionManager = collectionManager;
+        this.dbManager = dbManager;
+    }
+
+    /**
      * Метод для выполнения команды
      * @param request запрос пользователя
      * @return ответ сервера
      */
     public abstract Response execute(Request request);
-
 
     /**
      * Получает название команды
@@ -52,18 +79,20 @@ public abstract class AbstractCommand{
     }
 
     /**
-     * Получает описание команды
-     * @return описание команды
+     * Получает менеджер коллекции
+     * @return менеджер коллекции
      */
-    public String getDescription() {
-        return description;
+    public CollectionManager getCollectionManager() {
+        return collectionManager;
     }
 
     /**
-     * Получает количество аргументов команды
-     * @return количество аргументов команды
+     * Получает менеджер БД
+     * @return менеджер БД
      */
-    public int getAmountOfArgs() { return amountOfArgs; }
+    public DBManager getDbManager() {
+        return dbManager;
+    }
 
     /**
      * Переопределенный метод toString() для класса AbstractCommand
