@@ -1,5 +1,6 @@
 package org.example.dataBase;
 
+import org.example.ServerConfig;
 import org.example.exceptions.DatabaseException;
 import org.example.interfaces.DBConnectable;
 import org.example.interfaces.SQLConsumer;
@@ -44,10 +45,10 @@ public class DBConnector implements DBConnectable {
             Class.forName("org.postgresql.Driver");
             initializeDB();
         } catch (ClassNotFoundException e) {
-            ServerConfig.logger.severe("Нет драйвера БД.");
+            ServerConfig.logger.error("Нет драйвера БД.");
             System.exit(1);
         } catch (SQLException e) {
-            ServerConfig.logger.warning("Произошла ошибка при инициализации таблиц.");
+            ServerConfig.logger.warn("Произошла ошибка при инициализации таблиц.");
             System.exit(1);
         }
     }
@@ -101,30 +102,23 @@ public class DBConnector implements DBConnectable {
                 + "id bigint NOT NULL PRIMARY KEY DEFAULT nextval('users_id_seq')"
                 + ");");
 
-        statement.execute("CREATE TABLE IF NOT EXISTS routes "
-                + "("
-                + "id bigint NOT NULL PRIMARY KEY DEFAULT nextval('route_id_seq'),"
-                + "creation_date date NOT NULL,"
-                + "name varchar(50) NOT NULL CHECK(name <> ''),"
-                + "x float NOT NULL, "
-                + "y float NOT NULL CHECK(x >= -443),"
-                + "name varchar(50) NOT NULL CHECK(name <> ''),"
-                + "x float NOT NULL CHECK(x <= 741),"
-                + "y float NOT NULL,"
-                + "name varchar(50) NOT NULL CHECK(name <> ''),"
-                + "x float NOT NULL CHECK(x <= 741),"
-                + "y float NOT NULL,"
-                + "annual_turnover float NOT NULL CHECK(annual_turnover > 0),"
-                + "full_name varchar(50) NOT NULL CHECK(full_name <> ''),"
-                + "employees_count bigint NOT NULL CHECK(employees_count > 0),"
-                + "street varchar(50),"
-                + "type varchar(24) NOT NULL CHECK(type = 'COMMERCIAL' "
-                + "OR type = 'PUBLIC' "
-                + "OR type = 'GOVERNMENT' "
-                + "OR type = 'TRUST' "
-                + "OR type = 'OPEN_JOINT_STOCK_COMPANY'),"
-                + "owner_id bigint NOT NULL REFERENCES users (id)"
-                + ");");
+        statement.execute("CREATE TABLE IF NOT EXISTS routes (" +
+                "id SERIAL PRIMARY KEY," +
+                "name VARCHAR(255) NOT NULL CHECK (name <> ''), " +
+                "coordinates_x INT NOT NULL, " +
+                "coordinates_y FLOAT NOT NULL CHECK (coordinates_y > -443), " +
+                "creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
+                "from_location_x DOUBLE NOT NULL, " +
+                "from_location_y FLOAT NOT NULL, " +
+                "from_location_z DOUBLE NOT NULL, " +
+                "from_location_name VARCHAR(255) NOT NULL, " +
+                "to_location_x DOUBLE, " +
+                "to_location_y FLOAT, " +
+                "to_location_z DOUBLE, " +
+                "to_location_name VARCHAR(255), " +
+                "distance BIGINT NOT NULL CHECK (distance > 1)" +
+                ");");
+
 
         connection.close();
     }
