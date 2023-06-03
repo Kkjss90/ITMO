@@ -110,12 +110,11 @@ public class DBConnector implements DBConnectable {
                 "creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
                 "from_location_x DOUBLE NOT NULL, " +
                 "from_location_y FLOAT NOT NULL, " +
-                "from_location_z DOUBLE NOT NULL, " +
+                "from_location_z INT NOT NULL, " +
                 "from_location_name VARCHAR(255) NOT NULL, " +
-                "to_location_x DOUBLE, " +
-                "to_location_y FLOAT, " +
-                "to_location_z DOUBLE, " +
-                "to_location_name VARCHAR(255), " +
+                "to_position_x DOUBLE, " +
+                "to_position_y INT, " +
+                "to_position_z INT, " +
                 "distance BIGINT NOT NULL CHECK (distance > 1)" +
                 ");");
 

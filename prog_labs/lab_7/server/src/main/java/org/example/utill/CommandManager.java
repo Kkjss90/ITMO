@@ -1,6 +1,7 @@
 package org.example.utill;
 
 import org.example.commands.*;
+import org.example.dataBase.DBManager;
 import org.example.utill.CollectionManager;
 
 import java.util.*;
@@ -10,6 +11,7 @@ import java.util.*;
  */
 public class CommandManager {
     CollectionManager collectionManager;
+    DBManager dbManager;
     public static final Map<String, AbstractCommand> commands = new HashMap<String, AbstractCommand>();
     private AbstractCommand help;
     private AbstractCommand info;
@@ -32,23 +34,23 @@ public class CommandManager {
      * @param collectionManager менеджер для работы с коллекцией
      */
 
-    public CommandManager(CollectionManager collectionManager) {
+    public CommandManager(CollectionManager collectionManager, DBManager dbManager) {
         this.collectionManager = collectionManager;
         this.help = new Help();
         this.info = new Info(collectionManager);
-        this.show = new Show(collectionManager);
-        this.add = new Add(collectionManager);
+        this.show = new Show(collectionManager, dbManager);
+        this.add = new Add(collectionManager, dbManager);
         this.removeById = new RemoveById(collectionManager);
-        this.clear = new Clear(collectionManager);
+        this.clear = new Clear(collectionManager, dbManager);
         this.exit = new Exit();
         this.executeScript = new ExecuteScript();
         this.removeGreater = new RemoveGreater(collectionManager);
         this.removeLower = new RemoveLower(collectionManager);
-        this.shuffle = new Shuffle(collectionManager);
+        this.shuffle = new Shuffle(collectionManager, dbManager);
         this.filterByDistance = new FilterByDistance(collectionManager);
         this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager);
         this.groupCountingByDistance = new GroupCountingByDistance(collectionManager);
-        this.update = new UpdateId(collectionManager);
+        this.update = new UpdateId(collectionManager, dbManager);
         commands.put("help", help);
         commands.put("info",info);
         commands.put("show",show);
@@ -69,19 +71,19 @@ public class CommandManager {
     public CommandManager() {
         this.help = new Help();
         this.info = new Info(collectionManager);
-        this.show = new Show(collectionManager);
-        this.add = new Add(collectionManager);
+        this.show = new Show(collectionManager, dbManager);
+        this.add = new Add(collectionManager, dbManager);
         this.removeById = new RemoveById(collectionManager);
-        this.clear = new Clear(collectionManager);
+        this.clear = new Clear(collectionManager, dbManager);
         this.exit = new Exit();
         this.executeScript = new ExecuteScript();
         this.removeGreater = new RemoveGreater(collectionManager);
         this.removeLower = new RemoveLower(collectionManager);
-        this.shuffle = new Shuffle(collectionManager);
+        this.shuffle = new Shuffle(collectionManager, dbManager);
         this.filterByDistance = new FilterByDistance(collectionManager);
         this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager);
         this.groupCountingByDistance = new GroupCountingByDistance(collectionManager);
-        this.update = new UpdateId(collectionManager);
+        this.update = new UpdateId(collectionManager, dbManager);
         commands.put("help", help);
         commands.put("info",info);
         commands.put("show",show);
