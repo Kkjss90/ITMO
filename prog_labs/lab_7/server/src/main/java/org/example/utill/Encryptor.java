@@ -16,7 +16,7 @@ public class Encryptor {
      */
     public static String encryptString(String input) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("SHA-224");
             byte[] messageDigest = md.digest(input.getBytes());
             BigInteger no = new BigInteger(1, messageDigest);
             StringBuilder hashText = new StringBuilder(no.toString(16));

@@ -6,6 +6,9 @@ import org.example.requestHandlers.ResponseSender;
 import org.example.utill.ConsoleThread;
 import org.example.utill.Request;
 import org.example.utill.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
@@ -94,10 +97,10 @@ public class App {
             ServerSocketChannel server = initChannel(selector);
             startSelectorLoop(server);
         } catch (IOException e) {
-            ServerConfig.logger.severe("Проблемы с IO.");
+            ServerConfig.logger.error("Проблемы с IO.");
             ServerConfig.toggleStatus();
         } catch (ClassNotFoundException e) {
-            ServerConfig.logger.warning("Попытка сериализовать несериализуемый объект.");
+            ServerConfig.logger.warn("Попытка сериализовать несериализуемый объект.");
             ServerConfig.toggleStatus();
         }
     }

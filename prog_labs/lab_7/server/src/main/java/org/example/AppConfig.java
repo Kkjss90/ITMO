@@ -5,6 +5,8 @@ import org.example.dataBase.DBManager;
 import org.example.dataBase.UsersManager;
 import org.example.interfaces.DBConnectable;
 import org.example.utill.ConsoleThread;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 import java.nio.channels.ServerSocketChannel;
