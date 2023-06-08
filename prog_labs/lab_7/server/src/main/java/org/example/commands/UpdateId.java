@@ -38,7 +38,7 @@ public class UpdateId extends AbstractCommand {
         try {
             if (dbManager.validateUser(request.getLogin(), request.getPassword())) {
                 Long id = request.getNumericArgument();
-                if (dbManager.checkRouteExistence(id)) {
+                if (dbManager.checkRouteExistence(Math.toIntExact(id))) {
                     if (dbManager.updateById(request.getRouteArgument(), id, request.getLogin())) {
                         Route updatedRoute = request.getRouteArgument();
                         updatedRoute.setId(Math.toIntExact(id));

@@ -36,8 +36,8 @@ public class RemoveById extends AbstractCommand {
     public Response execute(Request request) {
         try {
             if (dbManager.validateUser(request.getLogin(), request.getPassword())) {
-                if (dbManager.checkRouteExistence(request.getNumericArgument())) {
-                    if (dbManager.removeById(request.getNumericArgument(), request.getLogin())) {
+                if (dbManager.checkRouteExistence(Math.toIntExact(request.getNumericArgument()))) {
+                    if (dbManager.removeById(Math.toIntExact(request.getNumericArgument()), request.getLogin())) {
                         collectionManager.removeById(Math.toIntExact(request.getNumericArgument()));
                         return new Response("Элемент с ИД " + request.getNumericArgument() + " был удален из коллекции.");
                     } else {
