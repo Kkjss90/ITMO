@@ -4,6 +4,9 @@ import org.example.data.Route;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
 
 /**
@@ -18,21 +21,25 @@ public class CollectionManager {
      */
     private ConcurrentLinkedDeque<Route> routesCollection = new ConcurrentLinkedDeque<>();
 
+    private static final ReadWriteLock lock = new ReentrantReadWriteLock();
+    Lock writeLock = lock.writeLock();
+    static Lock readLock = lock.readLock();
     /**
      * Дата инициализации коллекции
      */
     private Date creationDate;
 
     /**
-     * Создает пустую коллекцию путей и задает ее дату инициализации
-     */
-
-
-    /**
      * @return Коллекция.
      */
     public ConcurrentLinkedDeque<Route> getCollection() {
-        return routesCollection;
+        try{
+            readLock.lock();
+            return routesCollection;
+        }finally {
+            readLock.unlock();
+        }
+
     }
 
     /**
@@ -47,14 +54,25 @@ public class CollectionManager {
      * @return тип коллекции.
      */
     public String collectionType() {
-        return routesCollection.getClass().getName();
+        try {
+            readLock.lock();
+            return routesCollection.getClass().getName();
+        }finally {
+            readLock.unlock();
+        }
     }
 
     /**
      * @return размер коллекции.
      */
     public int collectionSize() {
-        return routesCollection.size();
+        try{
+            readLock.lock();
+            return routesCollection.size();
+        }finally {
+            readLock.unlock();
+        }
+
     }
 
     /**
@@ -62,10 +80,15 @@ public class CollectionManager {
      * @return путь с заданным ID.
      */
     public Route getById(int id) {
-        for (Route route : routesCollection) {
-            if(Objects.equals(route.getId(), id)) return route;
+        try {
+            readLock.lock();
+            for (Route route : routesCollection) {
+                if (Objects.equals(route.getId(), id)) return route;
+            }
+            return null;
+        }finally {
+            readLock.unlock();
         }
-        return null;
     }
 
     /**
@@ -73,7 +96,12 @@ public class CollectionManager {
      * @param id идентификатор организации для удаления
      */
     public void removeById(int id) {
-        routesCollection.removeIf(p -> Objects.equals(p.getId(), id));
+        try {
+            writeLock.lock();
+            routesCollection.removeIf(p -> Objects.equals(p.getId(), id));
+        }finally {
+            writeLock.unlock();
+        }
     }
 
     /**
@@ -81,14 +109,24 @@ public class CollectionManager {
      * @param route путь для добавления.
      */
     public void addToCollection(Route route) {
-        routesCollection.add(route);
+        try {
+            writeLock.lock();
+            routesCollection.add(route);
+        }finally {
+            writeLock.unlock();
+        }
     }
 
     /**
      * Очистка коллекции.
      */
     public void clearCollection() {
-        routesCollection.clear();
+        try {
+            writeLock.lock();
+            routesCollection.clear();
+        }finally {
+            writeLock.unlock();
+        }
     }
 
     /**
@@ -96,9 +134,15 @@ public class CollectionManager {
      * @return строка с типом коллекции, датой инициализации и количеством элементов
      */
     public String getInfo() {
-        return "Тип коллекции: " + routesCollection.getClass()
-                + "\nДата инициализации: " + getCreationDate()
-                + "\nКоличество элементов: " + routesCollection.size();
+        try {
+            readLock.lock();
+            return "Тип коллекции: " + routesCollection.getClass()
+                    + "\nДата инициализации: " + getCreationDate()
+                    + "\nКоличество элементов: " + routesCollection.size();
+        }finally {
+            readLock.unlock();
+        }
+
     }
 
     /**
@@ -106,7 +150,13 @@ public class CollectionManager {
      * @return дата инициализации коллекции
      */
     private Date getCreationDate() {
-        return creationDate;
+        try {
+            readLock.lock();
+            return creationDate;
+        }finally {
+            readLock.unlock();
+        }
+
     }
 
     /**
@@ -114,24 +164,34 @@ public class CollectionManager {
      * @param route путь для удаления.
      */
     public void removeFromCollection(Route route) {
-        routesCollection.remove(route);
+        try {
+            writeLock.lock();
+            routesCollection.remove(route);
+        }finally {
+            writeLock.unlock();
+        }
     }
 
     /**
      * Удаляет путь, значение которого больше выбранного.
      */
     public void removeGreater(long distance) {
-        Iterator<Route> iterator = routesCollection.iterator();
-        while (iterator.hasNext()) {
-            Route route = iterator.next();
-            {
-                if (route.getDistance() > distance) {
-                    iterator.remove();
-                    System.out.println("Элемент удален из коллекции: " + route.getName());
-                } else if (!iterator.hasNext()) {
-                    System.out.println("Нет элементов с такой же дистанцией");
+        try {
+            writeLock.lock();
+            Iterator<Route> iterator = routesCollection.iterator();
+            while (iterator.hasNext()) {
+                Route route = iterator.next();
+                {
+                    if (route.getDistance() > distance) {
+                        iterator.remove();
+                        System.out.println("Элемент удален из коллекции: " + route.getName());
+                    } else if (!iterator.hasNext()) {
+                        System.out.println("Нет элементов с такой же дистанцией");
+                    }
                 }
             }
+        }finally {
+            writeLock.unlock();
         }
     }
     /**
@@ -139,26 +199,36 @@ public class CollectionManager {
      * @return путь.
      */
     public Route getByValue(Route routeToFind) {
-        for (Route route : routesCollection) {
-            if (route.equals(routeToFind)) return route;
+        try {
+            readLock.lock();
+            for (Route route : routesCollection) {
+                if (route.equals(routeToFind)) return route;
+            }
+            return null;
+        }finally {
+            readLock.unlock();
         }
-        return null;
     }
     /**
      * Удаляет путь, значение которого меньше выбранного.
      */
     public void removeLower(long distance) {
-        Iterator<Route> iterator = routesCollection.iterator();
-        while (iterator.hasNext()) {
-            Route route = iterator.next();
-            {
-                if (route.getDistance() < distance) {
-                    iterator.remove();
-                    System.out.println("Элемент удален из коллекции: " + route.getName());
-                } else if (!iterator.hasNext()) {
-                    System.out.println("Нет элементов с такой же дистанцией");
+        try {
+            writeLock.lock();
+            Iterator<Route> iterator = routesCollection.iterator();
+            while (iterator.hasNext()) {
+                Route route = iterator.next();
+                {
+                    if (route.getDistance() < distance) {
+                        iterator.remove();
+                        System.out.println("Элемент удален из коллекции: " + route.getName());
+                    } else if (!iterator.hasNext()) {
+                        System.out.println("Нет элементов с такой же дистанцией");
+                    }
                 }
             }
+        }finally {
+            writeLock.unlock();
         }
     }
 
@@ -168,34 +238,49 @@ public class CollectionManager {
      * @return массив путей с заданной дистанцией
      */
     public Route[] getByDistance(long distance) {
-        Route[] routes = new Route[0];
-        for (Route route : routesCollection) {
-            if(Objects.equals(route.getDistance(), distance)){
-                Arrays.stream(routes).toArray();
-                return routes;
+        try {
+            readLock.lock();
+            Route[] routes = new Route[0];
+            for (Route route : routesCollection) {
+                if (Objects.equals(route.getDistance(), distance)) {
+                    Arrays.stream(routes).toArray();
+                    return routes;
+                }
             }
+            return null;
+        }finally {
+            readLock.unlock();
         }
-        return null;
     }
     /**
      * @param distanceToFilter дистанция, по значению которой происходит фильтрация.
      * @return Информация о пути.
      */
     public String distanceFilteredInfo(long distanceToFilter) {
-        String info = "";
-        for (Route route : routesCollection) {
-            if (route.getDistance() == distanceToFilter) {
-                info += route + "\n\n";
+        try {
+            readLock.lock();
+            String info = "";
+            for (Route route : routesCollection) {
+                if (route.getDistance() == distanceToFilter) {
+                    info += route + "\n\n";
+                }
             }
+            return info.trim();
+        }finally {
+            readLock.unlock();
         }
-        return info.trim();
     }
 
     /**
      * Перемешивает элементы коллекции организаций в случайном порядке.
      */
     public void shuffle(){
-        Collections.shuffle((List<?>) routesCollection);
+        try {
+            writeLock.lock();
+            Collections.shuffle((List<?>) routesCollection);
+        }finally {
+            writeLock.unlock();
+        }
     }
 
     /**
@@ -204,10 +289,15 @@ public class CollectionManager {
      * @return все объекты коллекции.
      */
     public String show() {
-        if (routesCollection.isEmpty()) return "Коллекция пуста";
-        return routesCollection.stream()
-                .map(route -> route.toString() + "\n")
-                .collect(Collectors.joining());
+        try {
+            readLock.lock();
+            if (routesCollection.isEmpty()) return "Коллекция пуста";
+            return routesCollection.stream()
+                    .map(route -> route.toString() + "\n")
+                    .collect(Collectors.joining());
+        }finally {
+            readLock.unlock();
+        }
     }
 
     /**
@@ -215,19 +305,24 @@ public class CollectionManager {
      * @return массив дистанция и количество элементов с заданной дистанцией.
      */
     public Map<Long, Integer> countByDistance(){
-        HashMap<Long,Integer> map = new HashMap<>();
-        routesCollection.stream()
-                .filter((route -> route.getDistance()!=0))
-                .forEach((route)->{
-                    long distance = route.getDistance();
-                    if (map.containsKey(distance)){
-                        Integer q = map.get(distance);
-                        map.replace(distance, q+1);
-                    } else{
-                        map.put(distance, 1);
-                    }
-                });
-        return map;
+        try {
+            writeLock.lock();
+            HashMap<Long, Integer> map = new HashMap<>();
+            routesCollection.stream()
+                    .filter((route -> route.getDistance() != 0))
+                    .forEach((route) -> {
+                        long distance = route.getDistance();
+                        if (map.containsKey(distance)) {
+                            Integer q = map.get(distance);
+                            map.replace(distance, q + 1);
+                        } else {
+                            map.put(distance, 1);
+                        }
+                    });
+            return map;
+        }finally {
+            writeLock.unlock();
+        }
     }
     /**
      * Возвращает коллекцию организаций с указанными идентификаторами.
@@ -235,7 +330,12 @@ public class CollectionManager {
      * @return коллекция организаций с указанными идентификаторами
      */
     public ConcurrentLinkedDeque<Route> getUsersElements(List<Integer> ids) {
-        return routesCollection.stream().filter(p -> ids.contains(p.getId())).collect(Collectors.toCollection(ConcurrentLinkedDeque::new));
+        try {
+            readLock.lock();
+            return routesCollection.stream().filter(p -> ids.contains(p.getId())).collect(Collectors.toCollection(ConcurrentLinkedDeque::new));
+        }finally {
+            readLock.unlock();
+        }
     }
 
     /**
@@ -244,7 +344,12 @@ public class CollectionManager {
      * @return коллекция организаций, которые не содержатся в указанном списке идентификаторов
      */
     public ConcurrentLinkedDeque<Route> getAlienElements(List<Integer> ids) {
-        return routesCollection.stream().filter(p -> !ids.contains(p.getId())).collect(Collectors.toCollection(ConcurrentLinkedDeque::new));
+        try {
+            readLock.lock();
+            return routesCollection.stream().filter(p -> !ids.contains(p.getId())).collect(Collectors.toCollection(ConcurrentLinkedDeque::new));
+        }finally {
+            readLock.unlock();
+        }
     }
     @Override
     public String toString() {
