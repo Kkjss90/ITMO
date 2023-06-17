@@ -1,11 +1,11 @@
 package org.example.commands;
 
+import org.example.data.Route;
 import org.example.dataBase.DBManager;
 import org.example.exceptions.DatabaseException;
 import org.example.utill.CollectionManager;
 import org.example.utill.Request;
 import org.example.utill.Response;
-import org.example.utill.TextWriter;
 
 /**
  * Класс отвечает за добавление пути в коллекцию
@@ -34,12 +34,16 @@ public class Add extends AbstractCommand {
     public Response execute(Request request) {
         try {
             if (dbManager.validateUser(request.getLogin(), request.getPassword())) {
-                collectionManager.addToCollection(request.getRouteArgument());
-                return new Response(TextWriter.getWhiteText("Путь был добавлен в коллекцию."));
-            }else {
+                Route routeToAdd = request.getRouteArgument();
+                Integer id = Math.toIntExact(dbManager.addElement(routeToAdd, request.getLogin()));
+                routeToAdd.setId(id);
+                collectionManager.addToCollection(routeToAdd);
+                return new Response("Элемент был успешно добавлен с ИД: " + id);
+            } else {
                 return new Response("Несоответствие логина и пароля.");
             }
-        }catch (DatabaseException e) {
+        } catch (DatabaseException e) {
             return new Response(e.getMessage());
         }
+    }
 }

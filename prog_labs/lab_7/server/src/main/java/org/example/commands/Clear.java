@@ -47,5 +47,4 @@ public class Clear extends AbstractCommand {
             return new Response(e.getMessage());
         }
     }
-    }
 }

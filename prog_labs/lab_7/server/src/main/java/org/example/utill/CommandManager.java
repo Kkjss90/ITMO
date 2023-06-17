@@ -47,8 +47,8 @@ public class CommandManager {
         this.removeGreater = new RemoveGreater(collectionManager);
         this.removeLower = new RemoveLower(collectionManager);
         this.shuffle = new Shuffle(collectionManager, dbManager);
-        this.filterByDistance = new FilterByDistance(collectionManager);
-        this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager);
+        this.filterByDistance = new FilterByDistance(collectionManager, dbManager);
+        this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager, dbManager);
         this.groupCountingByDistance = new GroupCountingByDistance(collectionManager);
         this.update = new UpdateId(collectionManager, dbManager);
         commands.put("help", help);
@@ -80,8 +80,8 @@ public class CommandManager {
         this.removeGreater = new RemoveGreater(collectionManager);
         this.removeLower = new RemoveLower(collectionManager);
         this.shuffle = new Shuffle(collectionManager, dbManager);
-        this.filterByDistance = new FilterByDistance(collectionManager);
-        this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager);
+        this.filterByDistance = new FilterByDistance(collectionManager, dbManager);
+        this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager, dbManager);
         this.groupCountingByDistance = new GroupCountingByDistance(collectionManager);
         this.update = new UpdateId(collectionManager, dbManager);
         commands.put("help", help);

@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class ConsoleThread extends Thread {
     /**
-     * Сканнер, считывающий ввод пользователя.
+     * Сканер, считывающий ввод пользователя.
      */
     private static final Scanner scanner = ServerConfig.scanner;
 

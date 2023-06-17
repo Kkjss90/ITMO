@@ -1,12 +1,10 @@
 package org.example.commands;
 
 
-import org.example.data.Route;
 import org.example.exceptions.DatabaseException;
 import org.example.utill.CollectionManager;
 import org.example.utill.Request;
 import org.example.utill.Response;
-import org.example.utill.TextWriter;
 
 /**
  * Команда для удаления элемента коллекции по его id.

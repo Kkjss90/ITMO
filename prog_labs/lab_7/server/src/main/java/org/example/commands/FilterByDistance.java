@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import org.example.dataBase.DBManager;
 import org.example.exceptions.CollectionIsEmptyException;
 import org.example.exceptions.WrongAmountOfElementsException;
 import org.example.utill.CollectionManager;
@@ -20,7 +21,7 @@ public class FilterByDistance extends AbstractCommand {
      * Конструктор создает новый объект команды и задает ее имя и описание.
      * @param collectionManager менеджер коллекции, с которым будет работать команда.
      */
-    public FilterByDistance(CollectionManager collectionManager) {
+    public FilterByDistance(CollectionManager collectionManager, DBManager dbManager) {
         super("filter_by_distance <DISTANCE>", "вывести элементы, значение поля distance которых равно заданному", 1);
         this.collectionManager = collectionManager;
     }
