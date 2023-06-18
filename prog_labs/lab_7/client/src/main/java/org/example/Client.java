@@ -91,6 +91,7 @@ public final class Client {
             TextWriter.printErr("Сервер с этим хостом не найден. Попробуйте снова.");
             main(args);
         } catch (IOException e) {
+            e.getMessage();
             TextWriter.printErr("Сервер недоступен. Переподключение, попытка #" + (attempts + 1));
             reconnectionMode = true;
             if (attempts == 4) {

@@ -102,20 +102,22 @@ public class DBConnector implements DBConnectable {
                 + "id bigint NOT NULL PRIMARY KEY DEFAULT nextval('users_id_seq')"
                 + ");");
 
-        statement.execute("CREATE TABLE IF NOT EXISTS routes (" +
-                "id SERIAL PRIMARY KEY," +
-                "name VARCHAR(255) NOT NULL CHECK (name <> ''), " +
+        statement.execute("CREATE TABLE IF NOT EXISTS routes"+
+                "(" +
+                "id bigint NOT NULL PRIMARY KEY DEFAULT nextval('route_id_seq')," +
+                "creation_date date NOT NULL,"+
+                "name VARCHAR(50) NOT NULL CHECK (name <> ''), " +
                 "coordinates_x INT NOT NULL, " +
                 "coordinates_y FLOAT NOT NULL CHECK (coordinates_y > -443), " +
-                "creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
-                "from_location_x DOUBLE NOT NULL, " +
+                "from_location_x DOUBLE PRECISION NOT NULL, " +
                 "from_location_y FLOAT NOT NULL, " +
                 "from_location_z INT NOT NULL, " +
                 "from_location_name VARCHAR(255) NOT NULL, " +
-                "to_position_x DOUBLE, " +
+                "to_position_x DOUBLE PRECISION, " +
                 "to_position_y INT, " +
                 "to_position_z INT, " +
-                "distance BIGINT NOT NULL CHECK (distance > 1)" +
+                "distance BIGINT NOT NULL CHECK (distance > 1)," +
+                "owner_id bigint NOT NULL REFERENCES users (id)"+
                 ");");
 
 
