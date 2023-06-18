@@ -20,7 +20,6 @@ public class CollectionManager {
      * Коллекция
      */
     private ConcurrentLinkedDeque<Route> routesCollection = new ConcurrentLinkedDeque<>();
-
     private static final ReadWriteLock lock = new ReentrantReadWriteLock();
     Lock writeLock = lock.writeLock();
     static Lock readLock = lock.readLock();

@@ -1,14 +1,14 @@
 package org.example.commands;
 
 
-import org.example.exceptions.CollectionIsEmptyException;
-import org.example.exceptions.IncorrectInputInScriptException;
-import org.example.exceptions.RouteNotFoundException;
-import org.example.exceptions.WrongAmountOfElementsException;
+import org.example.data.Route;
+import org.example.exceptions.*;
 import org.example.utill.CollectionManager;
 import org.example.utill.Request;
 import org.example.utill.Response;
-import org.example.utill.TextWriter;
+
+import java.util.Collection;
+import java.util.Objects;
 
 /**
  * Команда 'remove_lower'. Удаляет из коллекции все элементы, меньше заданного.
@@ -34,16 +34,26 @@ public class RemoveLower extends AbstractCommand {
     @Override
     public Response execute(Request request) {
         try {
-            long distance = request.getNumericArgument();
-            collectionManager.removeLower(distance);
+            if (dbManager.validateUser(request.getLogin(), request.getPassword())){
+                long distance = request.getNumericArgument();
+                collectionManager.removeLower(distance);
+                Collection<Route> routeToRemove = collectionManager.getCollection().stream()
+                        .filter(Objects::nonNull)
+                        .filter(route -> route.compareTo(request.getRouteArgument())>=1)
+                        .filter((obj) -> {
+                            try {
+                                return dbManager.removeById(obj.getId(), request.getLogin());
+                            } catch (DatabaseException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .toList();
+            }else {
+                return new Response("Несоответствие логина и пароля.");
+            }
             return new Response("");
-        } catch (WrongAmountOfElementsException exception) {
-            TextWriter.printInfoMessage("Использование: '" + getName() + "'");
-        } catch (CollectionIsEmptyException exception) {
-            TextWriter.getRedText("Коллекция пуста!");
-        } catch (RouteNotFoundException exception) {
-            TextWriter.getRedText("Пути с такими характеристиками в коллекции нет!");
-        } catch (IncorrectInputInScriptException exception) {}
-        return new Response("что-то пошло не так");
+        } catch (DatabaseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
