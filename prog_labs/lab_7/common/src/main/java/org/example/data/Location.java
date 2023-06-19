@@ -1,7 +1,11 @@
 package org.example.data;
 
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
+    private static final long serialVersionUID = 2l;
+
     private Double x; //Поле не может быть null
     private Float y; //Поле не может быть null
     private int z;

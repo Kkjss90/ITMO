@@ -1,7 +1,10 @@
 package org.example.data;
 
 
-public class Coordinates {
+import java.io.Serializable;
+
+public class Coordinates implements Serializable {
+    private static final long serialVersionUID = 1l;
     private int x;
     private Float y; //Значение поля должно быть больше -443, Поле не может быть null
 

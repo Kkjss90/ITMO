@@ -4,18 +4,22 @@ import org.example.interfaces.Data;
 
 import java.io.*;
 import java.nio.ByteBuffer;
-
 /**
- * Класс для сериализации и десериализации объектов запросов и ответов
+ * Утилитарный класс, предоставляющий методы для сериализации и десериализации объектов типа Data
  */
 public class Serializers {
 
     /**
-     * Метод для сериализации объекта запроса
-     *
-     * @param request объект запроса
-     * @return буфер байтов с сериализованным запросом
-     * @throws IOException если произошла ошибка ввода-вывода при сериализации
+     * Приватный конструктор, чтобы предотвратить создание экземпляров класса
+     */
+    private Serializers() {
+    }
+
+    /**
+     * Сериализует запрос типа Data в ByteBuffer для отправки по сети
+     * @param request запрос, который нужно сериализовать
+     * @return ByteBuffer, содержащий сериализованный запрос
+     * @throws IOException если возникла ошибка ввода/вывода в процессе сериализации
      */
     public static ByteBuffer serializeRequest(Data request) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -30,7 +34,6 @@ public class Serializers {
 
     /**
      * Сериализует ответ типа Data в ByteBuffer для отправки по сети
-     *
      * @param response ответ, который нужно сериализовать
      * @return ByteBuffer, содержащий сериализованный ответ
      * @throws IOException если возникла ошибка ввода/вывода в процессе сериализации
@@ -46,30 +49,11 @@ public class Serializers {
         return bufToSend;
     }
 
-
-    /**
-     * Метод для десериализации объекта ответа
-     *
-     * @param acceptedBuf буфер байтов с сериализованным ответом
-     * @return объект ответа
-     * @throws IOException            если произошла ошибка ввода-вывода при десериализации
-     * @throws ClassNotFoundException если класс объекта не найден при десериализации
-     */
-    public static Response deSerializeResponse(byte[] acceptedBuf) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(acceptedBuf);
-        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-        Response response = (Response) objectInputStream.readObject();
-        objectInputStream.close();
-        byteArrayInputStream.close();
-        return response;
-    }
-
     /**
      * Десериализует запрос из массива байтов, принятых по сети
-     *
      * @param acceptedBuf массив байтов, содержащий сериализованный запрос
      * @return запрос типа Request, десериализованный из массива байтов
-     * @throws IOException            если возникла ошибка ввода/вывода в процессе десериализации
+     * @throws IOException если возникла ошибка ввода/вывода в процессе десериализации
      * @throws ClassNotFoundException если класс Request не найден при десериализации
      */
     public static Request deSerializeRequest(byte[] acceptedBuf) throws IOException, ClassNotFoundException {
@@ -81,4 +65,19 @@ public class Serializers {
         return request;
     }
 
+    /**
+     * Десериализует ответ из массива байтов, принятых по сети
+     * @param acceptedBuf массив байтов, содержащий сериализованный ответ
+     * @return ответ типа Response, десериализованный из массива байтов
+     * @throws IOException если возникла ошибка ввода/вывода в процессе десериализации
+     * @throws ClassNotFoundException если класс Response не найден при десериализации
+     */
+    public static Response deSerializeResponse(byte[] acceptedBuf) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(acceptedBuf);
+        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+        Response response = (Response) objectInputStream.readObject();
+        objectInputStream.close();
+        byteArrayInputStream.close();
+        return response;
+    }
 }

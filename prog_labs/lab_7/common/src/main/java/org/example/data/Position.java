@@ -1,8 +1,10 @@
 package org.example.data;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Position {
+public class Position implements Serializable {
+    private static final long serialVersionUID = 3l;
     private int x;
     private int y;
     private double z;
