@@ -1,6 +1,7 @@
 package org.example.commands;
 
 
+import org.example.data.Route;
 import org.example.dataBase.DBManager;
 import org.example.exceptions.DatabaseException;
 import org.example.utill.CollectionManager;
@@ -12,18 +13,9 @@ import org.example.utill.TextWriter;
  * Команда очистки коллекции.
  */
 public class Clear extends AbstractCommand {
-    /**
-     Менеджер коллекции.
-     */
-    private final CollectionManager collectionManager;
 
-    /**
-     * Создает новый объект команды.
-     * @param collectionManager менеджер коллекции
-     */
     public Clear(CollectionManager collectionManager, DBManager dbManager) {
         super("clear", "очистить коллекцию", 0, collectionManager, dbManager);
-        this.collectionManager = collectionManager;
     }
 
     /**

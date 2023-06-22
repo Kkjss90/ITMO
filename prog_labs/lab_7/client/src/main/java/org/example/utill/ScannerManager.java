@@ -9,6 +9,7 @@ import org.example.exceptions.NotInDeclaredLimitsException;
 import org.example.exceptions.NotNullException;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -23,12 +24,12 @@ public class ScannerManager {
     /**
      * Константа строки приглашения для ввода в интерактивном режиме.
      */
-    public static final String INPUT_INFO = "> ";
+    public static final String INPUT_INFO = "?? ";
 
     /**
      * Константа строки приглашения для ввода команд в интерактивном режиме.
      */
-    public static final String INPUT_COMMAND = "$ ";
+    public static final String INPUT_COMMAND = ":) ";
 
     /**
      * Сканер для ввода.
@@ -57,10 +58,10 @@ public class ScannerManager {
 
     public Route askRoute() throws IncorrectInputInScriptException {
         return new Route(
-                0,
+                null,
                 askName(),
                 askCoordinates(),
-                new Date(),
+                LocalDateTime.now(),
                 askLocation(),
                 askPosition(),
                 askDistance()

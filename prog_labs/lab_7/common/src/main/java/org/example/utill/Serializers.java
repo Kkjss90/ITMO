@@ -4,6 +4,7 @@ import org.example.interfaces.Data;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+
 /**
  * Утилитарный класс, предоставляющий методы для сериализации и десериализации объектов типа Data
  */

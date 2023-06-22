@@ -35,11 +35,11 @@ public class CommandRequestCreator {
         } else if (AvailableCommands.COMMANDS_WITH_ID_ARG.contains(name)) {
             request = createRequestWithID(command);
         } else if (AvailableCommands.COMMANDS_WITH_ROUTE_ARG.contains(name)) {
-            request = createRequestWithOrganization(command, scanner, scriptMode);
+            request = createRequestWithRoute(command, scanner, scriptMode);
         } else if (AvailableCommands.COMMANDS_WITH_ROUTE_ID_ARGS.contains(name)) {
-            request = createRequestWithOrganizationID(command, scanner, scriptMode);
+            request = createRequestWithRouteID(command, scanner, scriptMode);
         } else if (AvailableCommands.SCRIPT_ARGUMENT_COMMAND.contains(name)) {
-            request = createRequestWithOrganizationID(command, scanner, scriptMode);
+            request = createRequestWithRouteID(command, scanner, scriptMode);
         } else {
             throw new NullPointerException("Команда не найдена. Напишите 'help' для просмотра всех доступных команд.");
         }
@@ -90,7 +90,7 @@ public class CommandRequestCreator {
      * @param scriptMode режим скрипта
      * @return запрос
      */
-    private Request createRequestWithOrganization(CommandToSend command, Scanner sc, boolean scriptMode) {
+    private Request createRequestWithRoute(CommandToSend command, Scanner sc, boolean scriptMode) {
         try {
             CommandValidators.validateAmountOfArgs(command.getCommandArgs(), 0);
             ScannerManager scannerManager = new ScannerManager(sc, scriptMode);
@@ -109,7 +109,7 @@ public class CommandRequestCreator {
      * @param scriptMode режим скрипта
      * @return запрос
      */
-    private Request createRequestWithOrganizationID(CommandToSend command, Scanner sc, boolean scriptMode) {
+    private Request createRequestWithRouteID(CommandToSend command, Scanner sc, boolean scriptMode) {
         try {
             CommandValidators.validateAmountOfArgs(command.getCommandArgs(), 1);
             ScannerManager scannerManager = new ScannerManager(sc, scriptMode);

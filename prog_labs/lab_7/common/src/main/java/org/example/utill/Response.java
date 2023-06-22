@@ -1,5 +1,6 @@
 package org.example.utill;
 
+
 import org.example.data.Route;
 import org.example.interfaces.Data;
 
@@ -16,10 +17,12 @@ public class Response implements Serializable, Data {
      * Сообщение, отправляемое в ответ на запрос.
      */
     private String messageToResponse;
+
     /**
-     * Данные о пути, отправляемые в ответ на запрос.
+     * Данные об организации, отправляемые в ответ на запрос.
      */
     private Route routeToResponse;
+
     /**
      * Данные коллекции, отправляемые в ответ на запрос.
      */
@@ -29,7 +32,6 @@ public class Response implements Serializable, Data {
      * Коллекция элементов, не принадлежащих клиенту
      */
     private ConcurrentLinkedDeque<Route> alienElements;
-
 
     /**
      * Список дополнительной информации, содержащейся в ответе сервера
@@ -49,7 +51,7 @@ public class Response implements Serializable, Data {
      * Конструктор класса Response, принимающий сообщение и информацию об организации для ответа.
      *
      * @param messageToResponse сообщение для ответа
-     * @param routeToResponse информация об организации для ответа
+     * @param routeToResponse информация об пути для ответа
      */
     public Response(String messageToResponse, Route routeToResponse) {
         this.messageToResponse = messageToResponse;
@@ -106,23 +108,29 @@ public class Response implements Serializable, Data {
     public Response(ConcurrentLinkedDeque<Route> collectionToResponse) {
         this.collectionToResponse = collectionToResponse;
     }
+
+    /**
+     * Метод, возвращающий сообщение для ответа.
+     *
+     * @return сообщение для ответа
+     */
     public String getMessageToResponse() {
         return messageToResponse;
     }
 
     /**
-     * Метод, возвращающий информацию о пути для ответа.
+     * Метод, возвращающий информацию об организации для ответа.
      *
-     * @return информация о пути для ответа
+     * @return информация об организации для ответа
      */
-    public Route getRouteToResponse() {
+    public Route getOrganizationToResponse() {
         return routeToResponse;
     }
 
     /**
-     * Метод, возвращающий коллекцию путей для ответа.
+     * Метод, возвращающий коллекцию организаций для ответа.
      *
-     * @return коллекция путей для ответа
+     * @return коллекция организаций для ответа
      */
     public ConcurrentLinkedDeque<Route> getCollectionToResponse() {
         return collectionToResponse;
@@ -144,6 +152,7 @@ public class Response implements Serializable, Data {
         return alienElements;
     }
 
+
     /**
      * Метод, возвращающий информацию для отправки.
      *
@@ -152,8 +161,10 @@ public class Response implements Serializable, Data {
     @Override
     public String getData() {
         return (messageToResponse == null ? "" : (getMessageToResponse()))
-                + (routeToResponse == null ? "" : ("\nДанные пути:\n" +  getRouteToResponse().toString()))
-                + (collectionToResponse == null ? "" : ("\nКоллекция:\n" + getCollectionToResponse()));
+                + (routeToResponse == null ? "" : ("\nДанные организации:\n" +  getOrganizationToResponse().toString()))
+                + (collectionToResponse == null ? "" : ("\nКоллекция:\n" + getCollectionToResponse()))
+                + (alienElements == null ? "" :("\nКоллекции других пользователей:\n" +
+                (getAlienElements().isEmpty() ? "В коллекциях других пользователей нет элементов" : getAlienElements())));
     }
 
     /**
@@ -164,5 +175,3 @@ public class Response implements Serializable, Data {
         return "Ответ[" + messageToResponse + "]";
     }
 }
-
-

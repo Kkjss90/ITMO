@@ -37,12 +37,12 @@ public class UpdateId extends AbstractCommand {
     public Response execute(Request request) {
         try {
             if (dbManager.validateUser(request.getLogin(), request.getPassword())) {
-                Integer id = Math.toIntExact(request.getNumericArgument());
-                if (dbManager.checkRouteExistence(Math.toIntExact(id))) {
+                Long id = request.getNumericArgument();
+                if (dbManager.checkRouteExistence(id)) {
                     if (dbManager.updateById(request.getRouteArgument(), id, request.getLogin())) {
                         Route updatedRoute = request.getRouteArgument();
-                        updatedRoute.setId(Math.toIntExact(id));
-                        collectionManager.removeById(Math.toIntExact(id));
+                        updatedRoute.setId(id);
+                        collectionManager.removeById(id);
                         collectionManager.addToCollection(request.getRouteArgument());
                         return new Response("Элемент с ИД " + id + " был успешно обновлен.");
                     } else {

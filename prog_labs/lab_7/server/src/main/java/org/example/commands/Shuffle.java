@@ -20,8 +20,8 @@ public class Shuffle extends AbstractCommand {
      * Создает новый объект команды.
      * @param collectionManager менеджер коллекции
      */
-    public Shuffle(CollectionManager collectionManager, DBManager dbManager) {
-        super("shuffle", "перемешать элементы коллекции в случайном порядке", 0, collectionManager, dbManager);
+    public Shuffle(CollectionManager collectionManager) {
+        super("shuffle", "перемешать элементы коллекции в случайном порядке", 0);
         this.collectionManager = collectionManager;
     }
 

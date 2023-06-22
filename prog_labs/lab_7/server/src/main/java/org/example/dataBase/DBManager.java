@@ -12,11 +12,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
+
+import java.sql.Date;
+
 
 /**
  * DBManager - класс, предоставляющий методы для работы с базой данных.
@@ -65,10 +66,10 @@ public class DBManager {
                         collectionSet.getDouble("to_position_z")
                 );
                 Route route = new Route(
-                        collectionSet.getInt("id"),
+                        collectionSet.getLong("id"),
                         collectionSet.getString("name"),
                         coordinates,
-                        Date.from(collectionSet.getDate("creation_date").toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                        collectionSet.getDate("creation_date").toLocalDate().atStartOfDay(),
                         location,
                         position,
                         collectionSet.getLong("distance")
@@ -99,7 +100,7 @@ public class DBManager {
             Coordinates coordinates = route.getCoordinates();
             Location location = route.getFrom();
             Position position = route.getTo();
-            preparedStatement.setDate(1, new java.sql.Date(route.getCreationDate().getTime()));
+            preparedStatement.setDate(1, java.sql.Date.valueOf(route.getCreationDate().toLocalDate()));
             preparedStatement.setString(2, route.getName());
             preparedStatement.setInt(3, coordinates.getX());
             preparedStatement.setFloat(4, coordinates.getY());
@@ -126,13 +127,13 @@ public class DBManager {
      * @return true, если путь существует в базе данных, иначе - false
      * @throws DatabaseException если возникла ошибка при обращении к базе данных
      */
-    public boolean checkRouteExistence(int id) throws DatabaseException {
+    public boolean checkRouteExistence(Long id) throws DatabaseException {
         return dbConnector.handleQuery((Connection connection) -> {
             String existenceQuery = "SELECT COUNT (*) "
                     + "FROM routes "
                     + "WHERE routes.id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(existenceQuery);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
@@ -147,21 +148,21 @@ public class DBManager {
      * @return true, если путь был успешно удален, иначе - false
      * @throws DatabaseException если возникла ошибка при обращении к базе данных
      */
-    public boolean removeById(int id, String username) throws DatabaseException {
+    public boolean removeById(long id, String username) throws DatabaseException {
         return dbConnector.handleQuery((Connection connection) -> {
             String removeQuery = "DELETE FROM routes "
                     + "USING users "
                     + "WHERE routes.id = ? "
                     + "AND routes.owner_id = users.id AND users.login = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(removeQuery);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             preparedStatement.setString(2, username);
 
             int deletedBands = preparedStatement.executeUpdate();
             return deletedBands > 0;
         });
     }
-    public boolean updateById(Route route, int id, String username) throws DatabaseException {
+    public boolean updateById(Route route, Long id, String username) throws DatabaseException {
         return dbConnector.handleQuery((Connection connection) -> {
             connection.createStatement().execute("BEGIN TRANSACTION;");
             String updateQuery = "UPDATE routes "
@@ -186,7 +187,7 @@ public class DBManager {
             Coordinates coordinates = route.getCoordinates();
             Location location = route.getFrom();
             Position position = route.getTo();
-            preparedStatement.setDate(1, new java.sql.Date(route.getCreationDate().getTime()));
+            preparedStatement.setDate(1, Date.valueOf(route.getCreationDate().toLocalDate()));
             preparedStatement.setString(2, route.getName());
             preparedStatement.setInt(3, coordinates.getX());
             preparedStatement.setFloat(4, coordinates.getY());
@@ -213,7 +214,7 @@ public class DBManager {
      * @return список идентификаторов удаленных путей.
      * @throws DatabaseException если произошла ошибка при работе с базой данных.
      */
-    public List<Integer> clear(String username) throws DatabaseException {
+    public List<Long> clear(String username) throws DatabaseException {
         return dbConnector.handleQuery((Connection connection) -> {
             String clearQuery = "DELETE FROM routes "
                     + "USING users "
@@ -222,9 +223,9 @@ public class DBManager {
             PreparedStatement preparedStatement = connection.prepareStatement(clearQuery);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Integer> resultingList = new ArrayList<>();
+            List<Long> resultingList = new ArrayList<>();
             while (resultSet.next()) {
-                resultingList.add(resultSet.getInt("id"));
+                resultingList.add(resultSet.getLong("id"));
             }
             return resultingList;
         });
@@ -296,16 +297,16 @@ public class DBManager {
      * @return список id пути пользователя
      * @throws DatabaseException если произошла ошибка при работе с базой данных
      */
-    public List<Integer> getIdsOfUsersElements(String username) throws DatabaseException {
+    public List<Long> getIdsOfUsersElements(String username) throws DatabaseException {
         return dbConnector.handleQuery((Connection connection) -> {
             String getIdsQuery = "SELECT routes.id FROM routes, users "
                     + "WHERE routes.owner_id = users.id AND users.login = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(getIdsQuery);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Integer> resultingList = new ArrayList<>();
+            List<Long> resultingList = new ArrayList<>();
             while (resultSet.next()) {
-                resultingList.add(resultSet.getInt("id"));
+                resultingList.add(resultSet.getLong("id"));
             }
 
             return resultingList;

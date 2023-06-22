@@ -12,17 +12,10 @@ import org.example.utill.Response;
  */
 public class Add extends AbstractCommand {
     /**
-     Менеджер коллекции.
-     */
-    private final CollectionManager collectionManager;
-
-    /**
      * Создает новый объект команды.
-     * @param collectionManager менеджер коллекции
      */
     public Add(CollectionManager collectionManager, DBManager dbManager) {
         super("add", "добавить новый элемент в коллекцию", 0, collectionManager, dbManager);
-        this.collectionManager = collectionManager;
     }
 
     /**
@@ -35,7 +28,7 @@ public class Add extends AbstractCommand {
         try {
             if (dbManager.validateUser(request.getLogin(), request.getPassword())) {
                 Route routeToAdd = request.getRouteArgument();
-                Integer id = Math.toIntExact(dbManager.addElement(routeToAdd, request.getLogin()));
+                Long id = dbManager.addElement(routeToAdd, request.getLogin());
                 routeToAdd.setId(id);
                 collectionManager.addToCollection(routeToAdd);
                 return new Response("Элемент был успешно добавлен с ИД: " + id);

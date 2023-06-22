@@ -2,6 +2,7 @@ package org.example.commands;
 
 
 import org.example.data.Route;
+import org.example.dataBase.DBManager;
 import org.example.exceptions.*;
 import org.example.utill.CollectionManager;
 import org.example.utill.Request;
@@ -23,8 +24,8 @@ public class RemoveGreater extends AbstractCommand {
      * Конструктор создает новый объект команды и задает ее имя и описание.
      * @param collectionManager менеджер коллекции, с которым будет работать команда.
      */
-    public RemoveGreater(CollectionManager collectionManager) {
-        super("remove_greater {element}", "удалить из коллекции все элементы, превышающие заданный", 1);
+    public RemoveGreater(CollectionManager collectionManager, DBManager dbManager) {
+        super("remove_greater {element}", "удалить из коллекции все элементы, превышающие заданный", 1, collectionManager, dbManager);
         this.collectionManager = collectionManager;
     }
 

@@ -1,5 +1,4 @@
 package org.example;
-
 import org.example.networkManager.AuthorizationModule;
 import org.example.networkManager.CommandRequestCreator;
 import org.example.utill.ScriptReader;
@@ -17,7 +16,7 @@ import java.util.*;
  * Главный класс, запускающий приложение клиента.
  * Содержит метод main, отвечающий за запуск приложения.
  *
- * @author Князева Александра (P3120)
+ * @author Касьяненко Вера (P3120)
  */
 public final class Client {
     private Client() {
@@ -91,7 +90,6 @@ public final class Client {
             TextWriter.printErr("Сервер с этим хостом не найден. Попробуйте снова.");
             main(args);
         } catch (IOException e) {
-            e.printStackTrace();
             TextWriter.printErr("Сервер недоступен. Переподключение, попытка #" + (attempts + 1));
             reconnectionMode = true;
             if (attempts == 4) {

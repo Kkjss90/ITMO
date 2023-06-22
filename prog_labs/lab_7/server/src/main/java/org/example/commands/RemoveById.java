@@ -1,6 +1,7 @@
 package org.example.commands;
 
 
+import org.example.dataBase.DBManager;
 import org.example.exceptions.DatabaseException;
 import org.example.utill.CollectionManager;
 import org.example.utill.Request;
@@ -20,8 +21,8 @@ public class RemoveById extends AbstractCommand {
      * Создает новый объект команды.
      * @param collectionManager менеджер коллекции
      */
-    public RemoveById(CollectionManager collectionManager) {
-        super("remove_by_id", "удалить элемент из коллекции по его id", 1);
+    public RemoveById(CollectionManager collectionManager, DBManager dbManager) {
+        super("remove_by_id", "удалить элемент из коллекции по его id", 1, collectionManager, dbManager);
         this.collectionManager = collectionManager;
     }
 
@@ -34,9 +35,9 @@ public class RemoveById extends AbstractCommand {
     public Response execute(Request request) {
         try {
             if (dbManager.validateUser(request.getLogin(), request.getPassword())) {
-                if (dbManager.checkRouteExistence(Math.toIntExact(request.getNumericArgument()))) {
+                if (dbManager.checkRouteExistence(request.getNumericArgument())) {
                     if (dbManager.removeById(Math.toIntExact(request.getNumericArgument()), request.getLogin())) {
-                        collectionManager.removeById(Math.toIntExact(request.getNumericArgument()));
+                        collectionManager.removeById(request.getNumericArgument());
                         return new Response("Элемент с ИД " + request.getNumericArgument() + " был удален из коллекции.");
                     } else {
                         return new Response("Элемент был создан другим пользователем. У вас нет прав для его обновления.");

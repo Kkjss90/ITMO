@@ -39,7 +39,7 @@ public class Show extends AbstractCommand {
                 if (collectionManager.getCollection().isEmpty()) {
                     return new Response("Коллекция пуста.");
                 } else {
-                    List<Integer> ids = dbManager.getIdsOfUsersElements(request.getLogin());
+                    List<Long> ids = dbManager.getIdsOfUsersElements(request.getLogin());
                     return new Response("Элементы коллекции:",
                             collectionManager.getUsersElements(ids),
                             collectionManager.getAlienElements(ids));

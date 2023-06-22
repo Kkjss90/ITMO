@@ -83,7 +83,7 @@ public class ServerConfig {
     /**
      * Объект класса CommandManager для работы с командами.
      */
-    public static CommandManager commandManager = new CommandManager();
+    public static CommandManager commandManager = new CommandManager(collectionManager, dbManager);
 
     /**
      * Метод для изменения переменной isRunning, указывающего на то, работает ли сервер.

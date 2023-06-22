@@ -1,21 +1,23 @@
 package org.example.data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
-public class Route implements Comparable<Route>, Serializable {
+public class Route implements Comparable<Route>, Serializable{
     private static final long serialVersionUID = 4l;
 
-    private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private Long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Location from; //Поле не может быть null
     private Position to; //Поле может быть null
     private long distance; //Значение поля должно быть больше 1
 
-    public Route(int id, String name, Coordinates coordinates, Date creationDate, Location from, Position to, long distance){
+    public Route(Long id, String name, Coordinates coordinates, LocalDateTime creationDate, Location from, Position to, long distance){
         this.id= id;
         this.name = name;
         this.coordinates = coordinates;
@@ -33,11 +35,11 @@ public class Route implements Comparable<Route>, Serializable {
         return coordinates;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,11 +51,11 @@ public class Route implements Comparable<Route>, Serializable {
         this.coordinates = coordinates;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 

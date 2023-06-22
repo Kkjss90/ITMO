@@ -14,7 +14,7 @@ public class ExecuteScript extends AbstractCommand {
      * Создает новый объект команды.
      */
     public ExecuteScript() {
-        super("execute_script", "считать и исполнить скрипт из указанного файла", 1);
+        super("execute_script", "считать и исполнить скрипт из указанного файла", 0);
     }
 
     /**

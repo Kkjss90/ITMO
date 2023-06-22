@@ -36,17 +36,18 @@ public class CommandManager {
 
     public CommandManager(CollectionManager collectionManager, DBManager dbManager) {
         this.collectionManager = collectionManager;
+        this.dbManager = dbManager;
         this.help = new Help();
         this.info = new Info(collectionManager);
         this.show = new Show(collectionManager, dbManager);
         this.add = new Add(collectionManager, dbManager);
-        this.removeById = new RemoveById(collectionManager);
+        this.removeById = new RemoveById(collectionManager, dbManager);
         this.clear = new Clear(collectionManager, dbManager);
         this.exit = new Exit();
         this.executeScript = new ExecuteScript();
-        this.removeGreater = new RemoveGreater(collectionManager);
-        this.removeLower = new RemoveLower(collectionManager);
-        this.shuffle = new Shuffle(collectionManager, dbManager);
+        this.removeGreater = new RemoveGreater(collectionManager, dbManager);
+        this.removeLower = new RemoveLower(collectionManager, dbManager);
+        this.shuffle = new Shuffle(collectionManager);
         this.filterByDistance = new FilterByDistance(collectionManager, dbManager);
         this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager, dbManager);
         this.groupCountingByDistance = new GroupCountingByDistance(collectionManager);
@@ -67,39 +68,72 @@ public class CommandManager {
         commands.put("group_counting_by_distance",groupCountingByDistance);
         commands.put("update_id",update);
     }
+//
+//    public CommandManager() {
+//        this.help = new Help();
+//        this.info = new Info(collectionManager);
+//        this.show = new Show(collectionManager, dbManager);
+//        this.add = new Add(collectionManager, dbManager);
+//        this.removeById = new RemoveById(collectionManager, dbManager);
+//        this.clear = new Clear(collectionManager, dbManager);
+//        this.exit = new Exit();
+//        this.executeScript = new ExecuteScript();
+//        this.removeGreater = new RemoveGreater(collectionManager, dbManager);
+//        this.removeLower = new RemoveLower(collectionManager, dbManager);
+//        this.shuffle = new Shuffle(collectionManager);
+//        this.filterByDistance = new FilterByDistance(collectionManager, dbManager);
+//        this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager, dbManager);
+//        this.groupCountingByDistance = new GroupCountingByDistance(collectionManager);
+//        this.update = new UpdateId(collectionManager, dbManager);
+//        commands.put("help", help);
+//        commands.put("info",info);
+//        commands.put("show",show);
+//        commands.put("add",add);
+//        commands.put("remove_by_id",removeById);
+//        commands.put("clear",clear);
+//        commands.put("exit",exit);
+//        commands.put("execute_script",executeScript);
+//        commands.put("remove_greater",removeGreater);
+//        commands.put("remove_lower",removeLower);
+//        commands.put("shuffle",shuffle);
+//        commands.put("filter_by_distance",filterByDistance);
+//        commands.put("remove_any_by_distance",removeAnyByDistance);
+//        commands.put("group_counting_by_distance",groupCountingByDistance);
+//        commands.put("update_id",update);
+//    }
 
-    public CommandManager() {
-        this.help = new Help();
-        this.info = new Info(collectionManager);
-        this.show = new Show(collectionManager, dbManager);
-        this.add = new Add(collectionManager, dbManager);
-        this.removeById = new RemoveById(collectionManager);
-        this.clear = new Clear(collectionManager, dbManager);
-        this.exit = new Exit();
-        this.executeScript = new ExecuteScript();
-        this.removeGreater = new RemoveGreater(collectionManager);
-        this.removeLower = new RemoveLower(collectionManager);
-        this.shuffle = new Shuffle(collectionManager, dbManager);
-        this.filterByDistance = new FilterByDistance(collectionManager, dbManager);
-        this.removeAnyByDistance = new RemoveAnyByDistance(collectionManager, dbManager);
-        this.groupCountingByDistance = new GroupCountingByDistance(collectionManager);
-        this.update = new UpdateId(collectionManager, dbManager);
-        commands.put("help", help);
-        commands.put("info",info);
-        commands.put("show",show);
-        commands.put("add",add);
-        commands.put("remove_by_id",removeById);
-        commands.put("clear",clear);
-        commands.put("exit",exit);
-        commands.put("execute_script",executeScript);
-        commands.put("remove_greater",removeGreater);
-        commands.put("remove_lower",removeLower);
-        commands.put("shuffle",shuffle);
-        commands.put("filter_by_distance",filterByDistance);
-        commands.put("remove_any_by_distance",removeAnyByDistance);
-        commands.put("group_counting_by_distance",groupCountingByDistance);
-        commands.put("update_id",update);
-    }
+//    public CommandManager(AbstractCommand help, AbstractCommand info, AbstractCommand show, AbstractCommand add, AbstractCommand removeById, AbstractCommand clear, AbstractCommand exit, AbstractCommand executeScript, AbstractCommand removeGreater, AbstractCommand removeLower, AbstractCommand shuffle, AbstractCommand filterByDistance, AbstractCommand removeAnyByDistance, AbstractCommand groupCountingByDistance, AbstractCommand update) {
+//        this.help = help;
+//        this.info = info;
+//        this.show = show;
+//        this.add = add;
+//        this.removeById = removeById;
+//        this.clear = clear;
+//        this.exit = exit;
+//        this.executeScript = executeScript;
+//        this.removeGreater = removeGreater;
+//        this.removeLower = removeLower;
+//        this.shuffle = shuffle;
+//        this.filterByDistance = filterByDistance;
+//        this.removeAnyByDistance = removeAnyByDistance;
+//        this.groupCountingByDistance = groupCountingByDistance;
+//        this.update = update;
+//        commands.put("help", help);
+//        commands.put("info",info);
+//        commands.put("show",show);
+//        commands.put("add",add);
+//        commands.put("remove_by_id",removeById);
+//        commands.put("clear",clear);
+//        commands.put("exit",exit);
+//        commands.put("execute_script",executeScript);
+//        commands.put("remove_greater",removeGreater);
+//        commands.put("remove_lower",removeLower);
+//        commands.put("shuffle",shuffle);
+//        commands.put("filter_by_distance",filterByDistance);
+//        commands.put("remove_any_by_distance",removeAnyByDistance);
+//        commands.put("group_counting_by_distance",groupCountingByDistance);
+//        commands.put("update_id",update);
+//    }
 
     /**
      * @return массив команд.

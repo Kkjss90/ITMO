@@ -105,8 +105,8 @@ public class AuthorizationModule {
             TextWriter.printInfoMessage("Введите пароль, который вы будете использовать для работы с приложением (должно содержать не менее 5 символов).");
             while (true) {
                 try {
-                    //password = scanner.nextLine().trim();
-                    char[] passwordChars = scanner.nextLine().trim().toCharArray();
+                    // password = scanner.nextLine().trim();
+                    char[] passwordChars = console.readPassword();
                     password = new String(passwordChars);
                     if (password.length() < 5) {
                         TextWriter.printErr("Пароль слишком короткий, попробуйте еще раз.");
@@ -144,7 +144,7 @@ public class AuthorizationModule {
             while (true) {
                 try {
                     // password = scanner.nextLine().trim();
-                    char[] passwordChars =  scanner.nextLine().trim().toCharArray();
+                    char[] passwordChars = console.readPassword();
                     password = new String(passwordChars);
                     if (password.length() < 5) {
                         TextWriter.printErr("Пароль слишком короткий, попробуйте еще раз.");
