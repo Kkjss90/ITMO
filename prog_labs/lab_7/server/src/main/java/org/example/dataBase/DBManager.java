@@ -90,7 +90,7 @@ public class DBManager {
         return dbConnector.handleQuery((Connection connection) -> {
             String addElementQuery = "INSERT INTO routes "
                     + "(creation_date, name, coordinates_x, coordinates_y, from_location_x, from_location_y, from_location_z, from_location_name, to_position_x, to_position_y, to_position_z, distance, owner_id) "
-                    + "SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, id "
+                    + "SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, id "
                     + "FROM users "
                     + "WHERE users.login = ?;";
 
