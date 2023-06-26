@@ -84,7 +84,7 @@ public class CommandRequestCreator {
     }
 
     /**
-     * Класс для создания запроса с аргументом типа Organization.
+     * Класс для создания запроса с аргументом типа Route.
      * @param command команда
      * @param sc сканер
      * @param scriptMode режим скрипта
@@ -103,7 +103,7 @@ public class CommandRequestCreator {
     }
 
     /**
-     * Класс для создания запроса с аргументом типа Organization и ID.
+     * Класс для создания запроса с аргументом типа Route и ID.
      * @param command команда
      * @param sc сканер
      * @param scriptMode режим скрипта

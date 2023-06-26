@@ -48,10 +48,10 @@ public class Response implements Serializable, Data {
     }
 
     /**
-     * Конструктор класса Response, принимающий сообщение и информацию об организации для ответа.
+     * Конструктор класса Response, принимающий сообщение и информацию о пути для ответа.
      *
      * @param messageToResponse сообщение для ответа
-     * @param routeToResponse информация об пути для ответа
+     * @param routeToResponse информация о пути для ответа
      */
     public Response(String messageToResponse, Route routeToResponse) {
         this.messageToResponse = messageToResponse;
@@ -59,10 +59,10 @@ public class Response implements Serializable, Data {
     }
 
     /**
-     * Конструктор класса Response, принимающий сообщение и коллекцию организаций для ответа.
+     * Конструктор класса Response, принимающий сообщение и коллекцию путей для ответа.
      *
      * @param messageToResponse сообщение для ответа.
-     * @param collectionToResponse коллекция организаций для ответа
+     * @param collectionToResponse коллекция путей для ответа
      */
     public Response(String messageToResponse, ConcurrentLinkedDeque<Route> collectionToResponse) {
         this.messageToResponse = messageToResponse;
@@ -92,18 +92,18 @@ public class Response implements Serializable, Data {
     }
 
     /**
-     * Конструктор класса Response, принимающий информацию об организации для ответа.
+     * Конструктор класса Response, принимающий информацию о пути для ответа.
      *
-     * @param routeToResponse информация об организации для ответа
+     * @param routeToResponse информация о пути для ответа
      */
     public Response(Route routeToResponse) {
         this.routeToResponse = routeToResponse;
     }
 
     /**
-     * Конструктор класса Response, принимающий коллекцию организаций для ответа.
+     * Конструктор класса Response, принимающий коллекцию путей для ответа.
      *
-     * @param collectionToResponse коллекция организаций для ответа
+     * @param collectionToResponse коллекция путей для ответа
      */
     public Response(ConcurrentLinkedDeque<Route> collectionToResponse) {
         this.collectionToResponse = collectionToResponse;
@@ -119,18 +119,18 @@ public class Response implements Serializable, Data {
     }
 
     /**
-     * Метод, возвращающий информацию об организации для ответа.
+     * Метод, возвращающий информацию о пути для ответа.
      *
-     * @return информация об организации для ответа
+     * @return информация о пути для ответа
      */
     public Route getOrganizationToResponse() {
         return routeToResponse;
     }
 
     /**
-     * Метод, возвращающий коллекцию организаций для ответа.
+     * Метод, возвращающий коллекцию путей для ответа.
      *
-     * @return коллекция организаций для ответа
+     * @return коллекция путей для ответа
      */
     public ConcurrentLinkedDeque<Route> getCollectionToResponse() {
         return collectionToResponse;

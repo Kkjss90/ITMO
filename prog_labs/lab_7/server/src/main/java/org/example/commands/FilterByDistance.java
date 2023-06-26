@@ -24,6 +24,7 @@ public class FilterByDistance extends AbstractCommand {
     public FilterByDistance(CollectionManager collectionManager, DBManager dbManager) {
         super("filter_by_distance <DISTANCE>", "вывести элементы, значение поля distance которых равно заданному", 1);
         this.collectionManager = collectionManager;
+        this.dbManager = dbManager;
     }
 
     /**

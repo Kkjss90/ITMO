@@ -20,17 +20,17 @@ public class DBConnector implements DBConnectable {
     /**
      * Имя базы данных.
      */
-    private final String dbName =  System.getenv("SV_DB"); // studs
+    private final String dbName =  System.getenv("SV_DB");
 
     /**
      * Имя пользователя базы данных.
      */
-    private final String user =  System.getenv("SV_LOGIN"); // sXXXXXX
+    private final String user =  System.getenv("SV_LOGIN");
 
     /**
      * Пароль пользователя базы данных.
      */
-    private final String pass =  System.getenv("SV_PASS"); // пароль из ./pgpass
+    private final String pass =  System.getenv("SV_PASS");
 
     /**
      * URL-адрес для подключения к базе данных.
