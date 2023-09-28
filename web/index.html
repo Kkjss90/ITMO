@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Лаба 1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <table class="main">
+    <tr>
+      <th>
+        Князева Александра Михайловна P3220 вариант: 3005
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <img src="img/coord.png" alt="втф">
+<!--        <canvas id="canvas">-->
+<!--        </canvas>-->
+      </th>
+    </tr>
+    <tr>
+    <form action="send.php" method="get" onsubmit="return validateForm(event);" id="form">
+        <div>
+      <table>
+    <tr class="coord">
+      <th>
+        X:
+      </th>
+      <th>
+        <div class="hidden" id="errorX">Некорректная координата X</div>
+        <input type="text" name="X" id="x" placeholder="введите значение [-5;5]" pattern="-?[0-9]*[.,]?[0-9]+">
+      </th>
+    </tr>
+    <tr class="coord">
+      <th>
+        Y:
+      </th>
+      <th>
+        <div class="hidden" id="errorY">Некорректная координата Y</div>
+        <select name="Y" id="y">
+          <option value="-3">-3</option>
+          <option value="-2">-2</option>
+          <option value="-1">-1</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">-2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </th>
+    </tr>
+    <tr class="coord">
+      <th>
+        R:
+      </th>
+      <th>
+        <div class="hidden" id="errorR">Некорректная перменная R</div>
+          <input type="text" name="R" id="r" placeholder="введите значение [2;5]" pattern="[0-9]*[.,]?[0-9]+">
+      </th>
+    </tr>
+          <tr>
+            <th></th>
+              <th> <button type="submit" id="success">Проверить</button></th>
+          </tr>
+        <tr>
+          <th></th>
+          <th>
+            <button type="reset" class="reset" id="reset" onclick="hide();">Очистить</button>
+          </th>
+        </tr>
+      </table>
+        </div>
+    </form>
+<!--        <script src="js/canvas_1.js"></script>-->
+  </tr>
+  </table>
+  <script src="js/form.js"></script>
+</body>
+</html>

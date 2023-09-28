@@ -1,0 +1,60 @@
+body{
+    padding-left: 30%;
+    padding-top: 3%;
+    background-image: url("img/white-tiles.png") ;
+    text-align: center;
+    font-family: "South Park Cyrillic Regular", cursive;
+}
+.main{
+    border: darkcyan 5px;
+    align-self: center;
+}
+.coord{
+    width: 10%;
+    height: 10%;
+}
+@font-face {
+    font-family: "South Park Cyrillic Regular";
+    src: url("South_Park_Fonts/fonts_sp-font-cyr2.ttf");
+}
+.main th{
+    color: black;
+    font-size: large;
+    padding: 3%;
+}
+#canvas{
+    width: 200px;
+    height: 150px;
+    border: aquamarine solid 5px;
+    background: whitesmoke;
+}
+.hidden{
+    display: none;
+}
+.visible{
+    display: block;
+}
+.result th{
+    width: auto;
+    margin: 10%;
+}
+.result tr{
+    padding: 10%;
+}
+p.error{
+    font-size: large;
+    color: red;
+}
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    color: black;
+}
+
+.previous {
+    color: black;
+}
