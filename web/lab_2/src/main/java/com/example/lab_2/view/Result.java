@@ -20,7 +20,7 @@ public class Result {
         out.println("</head>");
         out.println("<body>");
         out.println("    <div id=\"header\" class=\"blured-container round-container margin\">");
-        out.println("        <h1>Результат: " + (data.isRes() ? "Попадание" : "Промах") + "</h1>");
+        out.println("        <h1>Результат: " + (data.isRes() ? "попал" : "мимо") + "</h1>");
         out.println("    </div>");
         out.println("    <div id=\"result-table-container\" class=\"blured-container margin\">");
         out.println("        <table>");
@@ -43,7 +43,7 @@ public class Result {
         out.println("        </table>");
         out.println("    </div>");
         out.println("    <div class=\"blured-container round-container fit-content-container margin\">"); // Здесь подставьте результат вычислений
-        out.println("        <p><a href=\"" + ctx + "\\controller\">Вернуться назад</a></p>");
+        out.println("        <p><a href=\"" + ctx + "\\index.jsp\">Вернуться назад</a></p>");
         out.println("    </div>");
         out.println("</body>");
         out.println("</html>");
