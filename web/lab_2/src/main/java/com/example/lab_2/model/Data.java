@@ -5,14 +5,14 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Data implements Serializable {
-    private int x;
+    private double x;
     private double y;
     private double r;
     private boolean res;
     private long calculationTime;
     private LocalDateTime calculatedAt;
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -28,7 +28,7 @@ public class Data implements Serializable {
         return res;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 

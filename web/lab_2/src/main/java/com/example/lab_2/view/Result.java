@@ -19,11 +19,12 @@ public class Result {
         out.println("    <title>Результаты</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("    <div id=\"header\" class=\"blured-container round-container margin\">");
+        out.println("    <div class=\"container\">");
+        out.println("    <div id=\"header\">");
         out.println("        <h1>Результат: " + (data.isRes() ? "попал" : "мимо") + "</h1>");
         out.println("    </div>");
-        out.println("    <div id=\"result-table-container\" class=\"blured-container margin\">");
-        out.println("        <table>");
+        out.println("    <div id=\"result-table-container\">");
+        out.println("        <table class=\"temporary\">");
         out.println("            <tr>");
         out.println("                <th>Параметр</th>");
         out.println("                <th>Полученные значения</th>");
@@ -42,8 +43,9 @@ public class Result {
         out.println("            </tr>");
         out.println("        </table>");
         out.println("    </div>");
-        out.println("    <div class=\"blured-container round-container fit-content-container margin\">"); // Здесь подставьте результат вычислений
-        out.println("        <p><a href=\"" + ctx + "\\index.jsp\">Вернуться назад</a></p>");
+        out.println("    <div>");
+        out.println("        <p><a href=\"" + ctx + "\\index.jsp\" class=\"button\">Вернуться назад</a></p>");
+        out.println("    </div>");
         out.println("    </div>");
         out.println("</body>");
         out.println("</html>");

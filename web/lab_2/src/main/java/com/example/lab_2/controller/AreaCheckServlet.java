@@ -29,11 +29,11 @@ public class AreaCheckServlet extends HttpServlet {
         final String x = req.getParameter("X");
         final String y = req.getParameter("Y");
         final String r = req.getParameter("R");
-        final int dx;
+        final double dx;
         final double dy;
         final double dr;
         try {
-            dx = Integer.parseInt(x);
+            dx = Double.parseDouble(x);
             dy = Double.parseDouble(y);
             dr = Double.parseDouble(r);
         } catch (NumberFormatException | NullPointerException e) {
@@ -60,19 +60,19 @@ public class AreaCheckServlet extends HttpServlet {
 
         renderView(resp, ctx, data);
     }
-    public boolean checkSquare(int x, double y, double r) {
+    public boolean checkSquare(double x, double y, double r) {
         return (x <= 0 && y >= 0 && Math.abs(x) <= r && y <= r);
     }
 
-    public boolean checkCircle(int x, double y, double r) {
+    public boolean checkCircle(double x, double y, double r) {
         return (x >= 0 && y >= 0 && (Math.pow(x, 2) + Math.pow(y, 2) <= Math.pow(r, 2)));
     }
 
-    public boolean checkTriangle(int x, double y, double r) {
+    public boolean checkTriangle(double x, double y, double r) {
         return (x >= 0 && y <= 0 && Math.abs(x) + Math.abs(y) <= r);
     }
 
-    public boolean checkArea(int x, double y, double r) {
+    public boolean checkArea(double x, double y, double r) {
         return checkCircle(x, y, r) || checkTriangle(x, y, r) || checkSquare(x, y, r);
     }
 

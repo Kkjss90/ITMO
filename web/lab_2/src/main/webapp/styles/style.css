@@ -1,17 +1,18 @@
-body{
+body {
     padding-top: 3%;
-    background-image: url("../img/white-tiles.png") ;
+    background-image: url("../img/white-tiles.png");
     text-align: center;
     font-family: "South Park Cyrillic Regular", cursive;
 }
-.button{
+
+.button {
     background-color: #c2fbd7;
     border-radius: 100px;
-    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
     color: green;
     cursor: pointer;
     display: inline-block;
-    font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+    font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
     padding: 7px 20px;
     text-align: center;
     text-decoration: none;
@@ -23,23 +24,29 @@ body{
     touch-action: manipulation;
     margin: 0.5%;
 }
+
 .button:hover {
-    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
     transform: scale(1.05) rotate(-1deg);
 }
+
 @font-face {
     font-family: "South Park Cyrillic Regular";
     src: url("../fonts/South_Park_Fonts/fonts_sp-font-cyr2.ttf");
 }
-.hidden{
+
+.hidden {
     display: none;
 }
-.visible{
+
+.visible {
     display: block;
 }
+
 .container {
     display: flex;
 }
+
 .main-block {
     flex: 1;
     color: black;
@@ -47,21 +54,25 @@ body{
     float: left;
 }
 
-table {
+.result {
     flex: 1;
     float: right;
 }
-.result td, .result th, .result tr{
+
+.result td, .result th, .result tr {
     width: 20px;
 }
-.result th{
+
+.result th {
     margin: 10%;
     padding: 20px;
 }
-.result tr{
+
+.result tr {
     padding: 10%;
 }
-a{
+
+a {
     text-decoration: none;
     display: inline-block;
     padding: 8px 16px;
@@ -74,6 +85,25 @@ a:hover {
 .previous {
     color: black;
 }
-.main{
+
+.main {
     padding-top: 2%;
+}
+
+.temporary th {
+    width: auto;
+    margin: 5%;
+    padding: 5%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.temporary {
+    margin-top: 20px;
 }

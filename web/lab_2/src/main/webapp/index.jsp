@@ -12,7 +12,7 @@
 </header>
 <div class="main-block">
     <div class="svg">
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1024px" height="768px"
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="850px" height="700px"
              style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
              xmlns:xlink="http://www.w3.org/1999/xlink">
             <g>
@@ -191,20 +191,21 @@
 <script src="js/form.js"></script>
 <script src="js/interactive.js"></script>
 <script>const ctx = "${pageContext.request.contextPath}";</script>
-<%--<script type="text/javascript">--%>
-<%--    var resultList = [];--%>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    var resultList = [];
 
-<%--    <c:forEach var="result" items="${resultList}">--%>
-<%--    var item = {--%>
-<%--        x: ${result.x},--%>
-<%--        y: ${result.y},--%>
-<%--        r: ${result.r},--%>
-<%--        result: ${result.result},--%>
-<%--        calculationTime: ${result.calculationTime},--%>
-<%--        calculatedAt: "${result.calculatedAt}"--%>
-<%--    };--%>
-<%--    resultList.push(item);--%>
-<%--//drawPoint(${result.x}, ${result.y}, ${result.result});--%>
-<%--    </c:forEach>--%>
-<%--</script>--%>
+    <c:forEach var="result" items="${resultList}">
+    var item = {
+        x: ${result.x},
+        y: ${result.y},
+        r: ${result.r},
+        result: ${result.res},
+        calculationTime: ${result.calculationTime},
+        calculatedAt: "${result.calculatedAt}"
+    };
+    resultList.push(item);
+    drawPoint(${result.x}, ${result.y}, ${result.r});
+    </c:forEach>
+</script>
 </html>

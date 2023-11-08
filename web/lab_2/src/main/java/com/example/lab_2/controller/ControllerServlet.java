@@ -17,12 +17,12 @@ public class ControllerServlet extends HttpServlet {
         String y = req.getParameter("Y");
         String r = req.getParameter("R");
         if (x != null && y != null && r != null
-                && validateCoordinates(Integer.parseInt(x), Double.parseDouble(y), Double.parseDouble(r))) {
+                && validateCoordinates(Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(r))) {
             getServletContext().getNamedDispatcher("AreaCheckServlet").forward(req, resp);
         }
     }
 
-    private boolean validateCoordinates(int x, double y, double r) {
+    private boolean validateCoordinates(double x, double y, double r) {
         boolean validX = -4 <= x && x <= 4;
         boolean validY = -3 <= y && y <= 3;
         boolean validR = false;
