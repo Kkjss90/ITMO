@@ -4,7 +4,9 @@ body {
     text-align: center;
     font-family: "South Park Cyrillic Regular", cursive;
 }
-
+#errorR, #errorX, #errorY{
+    color: tomato;
+}
 .button {
     background-color: #c2fbd7;
     border-radius: 100px;

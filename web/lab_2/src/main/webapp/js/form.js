@@ -76,3 +76,29 @@ function validateForm(event) {
     }
     return true;
 }
+rButtons.forEach((button) => {
+    button.addEventListener('click', function () {
+        rButtons.forEach((btn) => {
+            btn.classList.remove('checked');
+        });
+
+        // Select the clicked button
+        this.classList.add('checked');
+
+        // You can perform any actions you need with the selected value here
+        const selectedValue = this.value;
+        console.log(`Выбранное R: ${selectedValue}`);
+
+
+        // You can perform any actions you need with the selected value here
+        drawShapesByR(+selectedValue);
+        for (var i = 0; i < resultList.length; i++) {
+            console.log("start");
+            if (parseFloat(resultList[i].r) === parseFloat(selectedValue)) {
+                console.log("draw");
+                drawPoint(resultList[i].x, resultList[i].y, resultList[i].res);
+            }
+        }
+
+    });
+});

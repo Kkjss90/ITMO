@@ -60,17 +60,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 })
-function drawPoint(x,y, radius){
-    const TO_RECALC_COORD = 160;
-    const TO_RECALC_R = 300;
-    const svg = document.querySelector('svg');
-    var resX = (x + TO_RECALC_COORD) * TO_RECALC_R / radius;
-    var resY = (TO_RECALC_COORD + y) * TO_RECALC_R / radius;
-    let circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle.setAttribute("cx", resX);
-    circle.setAttribute("cy", resY);
-    circle.setAttribute("r", "3");
-    circle.setAttribute("fill", "red");
-    svg.appendChild(circle);
-    console.log("Отрисовано");
-}
