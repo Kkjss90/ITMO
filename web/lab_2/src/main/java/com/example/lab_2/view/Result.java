@@ -1,7 +1,7 @@
 package com.example.lab_2.view;
 
 import com.example.lab_2.model.Data;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
