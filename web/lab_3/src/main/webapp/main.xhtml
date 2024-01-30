@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://java.sun.com/jsf/facelets">
 <h:head>
     <title>Главная страница</title>
     <h:outputStylesheet library="css" name="style.css"/>
@@ -20,42 +20,73 @@
             <div class="main">
                 <div class="hidden" id="errorX">Некорректная координата X</div>
                 X:
-                <h:selectBooleanCheckbox value="${Form.valueX[0]}">-4</h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="${Form.valueX[1]}">-3</h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="${Form.valueX[2]}">-2</h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="${Form.valueX[3]}">-1</h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="${Form.valueX[4]}">0</h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="${Form.valueX[5]}">1</h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="${Form.valueX[6]}">2</h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="${Form.valueX[7]}">3</h:selectBooleanCheckbox>
-                <h:selectBooleanCheckbox value="${Form.valueX[8]}">4</h:selectBooleanCheckbox>
+                <h:inputText id="X"
+                             required="required" class="form__number-input" name="y" placeholder="Input X (-4;4)"
+                             type="text" value="#{results.currResult.x}">
+                <f:validator validatorId="validateY"/>
+                </h:inputText>
             </div>
             <div class="main">
                 <h:outputLabel value="Y:">
-                    <h:inputText value="${Form.InputY}"></h:inputText>
+                    <h:inputText value="#{results.currResult.y}"><f:validator validatorId="validateY"/></h:inputText>
                 </h:outputLabel>
                 <div class="hidden" id="errorY">Некорректная координата Y</div>
             </div>
             <div class="main">
                 <div class="hidden" id="errorR">Некорректная перменная R</div>
                 R:
-                <h:selectOneMenu id="selectMenu" value="${Form.InputR}">
+                <h:selectOneMenu id="selectMenu" value="#{results.currResult.r}">
                     <f:selectItem itemValue="1"></f:selectItem>
                     <f:selectItem itemValue="2"></f:selectItem>
                     <f:selectItem itemValue="3"></f:selectItem>
                     <f:selectItem itemValue="4"></f:selectItem>
                     <f:selectItem itemValue="5"></f:selectItem>
                 </h:selectOneMenu>
+                <h:inputHidden id="R" name="r" value="#{results.currResult.r}">
+                    <f:validator validatorId="validateR"/>
+                </h:inputHidden>
             </div>
-            <div>
-                <h:button type="submit" class="button" value="Отправить"></h:button>
+            <div class="form__row form__btn-row">
+                <h:commandButton id="submitBtn" styleClass="button" type="submit" value="Submit"
+                                 action="#{results.addResult}" update="results-table" oncomplete="updateDotsOnGraphFromTable();"/>
+                <h:commandButton id="clearBtn" styleClass="button" value="Clear"
+                                 action="#{results.clearResults}" immediate="true" update="results-table" oncomplete="updateDotsOnGraphFromTable();"/>
+                <h:inputHidden id="source" value="#{results.source}" />
             </div>
             <div>
                 <h:button type="reset" class="reset button" id="reset" value="Очистить"></h:button>
             </div>
         </h:form>
     </div>
+    <div class="result">
+        <h:dataTable id="result" tableStyleClass="result" var="result" value="#{results.resultList}"
+                     emptyMessage="">
+            <h:column headerText="X">
+                <h:outputText value="#{result.x}"/>
+            </h:column>
+
+            <h:column headerText="Y">
+                <h:outputText value="#{result.y}"/>
+            </h:column>
+
+            <h:column headerText="R">
+                <h:outputText value="#{result.r}"/>
+            </h:column>
+
+            <h:column headerText="Result">
+                <h:outputText styleClass="${result.classSuccess}" value="#{result.stringSuccess}"/>
+            </h:column>
+
+            <h:column headerText="Time">
+                <h:outputText value="#{result.requestTime}"/>
+            </h:column>
+        </h:dataTable>
+    </div>
+    <h:outputScript library="js" name="canvas.js"/>
+    <h:outputScript library="js" name="form.js"/>
+    <h:outputScript library="js" name="drawByR.js"/>
     <ui:insert library="js" name="canvas.js"></ui:insert>
     <ui:insert library="js" name="form.js"></ui:insert>
+    <ui:insert library="js" name="drawByR.js"></ui:insert>
 </h:body>
 </html>

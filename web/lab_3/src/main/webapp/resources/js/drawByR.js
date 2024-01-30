@@ -1,13 +1,5 @@
 function drawByR() {
-    let selectedR = null;
-
-    // Находим выбранный R
-    rButtons.forEach(rb => {
-        if (rb.classList.contains('checked')) {
-            selectedR = parseFloat(rb.getAttribute('value'));
-        }
-    });
-
+    let selectedR = document.getElementById('form:selectMenu').value;
     if (selectedR !== null) {
         const table = document.getElementById('result'); // Замените 'tableId' на ID вашей таблицы
         const rows = table.getElementsByTagName('tr');

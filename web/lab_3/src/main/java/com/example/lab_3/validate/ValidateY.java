@@ -3,13 +3,14 @@ package com.example.lab_3.validate;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.FacesValidator;
 import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.regex.Pattern;
-
+@FacesValidator("validateY")
 public class ValidateY implements Validator {
     private static final String NUMBER_PATTERN = "^(-)?[0-9]+(\\.[0-9]+)?$";
     private static final BigDecimal MAX_Y = new BigDecimal("5");
