@@ -6,7 +6,7 @@ const yAxisLabel = "Y";
 
 let xAxisScale;
 let yAxisScale;
-const rButtons = document.getElementById('form:selectMenu');
+const rButtons = document.getEleentById('form:selectMenu');
 
 function draw() {
     if (canvas.getContext) {
@@ -172,13 +172,24 @@ function handleCanvasClick(event) {
     const yAxes = -(yCanvas - canvas.height / 2) / yAxisScale;
 
     console.log(`Кликнуто на точку (${xAxes}, ${yAxes})`);
-    const selectedValue = document.getElementById('form:selectMenu').value;
+    let tempIsSelected = false;
+    let tempR;
+    rButtons.forEach(rb => {
+        if (rb.classList.contains("checked")) {
+            tempIsSelected = true;
+            tempR = rb.value;
+        }
+    });
 
-    if (!selectedValue) {
-        alert("R не выбран");
+    const isSelectedR = tempIsSelected;
+
+    if (!isSelectedR) {
+        alert("R none");
         return;
     }
-    send_intersection_rq(xAxes, yAxes, selectedValue);
+
+    const r = tempR;
+    send_intersection_rq(xAxes, yAxes, r);
     draw();
 }
 
