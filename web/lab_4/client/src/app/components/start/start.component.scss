@@ -1,4 +1,4 @@
-$bg: #f3f8fa;
+$bg: white;
 $white: #fff;
 $black: #282936;
 
@@ -10,9 +10,44 @@ $black: #282936;
   font-size: 60px;
   font-family: Verdana, Arial, Sans-serif;
   text-align: center;
-  color: $bg;
+  color: $black;
+}
+.clock ul {
+  margin: 0 auto;
+  list-style: none;
+}
+.clock ul li {
+  display: inline;
+}
+.clock ul li#separator {
+  -moz-animation: myfade 1s ease infinite;
+  -webkit-animation: myfade 1s ease infinite;
 }
 
+/* Animation */
+@-webkit-keyframes myfade {
+  0% {
+    opacity: 1.0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@-moz-keyframes myfade {
+  0% {
+    opacity: 1.0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
 @mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65,0,.076,1)) {
   transition: $property $duration $ease;
 }

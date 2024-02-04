@@ -1,0 +1,64 @@
+<form>
+    <label for="x"> Choose X:</label>
+    <select name="X" id="x">
+        <option value="-2">
+            -2
+        </option>
+        <option value="-1.5">
+            -1.5
+        </option>
+        <option value="-1">
+            -1
+        </option>
+        <option value="-0.5">
+            -0.5
+        </option>
+        <option value="0">
+            0
+        </option>
+        <option value="0.5">
+            0.5
+        </option>
+        <option value="1">
+            1
+        </option>
+        <option value="1.5">
+            1.5
+        </option>
+        <option value="2">
+            2
+        </option>
+    </select>
+    <label for="y">Input Y:</label>
+    <input type="text" name="Y" id="y" placeholder="[-5;5]"/>
+    <label for="r"> Choose R:</label>
+    <select name="R" id="r" [(ngModel)]="R" (change)="handleRChange()">
+        <option value="-2">
+            -2
+        </option>
+        <option value="-1.5">
+            -1.5
+        </option>
+        <option value="-1">
+            -1
+        </option>
+        <option value="-0.5">
+            -0.5
+        </option>
+        <option value="0">
+            0
+        </option>
+        <option value="0.5">
+            0.5
+        </option>
+        <option value="1">
+            1
+        </option>
+        <option value="1.5">
+            1.5
+        </option>
+        <option value="2">
+            2
+        </option>
+    </select>
+</form>
