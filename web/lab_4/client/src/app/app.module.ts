@@ -20,12 +20,7 @@ const appRoutes: Routes = [
   { path: 'main', component: MainComponent}
 ];
 @NgModule({
-  declarations: [AppComponent,
-    StartComponent,
-    HeaderComponent,
-    LoginComponent,
-    MainComponent,
-    RegisterComponent],
+  declarations: [],
   imports: [BrowserModule, FormsModule,
     AppRoutingModule,
     HttpClientModule,
