@@ -19,7 +19,7 @@ $black: #282936;
 .clock ul li {
   display: inline;
 }
-.clock ul li#separator {
+.clock ul li.separator {
   -moz-animation: myfade 1s ease infinite;
   -webkit-animation: myfade 1s ease infinite;
 }
@@ -166,5 +166,6 @@ button {
     grid-area: main;
     align-self: center;
     justify-self: center;
+    text-align: center;
   }
 }
