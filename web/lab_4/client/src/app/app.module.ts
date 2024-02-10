@@ -15,23 +15,23 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CommonModule} from "@angular/common";
 
 const appRoutes: Routes = [
-  {path: '', component: StartComponent},
-  {path: 'log', component: LoginComponent},
-  {path: 'reg', component: RegisterComponent},
-  {path: 'main', component: MainComponent}
+    {path: '', component: StartComponent},
+    {path: 'log', component: LoginComponent},
+    {path: 'reg', component: RegisterComponent},
+    {path: 'main', component: MainComponent}
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes),
-    CommonModule],
-  providers: [SharedDataService],
-  bootstrap: [AppComponent],
+    declarations: [],
+    imports: [BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        RouterModule.forRoot(appRoutes),
+        CommonModule],
+    providers: [SharedDataService],
+    bootstrap: [AppComponent],
 })
 export class AppModule {
 }

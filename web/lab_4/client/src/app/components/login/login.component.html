@@ -12,14 +12,17 @@
       <hr>
 
       <label for="email"><b>Email</b></label>
-      <input type="email" placeholder="Enter Email" name="email" id="email" required>
+      <input type="email" placeholder="Enter Email" name="email" id="email" required [(ngModel)]="dataLogin.username">
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+      <input type="password" placeholder="Enter Password" name="psw" id="psw" required [(ngModel)]="dataLogin.password">
       <hr>
 
-      <button type="submit" class="registerbtn">Login</button>
+      <button type="submit" class="registerbtn" (click)="tryLogin()">Login</button>
 
+      <div id="error" *ngIf="isTextVisible">
+        <p>{{ errorMessage }}</p>
+      </div>
       <div class="container signin">
         <p>Don't have an account? <a routerLink="../reg">Sign up</a>.</p>
       </div>

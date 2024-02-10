@@ -12,17 +12,19 @@
       <hr>
 
       <label for="email"><b>Email</b></label>
-      <input type="email" placeholder="Enter Email" name="email" id="email" required>
+      <input type="email" placeholder="Enter Email" name="email" id="email" required [(ngModel)]="dataRegister.username">
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+      <input type="password" placeholder="Enter Password" name="psw" id="psw" required [(ngModel)]="dataRegister.password">
 
       <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required [(ngModel)]="dataRegister.password2">
       <hr>
 
-      <button type="submit" class="registerbtn">Register</button>
-
+      <button type="submit" class="registerbtn" (click)="tryRegistration(); checkInput()">Register</button>
+      <div id="error" *ngIf="isTextVisible">
+        <p>{{ errorMessage }}</p>
+      </div>
       <div class="container signin">
         <p>Already have an account? <a routerLink="../log">Sign in</a>.</p>
       </div>
