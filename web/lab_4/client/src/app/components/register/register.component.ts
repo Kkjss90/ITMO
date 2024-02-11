@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit() {
+    //this.dataService.sendOptionsRequest();
     if (localStorage.getItem('sessionId')){
       this.router.navigate(['/main']);
     }

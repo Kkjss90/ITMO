@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {HeaderComponent} from "./components/header/header.component";
 import {RouterOutlet} from "@angular/router";
 import {StartComponent} from "./components/start/start.component";
+import {DataService} from "./data.service";
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -9,7 +10,7 @@ import {StartComponent} from "./components/start/start.component";
   imports: [
     HeaderComponent,
     RouterOutlet,
-    StartComponent
+    StartComponent,
   ],
   styleUrl: './app.component.css'
 })

@@ -9,31 +9,16 @@ export class DataService {
   private baseUrl = 'http://localhost:8080/api/auth';
 
   constructor(private httpClient: HttpClient) {}
-// Метод для отправки предварительного запроса OPTIONS
-sendOptionsRequest() {
-  // Установите необходимые заголовки для предварительного запроса
-  const headers = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set('Access-Control-Request-Method', 'POST') // Укажите метод, который вы планируете использовать
-    .set('Access-Control-Request-Headers', 'authorization, content-type'); // Укажите заголовки, которые вы планируете отправить
-
-  // Отправьте предварительный запрос OPTIONS
-  this.httpClient.options(this.baseUrl, { headers }).subscribe(
-    () => {
-      console.log('Предварительный запрос OPTIONS успешно отправлен');
-      // Обработайте успешный ответ
-    },
-    error => {
-      console.error('Ошибка при отправке предварительного запроса OPTIONS:', error);
-      // Обработайте ошибку
-    }
-  );
-}
 
   registerUser(data: any): Observable<any> {
     const url = `${this.baseUrl}/reg`;
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Access-Control-Request-Method', 'POST')
+      .set('Access-Control-Request-Headers', 'authorization, content-type');
 
-    return this.httpClient.post(url, data);
+
+    return this.httpClient.post(url, data, {headers});
   }
 
   loginUser(data: any): Observable<any> {

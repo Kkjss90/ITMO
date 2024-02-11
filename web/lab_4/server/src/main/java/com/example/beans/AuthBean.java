@@ -71,7 +71,7 @@ public class AuthBean {
     private Optional<User> findUserByUsername(String username) {
         try {
             Query namedQuery = entityManager.createNamedQuery("User.findByUsername");
-            namedQuery.setParameter("email", username);
+            namedQuery.setParameter("username", username);
             User user = (User) namedQuery.getSingleResult();
             return Optional.of(user);
         } catch (PersistenceException exception) {
