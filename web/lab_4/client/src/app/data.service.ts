@@ -6,23 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private baseUrl = 'http://localhost:8080/api/auth';
+  private baseUrl = 'http://localhost:8080/server-1.0-SNAPSHOT/api/auth';
 
   constructor(private httpClient: HttpClient) {}
 
   registerUser(data: any): Observable<any> {
     const url = `${this.baseUrl}/reg`;
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Access-Control-Request-Method', 'POST')
-      .set('Access-Control-Request-Headers', 'authorization, content-type');
-
-console.log(JSON.stringify(data));
-    return this.httpClient.post(url, {
-      headers: headers,
-      params: JSON.stringify(data),
-      responseType: 'json'
-    });
+    return this.httpClient.post(url, data);
   }
 
   loginUser(data: any): Observable<any> {

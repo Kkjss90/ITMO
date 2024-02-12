@@ -1,6 +1,10 @@
 package com.example.REST.filters;
 
 
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.container.*;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
@@ -13,7 +17,8 @@ import java.util.Objects;
  */
 @Provider
 @PreMatching
-public class CORSFilter implements ContainerRequestFilter, ContainerResponseFilter {
+@WebFilter(urlPatterns = "*")
+public class CORSFilter implements ContainerRequestFilter, ContainerResponseFilter, Filter {
     private final static String ORIGIN_HEADER = "Origin";
     private final static String OPTIONS_METHOD = "OPTIONS";
 
@@ -80,5 +85,36 @@ public class CORSFilter implements ContainerRequestFilter, ContainerResponseFilt
         return Objects.nonNull(origin)
                 && Objects.nonNull(method)
                 && method.equalsIgnoreCase(OPTIONS_METHOD);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        Filter.super.init(filterConfig);
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        System.out.println(request.getHeaderNames());
+        // Устанавливаем заголовки CORS
+        response.setHeader(
+                "Access-Control-Allow-Credentials",
+                "true");
+        response.setHeader(
+                "Access-Control-Allow-Private-Network",
+                "true");
+        response.setHeader("Access-Control-Allow-Origin", "*"); // Разрешаем доступ с любых источников
+        response.setHeader("Access-Control-Allow-Methods", "*"); // Разрешенные методы
+        response.setHeader("Access-Control-Allow-Headers", "*"); // Разрешенные заголовки
+        response.setHeader("Access-Control-Max-Age", "3600"); // Время кеширования предварительных запросов в секундах
+
+        // Продолжаем цепочку фильтров
+        filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    @Override
+    public void destroy() {
+        Filter.super.destroy();
     }
 }

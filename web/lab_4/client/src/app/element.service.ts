@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class ElementService {
 
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = 'http://localhost:8080/server-1.0-SNAPSHOT/api';
 
   constructor(private httpClient: HttpClient) {
   }

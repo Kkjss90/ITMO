@@ -21,16 +21,16 @@ import lombok.extern.java.Log;
 public class AuthRes {
     @EJB
     private AuthBean authBean;
-    @OPTIONS
-    @Path("/*")
-    public Response optionsForLog() {
-        // Вернуть заголовки CORS для разрешения доступа к этому эндпоинту
-        return Response.ok()
-                .header("Access-Control-Allow-Origin", "*") // Разрешить доступ с любого источника
-                .header("Access-Control-Allow-Methods", "*") // Разрешенный метод
-                .header("Access-Control-Allow-Headers", "*") // Разрешенные заголовки
-                .build();
-    }
+//    @OPTIONS
+//    @Path("/*")
+//    public Response optionsForLog() {
+//        // Вернуть заголовки CORS для разрешения доступа к этому эндпоинту
+//        return Response.ok()
+//                .header("Access-Control-Allow-Origin", "*") // Разрешить доступ с любого источника
+//                .header("Access-Control-Allow-Methods", "*") // Разрешенный метод
+//                .header("Access-Control-Allow-Headers", "*") // Разрешенные заголовки
+//                .build();
+//    }
     @POST
     @Path("/log")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -39,10 +39,7 @@ public class AuthRes {
         try {
             log.info("/log");
             Token tokens = authBean.login(request);
-            return Response.ok().entity(tokens).header("Access-Control-Allow-Origin", "*") // Разрешить доступ с любого источника
-                    .header("Access-Control-Allow-Methods", "*") // Разрешенный метод
-                    .header("Access-Control-Allow-Headers", "*") // Разрешенные заголовки
-                    .build();
+            return Response.ok().entity(tokens).build();
         } catch (LoginException exception) {
             Error error = AuthRes.transform(exception);
             return Response.status(Response.Status.UNAUTHORIZED).entity(error).build();
