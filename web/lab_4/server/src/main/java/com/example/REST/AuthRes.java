@@ -11,22 +11,26 @@ import com.example.models.RegisterReq;
 import com.example.models.Token;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.java.Log;
-
-
-
 @Log
 @Stateless
 @Path("/auth")
 public class AuthRes {
     @EJB
     private AuthBean authBean;
+    @OPTIONS
+    @Path("/*")
+    public Response optionsForLog() {
+        // Вернуть заголовки CORS для разрешения доступа к этому эндпоинту
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "*") // Разрешить доступ с любого источника
+                .header("Access-Control-Allow-Methods", "*") // Разрешенный метод
+                .header("Access-Control-Allow-Headers", "*") // Разрешенные заголовки
+                .build();
+    }
     @POST
     @Path("/log")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -35,7 +39,10 @@ public class AuthRes {
         try {
             log.info("/log");
             Token tokens = authBean.login(request);
-            return Response.ok().entity(tokens).build();
+            return Response.ok().entity(tokens).header("Access-Control-Allow-Origin", "*") // Разрешить доступ с любого источника
+                    .header("Access-Control-Allow-Methods", "*") // Разрешенный метод
+                    .header("Access-Control-Allow-Headers", "*") // Разрешенные заголовки
+                    .build();
         } catch (LoginException exception) {
             Error error = AuthRes.transform(exception);
             return Response.status(Response.Status.UNAUTHORIZED).entity(error).build();

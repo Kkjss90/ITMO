@@ -17,8 +17,12 @@ export class DataService {
       .set('Access-Control-Request-Method', 'POST')
       .set('Access-Control-Request-Headers', 'authorization, content-type');
 
-
-    return this.httpClient.post(url, data, {headers});
+console.log(JSON.stringify(data));
+    return this.httpClient.post(url, {
+      headers: headers,
+      params: JSON.stringify(data),
+      responseType: 'json'
+    });
   }
 
   loginUser(data: any): Observable<any> {

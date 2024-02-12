@@ -1,24 +1,35 @@
 package com.example.REST.filters;
 
+
 import com.example.util.HTTPHeaderExtractor;
 import com.example.util.JWTutil;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.SecurityContext;
-import jakarta.ws.rs.ext.Provider;
+import jakarta.ws.rs.core.MultivaluedMap;
 
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
 
+/**
+ * Authentication filter for processing incoming requests.
+ */
 @Secured
 @Provider
 public class Auth implements ContainerRequestFilter {
+    /**
+     * Filters the incoming request context for authentication.
+     *
+     * @param requestContext The container request context.
+     * @throws IOException if an I/O exception occurs.
+     */
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         Optional<UserPrincipal> optionalUser = HTTPHeaderExtractor
-                .extractJWT(requestContext.getHeaders())
+                .extractJWT((MultivaluedMap<String, String>) requestContext.getHeaders())
                 .flatMap(JWTutil::verify);
 
         if (!optionalUser.isPresent()) {
