@@ -19,23 +19,53 @@ export class FormComponent {
   Xval: string;
   Yval: string;
 
+
   constructor(private sharedDataService: SharedDataService, private elementService: ElementService, public point: Element) {}
 
+
+  validateInput(event: any) {
+    const allowedChars = ['0', '1', '2', '3', '4', '5', '.', ','];
+    const inputChar = event.key || String.fromCharCode(event.which || event.keyCode);
+
+    if (!/^-?\d*\.?\d*$/.test(inputChar) && allowedChars.indexOf(inputChar) === -1) {
+      event.preventDefault();
+      return;
+    }
+
+    const value = event.target.value + inputChar;
+
+    if ((value.match(/-/g) || []).length > 1 || (value.indexOf('-') !== -1 && event.target.selectionStart !== 0)) {
+      event.preventDefault();
+      return;
+    }
+
+    if ((value.match(/[.,]/g) || []).length > 1 || (value.indexOf('.') === 0 || value.indexOf(',') === 0)) {
+      event.preventDefault();
+      return;
+    }
+
+    if (parseFloat(value) < -5 || parseFloat(value) > 5) {
+      event.preventDefault();
+      return;
+    }
+  }
   handleRChange() {
     this.sharedDataService.setRValue(this.R);
   }
   sendCheck(){
-    this.point.x = this.Xval
-    this.point.y = this.Yval
-    this.point.r = String(this.R);
-    this.elementService.addElement(this.point).subscribe(
-      (response) =>{
-        console.log(response);
-      },
-      (error) =>{
-        console.log(error);
+    if (this.R>=0) {
+      this.point.x = this.Xval;
+      this.point.y = this.Yval;
+      this.point.r = String(this.R);
+      this.elementService.addElement(this.point).subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
-    );
   }
   clear(){
     this.elementService.clearAllElements(this.R).subscribe(
@@ -47,4 +77,6 @@ export class FormComponent {
       }
     )
   }
+
+  protected readonly event = event;
 }
