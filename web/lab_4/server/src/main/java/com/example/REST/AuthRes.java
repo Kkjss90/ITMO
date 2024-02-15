@@ -21,16 +21,6 @@ import lombok.extern.java.Log;
 public class AuthRes {
     @EJB
     private AuthBean authBean;
-//    @OPTIONS
-//    @Path("/*")
-//    public Response optionsForLog() {
-//        // Вернуть заголовки CORS для разрешения доступа к этому эндпоинту
-//        return Response.ok()
-//                .header("Access-Control-Allow-Origin", "*") // Разрешить доступ с любого источника
-//                .header("Access-Control-Allow-Methods", "*") // Разрешенный метод
-//                .header("Access-Control-Allow-Headers", "*") // Разрешенные заголовки
-//                .build();
-//    }
     @POST
     @Path("/log")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -39,7 +29,7 @@ public class AuthRes {
         try {
             log.info("/log");
             Token tokens = authBean.login(request);
-            return Response.ok().entity(tokens).build();
+            return Response.ok().entity(tokens).status(201).build();
         } catch (LoginException exception) {
             Error error = AuthRes.transform(exception);
             return Response.status(Response.Status.UNAUTHORIZED).entity(error).build();
@@ -54,7 +44,7 @@ public class AuthRes {
         try {
             log.info("/refresh");
             Token tokens = authBean.refreshToken(request);
-            return Response.ok().entity(tokens).build();
+            return Response.ok().entity(tokens).status(201).build();
         } catch (RefreshTokenException exception) {
             Error error = AuthRes.transform(exception);
             return Response.status(Response.Status.UNAUTHORIZED).entity(error).build();
@@ -69,7 +59,7 @@ public class AuthRes {
         try {
             log.info("/reg");
             authBean.registration(request);
-            return Response.ok().build();
+            return Response.ok().status(201).build();
         } catch (RegistrationException exception) {
             Error error = AuthRes.transform(exception);
             return Response.status(Response.Status.UNAUTHORIZED).entity(error).build();

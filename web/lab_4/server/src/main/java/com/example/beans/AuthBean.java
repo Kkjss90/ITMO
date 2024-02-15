@@ -20,6 +20,7 @@ import lombok.extern.java.Log;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 @Stateless
 @Log

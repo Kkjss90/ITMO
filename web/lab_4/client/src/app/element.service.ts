@@ -7,16 +7,16 @@ import {Observable} from "rxjs";
 })
 export class ElementService {
 
-  private baseUrl = 'http://localhost:8080/server-1.0-SNAPSHOT/api';
+  private baseUrl = 'http://localhost:8080/server-1.0-SNAPSHOT/api/results';
 
   constructor(private httpClient: HttpClient) {
   }
 
   addElement(element: any): Observable<any> {
-    const url = `${this.baseUrl}/add`;
+    const url = `${this.baseUrl}`;
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem("sessionId")}`
+      'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`
     });
 
     return this.httpClient.post(url, element, {headers});
@@ -24,20 +24,20 @@ export class ElementService {
   }
 
   getAllElements(element: any): Observable<any> {
-    const url = `${this.baseUrl}/list`;
+    const url = `${this.baseUrl}`;
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem("sessionId")}`
+      'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`
     });
 
     return this.httpClient.get(url, {headers});
   }
 
   clearAllElements(element: any): Observable<any>{
-    const url = `${this.baseUrl}/clear`;
+    const url = `${this.baseUrl}`;
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem("sessionId")}`
-    });
-    return this.httpClient.post(url, element, { headers });  }
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`
+    // });
+    return this.httpClient.delete(url, element);  }
 }

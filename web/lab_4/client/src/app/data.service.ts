@@ -21,13 +21,18 @@ export class DataService {
     return this.httpClient.post(url, data);
   }
 
-  logoutUser(data:any): Observable<any> {
+  logoutUser(): Observable<any> {
     const url = `${this.baseUrl}/logout`;
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem("sessionId")}`
+      'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`
     });
 
     return this.httpClient.delete(url, { headers });
+  }
+  refresh(data: any): Observable<any>{
+    const url = `${this.baseUrl}/refresh`;
+
+    return this.httpClient.post(url, data);
   }
 }

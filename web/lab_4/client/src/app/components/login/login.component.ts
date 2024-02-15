@@ -14,7 +14,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit{
   loginValue: string = '';
@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit() {
-    if (localStorage.getItem('refresh_token')){
-      this.router.navigate(['/main']);
-    }
+    // if (localStorage.getItem('refresh_token')){
+    //   this.router.navigate(['/main']);
+    // }
   }
 
   tryLogin(){
@@ -36,18 +36,17 @@ export class LoginComponent implements OnInit{
     this.dataService.loginUser(this.dataLogin).subscribe(
         (response) => {
           this.isTextVisible = false;
-          if (response.statusCode == 200){
             localStorage.setItem('username', this.dataLogin.username);
-            localStorage.setItem('refresh_token', response.jwt);
+            localStorage.setItem('refresh_token', response.refreshToken);
             console.log('Data sent successfully', response);
             this.router.navigate(['/main']);
-          }else{
-            this.errorMessage = response.message;
-            this.isTextVisible = true;
-          }
         },
         (error) => {
-          this.errorMessage = 'Something went wrong, try again.';
+          if(error.status == 401){
+            this.errorMessage = 'No users with this login. Or wrong password.';
+          }else {
+            this.errorMessage = 'Something went wrong, try again.';
+          }
           this.isTextVisible = true;
         }
     );

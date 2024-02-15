@@ -16,7 +16,7 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit {
   loginValue: string = '';
   passwordValue: string = '';
   isTextVisible: boolean = false;
@@ -27,10 +27,11 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit() {
     //this.dataService.sendOptionsRequest();
-    if (localStorage.getItem('sessionId')){
+    if (localStorage.getItem('refreshToken')) {
       this.router.navigate(['/main']);
     }
   }
+
   checkInput() {
     if (this.dataRegister.password !== this.dataRegister.password2) {
       return false;
@@ -40,25 +41,25 @@ export class RegisterComponent implements OnInit{
     }
   }
 
-  tryRegistration(){
+  tryRegistration() {
     console.log(this.dataRegister);
     this.dataService.registerUser(this.dataRegister).subscribe(
-        (response) => {
-          this.isTextVisible = false;
-          if (response.statusCode == 201){
-            localStorage.setItem('username', this.dataRegister.username);
-            localStorage.setItem('sessionId', response.jwt);
-            console.log('Data sent successfully', response);
-            this.router.navigate(['/main']);
-          }else{
-            this.errorMessage = response.message;
-            this.isTextVisible = true;
-          }
-        },
-        (error) => {
+      (response) => {
+        console.log(response);
+        this.isTextVisible = false;
+        localStorage.setItem('username', this.dataRegister.username);
+        //localStorage.setItem('sessionId', response.refreshToken);
+        console.log('Data sent successfully', response);
+        this.router.navigate(['/log']);
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.errorMessage = "User with this name already exists.";
+        } else {
           this.errorMessage = 'Something went wrong, try again.';
-          this.isTextVisible = true;
         }
+        this.isTextVisible = true;
+      }
     );
   }
 

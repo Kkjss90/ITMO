@@ -5,7 +5,7 @@ import lombok.*;
 
 @Data
 @AllArgsConstructor
-//@JsonFormat(shape = JsonFormat.Shape.STRING)
+@JsonFormat(shape = JsonFormat.Shape.STRING)
 public class Result {
     private Long id;
     private String x;

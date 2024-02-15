@@ -13,9 +13,12 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
+import lombok.extern.java.Log;
 
 import java.util.List;
+import java.util.function.Supplier;
 
+@Log
 @Stateless
 @Path("/results")
 public class ResultsRes {
