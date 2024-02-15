@@ -9,10 +9,7 @@ import com.example.models.Result;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.SecurityContext;
+import jakarta.ws.rs.core.*;
 import lombok.extern.java.Log;
 
 import java.util.List;
@@ -28,12 +25,24 @@ public class ResultsRes {
     @Secured
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getResults(
-            @Context SecurityContext securityContext
+    public Response getResults(@Context HttpHeaders headers,
+                               @Context SecurityContext securityContext
     ) {
-        UserPrincipal user = (UserPrincipal) securityContext.getUserPrincipal();
-        List<Result> results = resultsBean.getResults(user);
-        return Response.ok().entity(results).build();
+        String authorizationHeader = headers.getHeaderString("Authorization");
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String token = authorizationHeader.substring(7);
+            String[] parts = token.split(" ");
+            if (parts.length == 2) {
+                Long sessionId = Long.valueOf(parts[0]);
+                String username = parts[1];
+                UserPrincipal user = new UserPrincipal(sessionId, username);
+                List<Result> results = resultsBean.getResults(user);
+                return Response.ok().entity(results).build();
+            }
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        return null;
     }
 
     @Secured
@@ -42,25 +51,51 @@ public class ResultsRes {
     @Produces(MediaType.APPLICATION_JSON)
     public Response checkCoordinates(
             @Context SecurityContext securityContext,
+            @Context HttpHeaders headers,
             Coordinates coordinates
     ) {
-        UserPrincipal user = (UserPrincipal) securityContext.getUserPrincipal();
-        CheckResponse response = resultsBean.check(coordinates, user);
-        return Response.ok().entity(response).build();
+        String authorizationHeader = headers.getHeaderString("Authorization");
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String token = authorizationHeader.substring(7);
+            String[] parts = token.split(" ");
+            if (parts.length == 2) {
+                Long sessionId = Long.valueOf(parts[0]);
+                String username = parts[1];
+                UserPrincipal user = new UserPrincipal(sessionId, username);
+                CheckResponse response = resultsBean.check(coordinates, user);
+                return Response.ok().entity(response).build();
+            }
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        return null;
     }
 
     @Secured
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response clearResults(
-            @Context SecurityContext securityContext
+            @Context SecurityContext securityContext,
+            @Context HttpHeaders headers
     ) {
-        UserPrincipal user = (UserPrincipal) securityContext.getUserPrincipal();
-        boolean success = resultsBean.clearResults(user);
-        if (success) {
-            return Response.ok().build();
+        String authorizationHeader = headers.getHeaderString("Authorization");
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String token = authorizationHeader.substring(7);
+            String[] parts = token.split(" ");
+            if (parts.length == 2) {
+                Long sessionId = Long.valueOf(parts[0]);
+                String username = parts[1];
+                UserPrincipal user = new UserPrincipal(sessionId, username);
+                boolean success = resultsBean.clearResults(user);
+                if (success) {
+                    return Response.ok().build();
+                } else {
+                    return Response.serverError().build();
+                }
+            }
         } else {
-            return Response.serverError().build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
+        return null;
     }
 }

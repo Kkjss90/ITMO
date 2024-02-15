@@ -1,5 +1,6 @@
 package com.example.REST;
 
+import com.example.DB.User;
 import com.example.models.Error;
 import com.example.beans.AuthBean;
 import com.example.exceptions.RefreshTokenException;
@@ -11,16 +12,26 @@ import com.example.models.RegisterReq;
 import com.example.models.Token;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.java.Log;
+
+import javax.swing.text.html.parser.Entity;
+import java.util.HashMap;
+import java.util.Map;
+
 @Log
 @Stateless
 @Path("/auth")
 public class AuthRes {
     @EJB
     private AuthBean authBean;
+    @PersistenceContext(unitName = "persistence-unit")
+    private EntityManager entityManager;
     @POST
     @Path("/log")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -29,7 +40,16 @@ public class AuthRes {
         try {
             log.info("/log");
             Token tokens = authBean.login(request);
-            return Response.ok().entity(tokens).status(201).build();
+            Query namedQuery = entityManager.createNamedQuery("User.findByUsername");
+            namedQuery.setParameter("username", request.getUsername());
+            User user = (User) namedQuery.getSingleResult();
+            Number id = user.getId();
+            Map<String, Object> responseMap = new HashMap<>();
+            responseMap.put("id_user", id);
+            responseMap.put("access", tokens.getAccess());
+            responseMap.put("refreshToken", tokens.getRefreshToken());
+
+            return Response.ok().entity(responseMap).status(201).build();
         } catch (LoginException exception) {
             Error error = AuthRes.transform(exception);
             return Response.status(Response.Status.UNAUTHORIZED).entity(error).build();

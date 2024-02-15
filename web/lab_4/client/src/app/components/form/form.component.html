@@ -1,6 +1,6 @@
 <form class="form">
     <label for="x"> Choose X:</label>
-    <select name="X" id="x">
+    <select name="X" id="x" [(ngModel)] = "Xval">
         <option value="-2">
             -2
         </option>
@@ -30,7 +30,7 @@
         </option>
     </select>
     <label for="y">Input Y:</label>
-    <input type="text" name="Y" id="y" placeholder="[-5;5]"/>
+    <input type="text" name="Y" id="y" placeholder="[-5;5]" [(ngModel)]="Yval"/>
     <label for="r"> Choose R:</label>
     <select name="R" id="r" [(ngModel)]="R" (change)="handleRChange()">
         <option value="-2">
@@ -61,8 +61,8 @@
             2
         </option>
     </select>
-  <button type="submit" class="button">Check</button>
+  <button type="submit" class="button" (click)="sendCheck()">Check</button>
   <button type="reset" class="button">Reset</button>
-  <button class="button">Clear Table</button>
+  <button class="button" (click)="clear()">Clear Table</button>
 </form>
 

@@ -35,9 +35,12 @@ export class LoginComponent implements OnInit{
     console.log(this.dataLogin);
     this.dataService.loginUser(this.dataLogin).subscribe(
         (response) => {
+          console.log(response);
           this.isTextVisible = false;
             localStorage.setItem('username', this.dataLogin.username);
             localStorage.setItem('refresh_token', response.refreshToken);
+            localStorage.setItem('sessionId', response.id_user);
+            console.log(localStorage);
             console.log('Data sent successfully', response);
             this.router.navigate(['/main']);
         },

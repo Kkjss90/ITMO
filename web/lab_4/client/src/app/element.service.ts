@@ -14,9 +14,10 @@ export class ElementService {
 
   addElement(element: any): Observable<any> {
     const url = `${this.baseUrl}`;
-
+// this.user.id = localStorage.getItem("id");
+// this.user.username = localStorage.getItem("username");
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`
+      'Authorization': `Bearer ${localStorage.getItem("sessionId")} ${localStorage.getItem("username")}`
     });
 
     return this.httpClient.post(url, element, {headers});
@@ -27,17 +28,18 @@ export class ElementService {
     const url = `${this.baseUrl}`;
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`
+      'Authorization': `Bearer ${localStorage.getItem("sessionId")} ${localStorage.getItem("username")}`
     });
 
     return this.httpClient.get(url, {headers});
   }
 
-  clearAllElements(element: any): Observable<any>{
+  clearAllElements(element: any): Observable<any> {
     const url = `${this.baseUrl}`;
 
-    // const headers = new HttpHeaders({
-    //   'Authorization': `Bearer ${localStorage.getItem("refreshToken")}`
-    // });
-    return this.httpClient.delete(url, element);  }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("sessionId")} ${localStorage.getItem("username")}`
+    });
+    return this.httpClient.delete(url, {headers});
+  }
 }
