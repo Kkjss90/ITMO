@@ -4,6 +4,8 @@ import {NgIf} from "@angular/common";
 import {ElementService} from "../../element.service";
 import {Element} from "../../element";
 import {DataService} from "../../data.service";
+import {TableDataService} from "../../table-data-service.service";
+import {ClearCanvasService} from "../../clear-canvas-service.service";
 interface MyModel {
   result: boolean;
   x: number;
@@ -32,7 +34,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   isTextVisible: boolean = false;
   errorMessage: string = '';
 
-  constructor(private sharedDataService: SharedDataService, private elementService: ElementService,public point: Element) {
+  constructor(private sharedDataService: SharedDataService, private elementService: ElementService,public point: Element, private tableDataService: TableDataService,  private clearCanvasService: ClearCanvasService) {
   }
 
   ngAfterViewInit(): void {
@@ -45,6 +47,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       this.currentR = r;
       this.drawShapesByR(this.currentR);
       this.drawPointsByR();
+    });
+    this.clearCanvasService.clearCanvas$.subscribe(() => {
+      this.drawShapesByR(this.currentR);
     });
   }
 
@@ -276,5 +281,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       (error) => {
         console.error('Error sending data', error);
       });
+  }
+  updateTableOnClick() {
+    this.tableDataService.updateTable();
   }
 }

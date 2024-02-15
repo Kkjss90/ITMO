@@ -6,6 +6,7 @@ import {Element} from "../../element";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {TableComponent} from "../table/table.component";
 import {TableDataService} from "../../table-data-service.service";
+import {ClearCanvasService} from "../../clear-canvas-service.service";
 
 @Component({
   selector: 'app-form',
@@ -22,10 +23,11 @@ export class FormComponent {
   Yval: string;
   @Output() formSubmitted: EventEmitter<any> = new EventEmitter();
 
-  constructor(private sharedDataService: SharedDataService, private elementService: ElementService, public point: Element, private tableDataService: TableDataService) {}
+  constructor(private sharedDataService: SharedDataService, private elementService: ElementService, public point: Element, private tableDataService: TableDataService, private clearCanvasService: ClearCanvasService) {}
 
   clearTable() {
     this.tableDataService.clearTable();
+    this.clearCanvasService.clearCanvas();
   }
 
   validateInput(event: any) {

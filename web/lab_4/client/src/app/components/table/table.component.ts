@@ -36,6 +36,9 @@ export class TableComponent implements OnInit {
     this.tableDataService.clearTable$.subscribe(() => {
       this.clearTable();
     });
+    this.tableDataService.updateTable$.subscribe(() => {
+      this.loadAll();
+    });
   }
 clearTable(){
     this.tableData = [];
