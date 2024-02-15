@@ -5,5 +5,5 @@
   <span class="button-text" (click) = "logout()">Log Out</span>
 </button>
 <app-canvas></app-canvas>
-<app-form></app-form>
+<app-form  (formSubmitted)="updateComponents($event)" ></app-form>
 <app-table></app-table>

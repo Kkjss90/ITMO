@@ -12,7 +12,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import lombok.extern.java.Log;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 @Log
@@ -63,7 +65,13 @@ public class ResultsRes {
                 String username = parts[1];
                 UserPrincipal user = new UserPrincipal(sessionId, username);
                 CheckResponse response = resultsBean.check(coordinates, user);
-                return Response.ok().entity(response).build();
+                Map<String, Object> responseMap = new HashMap<>();
+                responseMap.put("success", response.getSuccess());
+                responseMap.put("x", coordinates.getX());
+                responseMap.put("y", coordinates.getY());
+                responseMap.put("r", coordinates.getR());
+
+                return Response.ok().entity(responseMap).build();
             }
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).build();

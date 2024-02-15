@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import {CommonModule, NgFor} from "@angular/common";
-import { ElementService } from "../../element.service";
-import { CanvasComponent } from "../canvas/canvas.component";
+import {ElementService} from "../../element.service";
+import {CanvasComponent} from "../canvas/canvas.component";
+import {SharedDataService} from "../../shared-data.service";
+import {TableDataService} from "../../table-data-service.service";
 
 interface MyModel {
   result: boolean;
@@ -22,34 +24,61 @@ interface MyModel {
 export class TableComponent implements OnInit {
   tableData: MyModel[] = [];
   modelList: MyModel[] = [];
-  @ViewChild(CanvasComponent) canvas: CanvasComponent;
+  currentR: number;
 
-  constructor(private elementService: ElementService, private elementRef: ElementRef) { }
-
+  constructor(private elementService: ElementService, private elementRef: ElementRef, private sharedDataService: SharedDataService, private tableDataService: TableDataService) {
+  }
   ngOnInit(): void {
-    console.log("Load all points");
-    this.elementService.getAllElements(this.elementRef.nativeElement).subscribe(
-      (response: any[]) => {
-        console.log(response);
-        response.forEach((responseData) => {
-          console.log('Data sent successfully', responseData);
-          const point: MyModel = {
-            result: responseData.success,
-            x: parseFloat(responseData.x),
-            y: parseFloat(responseData.y),
-            r: parseFloat(responseData.r),
-            time: new Date(responseData.timestamp),
-            scriptTime: new Date().getTime()
-          };
-          this.modelList.push(point);
-          //this.canvas.drawPoint(point.x, point.y, point.result);
-          this.tableData.push(point);
-        });
-      },
-      (error) => {
-        console.error('Error sending data', error);
-      }
-    );
-    console.log(this.tableData, this.modelList);
+    this.loadAll();
+    this.sharedDataService.R$.subscribe((r) => {
+      this.currentR = r;
+    });
+    this.tableDataService.clearTable$.subscribe(() => {
+      this.clearTable();
+    });
+  }
+clearTable(){
+    this.tableData = [];
+}
+  updateTable(response:any) {
+    console.log(response);
+      const point: MyModel = {
+        result: response.success,
+        x: parseFloat(response.x),
+        y: parseFloat(response.y),
+        r: parseFloat(response.r),
+        time: new Date(response.timestamp),
+        scriptTime: new Date().getTime()
+      };
+      this.modelList.push(point);
+      this.tableData.push(point);
+    }
+
+  loadAll() {
+    {
+      console.log("Load all points");
+      this.elementService.getAllElements(this.elementRef.nativeElement).subscribe(
+        (response: any[]) => {
+          console.log(response);
+          response.forEach((responseData) => {
+            console.log('Data sent successfully', responseData);
+            const point: MyModel = {
+              result: responseData.success,
+              x: parseFloat(responseData.x),
+              y: parseFloat(responseData.y),
+              r: parseFloat(responseData.r),
+              time: new Date(responseData.timestamp),
+              scriptTime: new Date().getTime()
+            };
+            this.modelList.push(point);
+            this.tableData.push(point);
+          });
+        },
+        (error) => {
+          console.error('Error sending data', error);
+        }
+      );
+      console.log(this.tableData, this.modelList);
+    }
   }
 }

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {CanvasComponent} from "../canvas/canvas.component";
 import {FormComponent} from "../form/form.component";
 import {TableComponent} from "../table/table.component";
@@ -19,6 +19,9 @@ import {Router} from "@angular/router";
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
+  @ViewChild(FormComponent) form: FormComponent;
+  @ViewChild(CanvasComponent) canvas: CanvasComponent;
+  @ViewChild(TableComponent) table: TableComponent;
   constructor(private router: Router) {
   }
 
@@ -26,13 +29,8 @@ export class MainComponent {
     localStorage.clear();
     this.router.navigate(['']);
   }
-  //   this.dataService.logoutUser().subscribe(
-  //     (response) => {
-  //       console.log(response);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   )
-  // }
+  updateComponents(response: any[]) {
+    this.table.updateTable(response);
+    this.canvas.updateCanvas(response);
+  }
 }

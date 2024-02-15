@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {SharedDataService} from "../../shared-data.service";
 import {ElementService} from "../../element.service";
 import {Element} from "../../element";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {TableComponent} from "../table/table.component";
+import {TableDataService} from "../../table-data-service.service";
 
 @Component({
   selector: 'app-form',
@@ -18,10 +20,13 @@ export class FormComponent {
   R: number;
   Xval: string;
   Yval: string;
+  @Output() formSubmitted: EventEmitter<any> = new EventEmitter();
 
+  constructor(private sharedDataService: SharedDataService, private elementService: ElementService, public point: Element, private tableDataService: TableDataService) {}
 
-  constructor(private sharedDataService: SharedDataService, private elementService: ElementService, public point: Element) {}
-
+  clearTable() {
+    this.tableDataService.clearTable();
+  }
 
   validateInput(event: any) {
     const allowedChars = ['0', '1', '2', '3', '4', '5', '.', ','];
@@ -59,7 +64,8 @@ export class FormComponent {
       this.point.r = String(this.R);
       this.elementService.addElement(this.point).subscribe(
         (response) => {
-          console.log(response);
+         console.log(response);
+         this.formSubmitted.emit(response);
         },
         (error) => {
           console.log(error);
@@ -77,6 +83,5 @@ export class FormComponent {
       }
     )
   }
-
   protected readonly event = event;
 }

@@ -1,7 +1,17 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {SharedDataService} from '../../shared-data.service';
 import {NgIf} from "@angular/common";
-
+import {ElementService} from "../../element.service";
+import {Element} from "../../element";
+import {DataService} from "../../data.service";
+interface MyModel {
+  result: boolean;
+  x: number;
+  y: number;
+  r: number;
+  time: Date;
+  scriptTime: number;
+}
 @Component({
   selector: 'app-canvas',
   standalone: true,
@@ -22,7 +32,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   isTextVisible: boolean = false;
   errorMessage: string = '';
 
-  constructor(private sharedDataService: SharedDataService) {
+  constructor(private sharedDataService: SharedDataService, private elementService: ElementService,public point: Element) {
   }
 
   ngAfterViewInit(): void {
@@ -34,6 +44,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     this.sharedDataService.R$.subscribe((r) => {
       this.currentR = r;
       this.drawShapesByR(this.currentR);
+      this.drawPointsByR();
     });
   }
 
@@ -210,7 +221,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const pointSize = 4;
     const scaledPoint = {x: this.scaleXAxesCoordinate(x), y: this.scaleYAxesCoordinate(y)};
     const pointOnCanvas = this.axesToCanvasCoordinates(scaledPoint.x, scaledPoint.y);
-    result ? (this.context.fillStyle = 'rgb(200,0,0)') : (this.context.fillStyle = 'rgb(0,0,0)');
+    if (result){
+      this.context.fillStyle = 'green';
+    }else {
+      this.context.fillStyle = 'red';
+    }
     this.context.fillRect(pointOnCanvas.x - pointSize / 2, pointOnCanvas.y - pointSize / 2, pointSize, pointSize);
   }
 
@@ -222,6 +237,44 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     const xAxes = (xCanvas - this.canvasRef.nativeElement.width / 2) / this.xAxisScale;
     const yAxes = -(yCanvas - this.canvasRef.nativeElement.height / 2) / this.yAxisScale;
 
+    this.point.x = String(xAxes);
+    this.point.y = String(yAxes);
+    this.point.r = String(this.currentR);
+
+    this.elementService.addElement(this.point).subscribe(
+      (response) => {
+        console.log(response);
+        this.drawPoint(xAxes, yAxes, response.success);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+
     console.log(`Clicked at point (${xAxes}, ${yAxes})`);
+  }
+  updateCanvas(response: any){
+   this.drawPoint(response.x, response.y, response.success);
+  }
+  drawPointsByR(){
+    this.elementService.getAllElements(this.currentR).subscribe(
+      (response: any[]) => {
+        response.forEach((responseData) => {
+          const point: MyModel = {
+            result: responseData.success,
+            x: parseFloat(responseData.x),
+            y: parseFloat(responseData.y),
+            r: parseFloat(responseData.r),
+            time: new Date(responseData.timestamp),
+            scriptTime: new Date().getTime()
+          };
+          if(this.currentR == point.r){
+            this.drawPoint(point.x, point.y, point.result);
+          }
+        });
+      },
+      (error) => {
+        console.error('Error sending data', error);
+      });
   }
 }
