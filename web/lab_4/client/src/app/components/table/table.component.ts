@@ -10,7 +10,7 @@ interface MyModel {
   x: number;
   y: number;
   r: number;
-  time: Date;
+  time: string;
   scriptTime: number;
 }
 
@@ -50,7 +50,7 @@ clearTable(){
         x: parseFloat(response.x),
         y: parseFloat(response.y),
         r: parseFloat(response.r),
-        time: new Date(response.timestamp),
+        time: response.timestamp,
         scriptTime: new Date().getTime()
       };
       this.modelList.push(point);
@@ -70,7 +70,7 @@ clearTable(){
               x: parseFloat(responseData.x),
               y: parseFloat(responseData.y),
               r: parseFloat(responseData.r),
-              time: new Date(responseData.timestamp),
+              time: responseData.timestamp,
               scriptTime: new Date().getTime()
             };
             this.modelList.push(point);
