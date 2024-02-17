@@ -14,8 +14,6 @@ export class ElementService {
 
   addElement(element: any): Observable<any> {
     const url = `${this.baseUrl}`;
-// this.user.id = localStorage.getItem("id");
-// this.user.username = localStorage.getItem("username");
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("sessionId")} ${localStorage.getItem("username")}`
     });

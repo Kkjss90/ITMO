@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CanvasComponent} from "../canvas/canvas.component";
 import {FormComponent} from "../form/form.component";
 import {TableComponent} from "../table/table.component";
@@ -18,7 +18,7 @@ import {Router} from "@angular/router";
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
-export class MainComponent {
+export class MainComponent implements OnInit{
   @ViewChild(FormComponent) form: FormComponent;
   @ViewChild(CanvasComponent) canvas: CanvasComponent;
   @ViewChild(TableComponent) table: TableComponent;
@@ -32,5 +32,14 @@ export class MainComponent {
   updateComponents(response: any[]) {
     this.table.updateTable(response);
     this.canvas.updateCanvas(response);
+  }
+
+  ngOnInit(): void {
+    setInterval(() => {
+      if (localStorage.getItem("refresh_token") == null) {
+        localStorage.clear();
+        this.router.navigate(['']);
+      }
+    }, 1000);
   }
 }

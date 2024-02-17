@@ -125,7 +125,6 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   }
 
   drawShapesByR(r: number) {
-    if (r >= 0) {
       if (this.context) {
         this.context.clearRect(0, 0, this.canvasRef.nativeElement.width, this.canvasRef.nativeElement.height);
         this.draw();
@@ -158,9 +157,16 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
         // draw 1/4 circle
         this.context.fillStyle = 'rgba(104,55,206,0.5)';
-        const calculatedRadius = this.scaleXAxesCoordinate(r / 2);
-        const mirrorStartAngle = -3 * Math.PI / 2;
-        const mirrorEndAngle = -2 * Math.PI;
+        const calculatedRadius = this.scaleXAxesCoordinate(Math.abs(r) / 2);
+        let mirrorStartAngle;
+        let mirrorEndAngle;
+        if (r>=0) {
+          mirrorStartAngle = -3 * Math.PI / 2;
+          mirrorEndAngle = -2 * Math.PI;
+        }else{
+          mirrorStartAngle = -Math.PI/2;
+          mirrorEndAngle = - Math.PI;
+        }
 
         this.context.beginPath();
         this.context.arc(startPointInCanvas.x, startPointInCanvas.y, calculatedRadius, mirrorStartAngle, mirrorEndAngle, true);
@@ -176,12 +182,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
           secondTrianglePointInAxes: secondTrianglePointInAxesM,
           thirdTrianglePointInAxes: thirdTrianglePointInAxesM
         });
+        this.isTextVisible = false;
       }
-      this.isTextVisible = false;
-    }else {
-      this.errorMessage = "R cannot be negative.";
-      this.isTextVisible = true;
-    }
   }
 
   drawTriangle({

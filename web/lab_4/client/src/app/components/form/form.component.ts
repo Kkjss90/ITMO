@@ -60,7 +60,6 @@ export class FormComponent {
     this.sharedDataService.setRValue(this.R);
   }
   sendCheck(){
-    if (this.R>=0) {
       this.point.x = this.Xval;
       this.point.y = this.Yval;
       this.point.r = String(this.R);
@@ -73,7 +72,6 @@ export class FormComponent {
           console.log(error);
         }
       );
-    }
   }
   clear(){
     this.elementService.clearAllElements(this.R).subscribe(

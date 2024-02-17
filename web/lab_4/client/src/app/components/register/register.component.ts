@@ -26,8 +26,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.dataService.sendOptionsRequest();
-    if (localStorage.getItem('refreshToken')) {
+    if (localStorage.getItem('refresh_token')) {
       this.router.navigate(['/main']);
     }
   }
@@ -47,8 +46,6 @@ export class RegisterComponent implements OnInit {
       (response) => {
         console.log(response);
         this.isTextVisible = false;
-        localStorage.setItem('username', this.dataRegister.username);
-        //localStorage.setItem('sessionId', response.refreshToken);
         console.log('Data sent successfully', response);
         this.router.navigate(['/log']);
       },
